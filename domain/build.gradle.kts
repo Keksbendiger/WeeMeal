@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(Kotlinx.kotlin_coroutines_core)
+    implementation(Kotlinx.kotlinCoroutinesCore)
 }
 
 java {

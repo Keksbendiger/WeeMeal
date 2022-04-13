@@ -1,6 +1,5 @@
 object Plugins {
     //TODO update plugins and version
-    private const val ktorVersion = "1.6.1"
     const val detektVersion = "1.19.0"
     const val dokkaVersion = "1.6.10"
 

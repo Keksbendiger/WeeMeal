@@ -5,14 +5,14 @@ object Compose {
 
     const val ui = "androidx.compose.ui:ui:${composeVersion}"
     const val material = "androidx.compose.material:material:${composeVersion}"
-    const val tooling_preview = "androidx.compose.ui:ui-tooling-preview:${composeVersion}"
-    const val activity_compose = "androidx.activity:activity-compose:${activityComposeVersion}"
-    const val compose_navigation = "androidx.navigation:navigation-compose:${composeNavigationVersion}"
+    const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:${composeVersion}"
+    const val activityCompose = "androidx.activity:activity-compose:${activityComposeVersion}"
+    const val composeNavigation = "androidx.navigation:navigation-compose:${composeNavigationVersion}"
 
     // Test
     const val junit = "androidx.compose.ui:ui-test-junit4:${composeVersion}"
 
     //DebugDependencies
-    const val ui_tooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
+    const val uiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
 
 }

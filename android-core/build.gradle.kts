@@ -35,13 +35,13 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":domain")))
-    implementation(AndroidX.core_ktx)
+    implementation(AndroidX.coreKtx)
 
     implementation(Timber.timber)
 
     //implementation("androidx.appcompat:appcompat:1.4.1")
 
     testImplementation(AndroidX.junit) //TODO: was jnuit:junit is adroidX:junit
-    androidTestImplementation(AndroidX.test_ext_junit)
-    androidTestImplementation(AndroidX.espresso_core)
+    androidTestImplementation(AndroidX.testExtJunit)
+    androidTestImplementation(AndroidX.espressoCore)
 }

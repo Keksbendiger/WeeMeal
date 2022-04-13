@@ -44,16 +44,16 @@ dependencies {
 
     implementation( project(mapOf("path" to ":domain")) )
     implementation( project(mapOf("path" to ":android-core")) )
-    implementation( AndroidX.core_ktx)
-    implementation( Kotlinx.kotlin_coroutines_android)
+    implementation( AndroidX.coreKtx)
+    implementation( Kotlinx.kotlinCoroutinesAndroid)
 
     // Room
-    kapt( Room.room_compiler )
-    implementation( Room.room_runtime)
-    implementation( Room.room_ktx )
-    androidTestImplementation( Room.room_testing )
+    kapt( Room.roomCompiler )
+    implementation( Room.roomRuntime)
+    implementation( Room.roomKtx )
+    androidTestImplementation( Room.roomTesting )
 
     testImplementation( AndroidX.junit)
-    androidTestImplementation( AndroidX.test_ext_junit)
-    androidTestImplementation( AndroidX.espresso_core)
+    androidTestImplementation( AndroidX.testExtJunit)
+    androidTestImplementation( AndroidX.espressoCore)
 }

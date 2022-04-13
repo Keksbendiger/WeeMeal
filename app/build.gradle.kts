@@ -50,25 +50,25 @@ dependencies {
     implementation(project(mapOf("path" to ":android-core")))
     implementation(project(mapOf("path" to ":data")))
 
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.lifecycle_ktx)
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.lifecycleKtx)
     implementation(Compose.ui)
     implementation(Compose.material)
-    implementation(Compose.tooling_preview)
-    implementation(Compose.activity_compose)
-    implementation(Compose.compose_navigation)
+    implementation(Compose.toolingPreview)
+    implementation(Compose.activityCompose)
+    implementation(Compose.composeNavigation)
 
 
     implementation(Koin.core)
     implementation(Koin.android)
-    implementation(Koin.android_compose)
-    implementation(Koin.android_navigation)
+    implementation(Koin.androidCompose)
+    implementation(Koin.androidNavigation)
 
     testImplementation(AndroidX.junit) // TODO: was junit is androidx:junit
     androidTestImplementation(Compose.junit)
-    androidTestImplementation(AndroidX.espresso_core)
-    androidTestImplementation(AndroidX.test_ext_junit)
+    androidTestImplementation(AndroidX.espressoCore)
+    androidTestImplementation(AndroidX.testExtJunit)
     androidTestImplementation(Koin.test)
 
-    debugImplementation(Compose.ui_tooling)
+    debugImplementation(Compose.uiTooling)
 }
