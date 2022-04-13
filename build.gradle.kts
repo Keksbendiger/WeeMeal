@@ -5,8 +5,8 @@ plugins {
     id("com.android.library") version "7.2.0-beta03" apply false
     id("org.jetbrains.kotlin.android") version "1.5.31" apply false
 
-    id(Plugins.detekt).version(Versions.detekt)
-    id(Plugins.dokka).version (Versions.dokka)
+    id(Plugins.detekt).version(Plugins.detektVersion)
+    id(Plugins.dokka).version (Plugins.dokkaVersion)
 }
 
 subprojects {
@@ -16,7 +16,7 @@ subprojects {
     }
 
     detekt {
-        toolVersion = Versions.detekt
+        toolVersion = Plugins.detektVersion
         config = files("../config/detekt/detekt.yml")
         buildUponDefaultConfig = true
     }

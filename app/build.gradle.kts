@@ -31,13 +31,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = Versions.jvm_target
+        jvmTarget = Config.jvm_target
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = Compose.composeVersion
     }
     packagingOptions {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
@@ -50,25 +50,25 @@ dependencies {
     implementation(project(mapOf("path" to ":android-core")))
     implementation(project(mapOf("path" to ":data")))
 
-    implementation( Dependencies.androidx_core_ktx )
-    implementation( Dependencies.androidx_compose_ui )
-    implementation( Dependencies.androidx_compose_material )
-    implementation( Dependencies.androidx_compose_tooling_preview )
-    implementation( Dependencies.androidx_activity_compose )
-    implementation( Dependencies.androidx_compose_navigation )
-    implementation( Dependencies.androidx_lifecycle_ktx )
+    implementation(AndroidX.core_ktx)
+    implementation(AndroidX.lifecycle_ktx)
+    implementation(Compose.ui)
+    implementation(Compose.material)
+    implementation(Compose.tooling_preview)
+    implementation(Compose.activity_compose)
+    implementation(Compose.compose_navigation)
 
-    implementation( Dependencies.koin_core )
-    implementation( Dependencies.koin_android )
-    implementation( Dependencies.koin_android_compose )
-    implementation( Dependencies.koin_android_navigation )
 
-    testImplementation( TestDependencies.junit )
-    androidTestImplementation( TestDependencies.androidx_compose_junit )
-    androidTestImplementation( TestDependencies.androidx_espresso_core )
-    androidTestImplementation( TestDependencies.androidx_compose_junit )
-    androidTestImplementation( TestDependencies.androidx_test_ext_junit )
-    androidTestImplementation( TestDependencies.koin_test )
+    implementation(Koin.core)
+    implementation(Koin.android)
+    implementation(Koin.android_compose)
+    implementation(Koin.android_navigation)
 
-    debugImplementation( DebugDependencies.androidx_compose_ui_tooling )
+    testImplementation(AndroidX.junit) // TODO: was junit is androidx:junit
+    androidTestImplementation(Compose.junit)
+    androidTestImplementation(AndroidX.espresso_core)
+    androidTestImplementation(AndroidX.test_ext_junit)
+    androidTestImplementation(Koin.test)
+
+    debugImplementation(Compose.ui_tooling)
 }
