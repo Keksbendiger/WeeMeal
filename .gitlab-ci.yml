@@ -1,0 +1,70 @@
+# Base Image for executing jobs - contains Java and Android SDK with some additional libraries
+# See https://github.com/jangrewe/gitlab-ci-android
+image: jangrewe/gitlab-ci-android
+
+# Define Gradle Home to use it for (optional) caching
+before_script:
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - chmod +x ./gradlew
+
+# Cache instruction - will save intermediate results for later jobs
+# Might actually not speed up your pipeline runtime - just check it for yourself
+#cache:
+#  key: ${CI_PROJECT_ID}
+#  paths:
+#    - .gradle/
+
+# Build Stages - release and deploy not used currently
+stages:
+  - build
+  - test
+  - docs
+
+# Run detekt & klint checks
+detekt:
+  stage: build
+  script:
+    - ./gradlew -Pci --console=plain :app:detekt
+  artifacts:
+    paths:
+      - app/build/reports/detekt/detekt.*
+#  except:
+#    changes:
+#      - "**/*.md"
+
+
+# Build a debug apk
+assembleDebug:
+  stage: build
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/apk/debug/app-debug.apk
+#  except:
+#    changes:
+#      - "**/*.md"
+
+# Run Tests
+testDebug:
+  stage: test
+  script:
+    - ./gradlew -Pci --console=plain :app:testDebug
+  artifacts:
+    reports:
+      junit: app/build/test-results/**/TEST-*.xml
+#  except:
+#    changes:
+#      - "**/*.md"
+
+# Generate Docs via Dokka
+generateDocs:
+  stage: docs
+  script:
+    - ./gradlew dokkaHtml
+  artifacts:
+    paths:
+      - app/build/dokka/html/**
+#  except:
+#    changes:
+#      - "**/*.md"
