@@ -10,14 +10,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import de.fhe.ai.weemeal.app.Greeting
 
-enum class Screens( val icon: ImageVector) {
-    Main( Icons.Filled.Home ),
-    Settings( Icons.Filled.Settings );
+enum class Screens(val icon: ImageVector) {
+    Main(Icons.Filled.Home),
+    Settings(Icons.Filled.Settings);
 }
 
 @Composable
 fun AppNavigationHost(
-    onNavigation: ( title:String ) -> Unit,
+    onNavigation: (title: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -26,11 +26,11 @@ fun AppNavigationHost(
         modifier = modifier
     ) {
         composable(Screens.Main.name) {
-            onNavigation( Screens.Main.name )
+            onNavigation(Screens.Main.name)
             Greeting(name = "hello")
         }
         composable(Screens.Settings.name) {
-            onNavigation( Screens.Settings.name )
+            onNavigation(Screens.Settings.name)
             Greeting(name = "settings")
         }
     }

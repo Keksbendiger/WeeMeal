@@ -4,8 +4,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -17,11 +22,12 @@ val LocalScaffoldState = staticCompositionLocalOf<ScaffoldState> { error("no sca
 fun AppScaffold() {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
-    var title by rememberSaveable { mutableStateOf( Screens.Main.name ) }
+    var title by rememberSaveable { mutableStateOf(Screens.Main.name) }
 
     CompositionLocalProvider(
         LocalNavCtrl provides navController,
-        LocalScaffoldState provides scaffoldState) {
+        LocalScaffoldState provides scaffoldState
+    ) {
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { AppBar(title) },
@@ -29,7 +35,7 @@ fun AppScaffold() {
         ) { innerPadding ->
             AppNavigationHost(
                 onNavigation = { title = it },
-                modifier = Modifier.padding( innerPadding )
+                modifier = Modifier.padding(innerPadding)
             )
         }
     }

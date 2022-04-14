@@ -6,4 +6,6 @@ object Config {
     const val target_sdk_version = 31
     const val version_code = 1
     const val version_name = "1.0"
+
+    const val jvm_target = "1.8"
 }

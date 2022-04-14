@@ -18,8 +18,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -28,20 +28,20 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = Versions.jvm_target
+        jvmTarget = Config.jvm_target
     }
 }
 
 dependencies {
 
     implementation(project(mapOf("path" to ":domain")))
-    implementation( Dependencies.androidx_core_ktx)
+    implementation(AndroidX.coreKtx)
 
-    implementation( Dependencies.timber )
+    implementation(Timber.timber)
 
     //implementation("androidx.appcompat:appcompat:1.4.1")
 
-    testImplementation( TestDependencies.junit)
-    androidTestImplementation( TestDependencies.androidx_test_ext_junit)
-    androidTestImplementation( TestDependencies.androidx_espresso_core)
+    testImplementation(AndroidX.junit) //TODO: was jnuit:junit is adroidX:junit
+    androidTestImplementation(AndroidX.testExtJunit)
+    androidTestImplementation(AndroidX.espressoCore)
 }

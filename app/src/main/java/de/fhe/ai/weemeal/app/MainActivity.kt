@@ -17,15 +17,13 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WeeMealTheme {
-                Surface( color = MaterialTheme.colors.background ) {
+                Surface(color = MaterialTheme.colors.background) {
                     AppScaffold()
                 }
             }
         }
     }
 }
-
-
 
 @Composable
 fun Greeting(name: String) {

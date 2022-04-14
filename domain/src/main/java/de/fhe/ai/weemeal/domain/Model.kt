@@ -12,15 +12,15 @@ data class AsyncOperation(val status: AsyncOperationState, val message: String, 
 
     companion object {
 
-        fun success( message: String = "Async Op Successful", payload: Any = Unit ): AsyncOperation {
-            return AsyncOperation( AsyncOperationState.SUCCESS, message, payload )
+        fun success(message: String = "Async Op Successful", payload: Any = Unit): AsyncOperation {
+            return AsyncOperation(AsyncOperationState.SUCCESS, message, payload)
         }
 
-        fun saving( message: String = "Async Saving"): AsyncOperation {
+        fun saving(message: String = "Async Saving"): AsyncOperation {
             return AsyncOperation(AsyncOperationState.SAVING, message)
         }
 
-        fun error( message: String = "Error on Async Op", payload: Any = Unit ): AsyncOperation {
+        fun error(message: String = "Error on Async Op", payload: Any = Unit): AsyncOperation {
             return AsyncOperation(AsyncOperationState.ERROR, message, payload)
         }
 
@@ -34,4 +34,4 @@ data class AsyncOperation(val status: AsyncOperationState, val message: String, 
     }
 }
 
-data class User( val name: String, val id: Long = 0 )
+data class User(val name: String, val id: Long = 0)

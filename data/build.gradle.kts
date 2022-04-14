@@ -35,7 +35,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = Versions.jvm_target
+        jvmTarget = Config.jvm_target
     }
 }
 
@@ -44,16 +44,16 @@ dependencies {
 
     implementation( project(mapOf("path" to ":domain")) )
     implementation( project(mapOf("path" to ":android-core")) )
-    implementation( Dependencies.androidx_core_ktx )
-    implementation( Dependencies.kotlin_coroutines_android )
+    implementation( AndroidX.coreKtx)
+    implementation( Kotlinx.kotlinCoroutinesAndroid)
 
     // Room
-    kapt( Dependencies.room_compiler )
-    implementation( Dependencies.room_runtime )
-    implementation( Dependencies.room_ktx )
-    androidTestImplementation( Dependencies.room_testing )
+    kapt( Room.roomCompiler )
+    implementation( Room.roomRuntime)
+    implementation( Room.roomKtx )
+    androidTestImplementation( Room.roomTesting )
 
-    testImplementation( TestDependencies.junit)
-    androidTestImplementation( TestDependencies.androidx_test_ext_junit)
-    androidTestImplementation( TestDependencies.androidx_espresso_core)
+    testImplementation( AndroidX.junit)
+    androidTestImplementation( AndroidX.testExtJunit)
+    androidTestImplementation( AndroidX.espressoCore)
 }

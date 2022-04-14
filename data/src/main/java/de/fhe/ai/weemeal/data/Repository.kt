@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 
 class RepositoryImpl(
     private val userEntityDao: UserEntityDao
-    ): Repository {
+) : Repository {
 
     override fun getUsers() =
         userEntityDao.getAllAsFlow()
@@ -20,9 +20,9 @@ class RepositoryImpl(
                 returnValue
             }
 
-    override suspend fun getUser(userId: Long) = userEntityDao.get( userId )?.toDomain()
+    override suspend fun getUser(userId: Long) = userEntityDao.get(userId)?.toDomain()
 
-    override suspend fun insertUser(user: User) = userEntityDao.insert( user.fromDomain() )
+    override suspend fun insertUser(user: User) = userEntityDao.insert(user.fromDomain())
 
     override suspend fun updateUser(user: User): Long {
         TODO("Not yet implemented")

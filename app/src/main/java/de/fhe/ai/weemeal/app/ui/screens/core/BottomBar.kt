@@ -15,8 +15,7 @@ fun BottomBar(navController: NavHostController) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
-        for( item in Screens.values() )
-        {
+        for (item in Screens.values()) {
             BottomNavigationItem(
                 icon = { Icon(imageVector = item.icon, contentDescription = null) },
                 label = { Text(item.name) },
