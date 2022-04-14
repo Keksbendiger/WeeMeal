@@ -22,7 +22,7 @@ class Bootstrap : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin{
+        startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
             androidContext(this@Bootstrap)
             modules(databaseModule)
@@ -33,7 +33,7 @@ class Bootstrap : Application() {
     }
 }
 
-class DbTest: KoinComponent {
+class DbTest : KoinComponent {
     private val repo by inject<Repository>()
     private val logger by inject<Logger>()
 
@@ -41,8 +41,8 @@ class DbTest: KoinComponent {
         val dbScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
         dbScope.launch {
-            val newUserId = repo.insertUser( User( name = "Steff") )
-            logger.info( "${repo.getUser(newUserId)}" )
+            val newUserId = repo.insertUser(User(name = "Steff"))
+            logger.info("${repo.getUser(newUserId)}")
         }
     }
 }

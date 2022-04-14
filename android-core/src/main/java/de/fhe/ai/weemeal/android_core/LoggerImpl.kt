@@ -16,16 +16,15 @@ class LoggerImpl : Logger {
     }
 
     override fun error(message: String) {
-        Timber.tag(callingCallName()).e( message )
+        Timber.tag(callingCallName()).e(message)
     }
 
     override fun info(message: String) {
-        Timber.tag(callingCallName()).i( message )
+        Timber.tag(callingCallName()).i(message)
     }
 
     private fun callingCallName(): String? {
         val fullClassName = Thread.currentThread().stackTrace[4]?.className
         return fullClassName?.substring(fullClassName.lastIndexOf('.'))
     }
-
 }

@@ -7,12 +7,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.domain.Repository
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Before
 import java.io.IOException
 
 /**
@@ -38,7 +38,7 @@ class RoomDbTest {
     }
 
     @After
-    @Throws( IOException::class )
+    @Throws(IOException::class)
     fun closeDb() {
         db.close()
     }
@@ -46,17 +46,17 @@ class RoomDbTest {
     @Test
     fun writeReadDeleteSingleDiaryEntry() = runBlocking {
 
-        assertTrue( "DB should start empty", userEntityDao.getAll().isEmpty() )
+        assertTrue("DB should start empty", userEntityDao.getAll().isEmpty())
 
-        val entityId = userEntityDao.insert( prepareUserEntity() )
-        assertTrue( "DB should contain one entry", userEntityDao.getAll().size == 1)
+        val entityId = userEntityDao.insert(prepareUserEntity())
+        assertTrue("DB should contain one entry", userEntityDao.getAll().size == 1)
 
-        val loadedEntity = userEntityDao.get( entityId  )
-        assertNotNull("Loaded diary entry should not be null", loadedEntity )
+        val loadedEntity = userEntityDao.get(entityId)
+        assertNotNull("Loaded diary entry should not be null", loadedEntity)
 
-        userEntityDao.delete( loadedEntity!! )
-        assertNull( "DB should not contain deleted Entity", userEntityDao.get( entityId ) )
-        assertTrue( "DB should be empty after deletion", userEntityDao.getAll().isEmpty())
+        userEntityDao.delete(loadedEntity!!)
+        assertNull("DB should not contain deleted Entity", userEntityDao.get(entityId))
+        assertTrue("DB should be empty after deletion", userEntityDao.getAll().isEmpty())
     }
 
     private fun prepareUserEntity(): UserEntity {

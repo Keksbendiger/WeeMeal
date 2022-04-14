@@ -8,4 +8,3 @@ data class UserEntity(
     val text: String,
     @PrimaryKey(autoGenerate = true) var id: Long = 0
 )
-

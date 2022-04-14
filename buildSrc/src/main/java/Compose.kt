@@ -8,6 +8,7 @@ object Compose {
     const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:${composeVersion}"
     const val activityCompose = "androidx.activity:activity-compose:${activityComposeVersion}"
     const val composeNavigation = "androidx.navigation:navigation-compose:${composeNavigationVersion}"
+    const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata:${composeVersion}"
 
     // Test
     const val junit = "androidx.compose.ui:ui-test-junit4:${composeVersion}"

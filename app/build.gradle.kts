@@ -57,6 +57,7 @@ dependencies {
     implementation(Compose.toolingPreview)
     implementation(Compose.activityCompose)
     implementation(Compose.composeNavigation)
+    implementation(Compose.runtimeLiveData)
 
 
     implementation(Koin.core)

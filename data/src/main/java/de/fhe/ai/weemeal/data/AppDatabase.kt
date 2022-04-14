@@ -11,7 +11,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         fun getDatabase(app: Context): AppDatabase {
-            return Room.databaseBuilder( app, AppDatabase::class.java, "app-db")
+            return Room.databaseBuilder(app, AppDatabase::class.java, "app-db")
                 .fallbackToDestructiveMigration()
                 .build()
         }
@@ -21,4 +21,3 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
-

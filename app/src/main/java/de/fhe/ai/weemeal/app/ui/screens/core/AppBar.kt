@@ -5,10 +5,10 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 
 @Composable
-fun AppBar( title: String ) {
+fun AppBar(title: String) {
     TopAppBar(
         title = {
-            Text( text = title )
+            Text(text = title)
         }
     )
 }

@@ -13,6 +13,7 @@ subprojects {
     apply {
         plugin(Plugins.detekt)
         plugin(Plugins.dokka)
+        plugin(Plugins.ktlint)
     }
 
     detekt {
