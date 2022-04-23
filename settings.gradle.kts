@@ -18,6 +18,11 @@ rootProject.name = ("weemeal")
 include(
     ":app"
 )
+
+include(":common")
 include(":domain")
-include(":android-core")
-include(":data")
+include(":data:model")
+include(":data:local")
+include(":data:remote")
+include(":data:repository")
+include(":feature:test")

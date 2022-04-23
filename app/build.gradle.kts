@@ -46,9 +46,7 @@ android {
 
 dependencies {
 
-    implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":android-core")))
-    implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":common")))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleKtx)
