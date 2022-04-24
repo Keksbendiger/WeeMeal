@@ -1,14 +1,14 @@
 package de.darthkali.local.mapper.recipe
 
-import de.darthkali.local.mapper.BaseMapper
+import de.darthkali.remote.mapper.RemoteBaseMapper
 import de.darthkali.model.recipe.Recipe
-import de.darthkali.remote.mapper.model.recipe.RecipeJson
+import de.darthkali.remote.model.recipe.RecipeJson
 
-class RecipeMapper : BaseMapper<Recipe, RecipeJson> {
-    override fun mapTo(dao: RecipeJson): Recipe {
+class RemoteRecipeMapper : RemoteBaseMapper<RecipeJson, Recipe> {
+    override fun mapTo(data: RecipeJson): Recipe {
         return Recipe(
-            internalId = dao.internalId,
-            name = dao.name,
+            internalId = data.internalId,
+            name = data.name,
         )
     }
 

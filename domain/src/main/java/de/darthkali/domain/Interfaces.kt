@@ -2,6 +2,7 @@ package de.fhe.ai.weemeal.domain
 
 import kotlinx.coroutines.flow.Flow
 
+
 interface Repository {
     fun getUsers(): Flow<List<User>>
     suspend fun getUser(userId: Long): User?

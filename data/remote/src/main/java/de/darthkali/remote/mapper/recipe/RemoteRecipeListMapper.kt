@@ -1,17 +1,17 @@
 package de.darthkali.local.mapper.recipe
 
-import de.darthkali.local.mapper.BaseMapper
+import de.darthkali.remote.mapper.RemoteBaseMapper
 import de.darthkali.model.recipe.Recipe
-import de.darthkali.remote.mapper.model.recipe.RecipeJson
+import de.darthkali.remote.model.recipe.RecipeJson
 
-class RecipeListMapper : BaseMapper<List<Recipe>, List<RecipeJson>> {
+class RemoteRecipeListMapper : RemoteBaseMapper<List<RecipeJson>, List<Recipe>> {
 
-    private val internalMapper = RecipeMapper()
+    private val internalMapper = RemoteRecipeMapper()
 
-    override fun mapTo(dao: List<RecipeJson>): List<Recipe> {
+    override fun mapTo(data: List<RecipeJson>): List<Recipe> {
         val resultList = mutableListOf<Recipe>()
 
-        dao.forEach {
+        data.forEach {
             resultList.add(internalMapper.mapTo(it))
         }
         return resultList
@@ -25,4 +25,5 @@ class RecipeListMapper : BaseMapper<List<Recipe>, List<RecipeJson>> {
         }
         return resultList
     }
+
 }

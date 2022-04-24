@@ -1,4 +1,4 @@
-package de.darthkali.remote.mapper.model.recipe
+package de.darthkali.remote.model.recipe
 
 data class RecipeJson(
     var internalId: Long = 0,

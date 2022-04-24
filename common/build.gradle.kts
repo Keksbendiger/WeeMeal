@@ -53,17 +53,11 @@ android {
 }
 
 dependencies {
+    //Dependencies
+    addAndroidXDependencies()
+    addComposeDependencies()
+    addTimberDependencies()
 
-    implementation(project(Modules.domain))
-    implementation(AndroidX.coreKtx)
-    implementation(Compose.ui)
-    implementation(Compose.material)
-
-    implementation(Timber.timber)
-
-    //implementation("androidx.appcompat:appcompat:1.4.1")
-
-    testImplementation(AndroidX.junit) //TODO: was jnuit:junit is adroidX:junit
-    androidTestImplementation(AndroidX.testExtJunit)
-    androidTestImplementation(AndroidX.espressoCore)
+    // Modules
+    DOMAIN
 }

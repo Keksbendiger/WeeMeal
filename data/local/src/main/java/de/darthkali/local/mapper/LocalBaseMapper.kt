@@ -1,6 +1,6 @@
 package de.darthkali.local.mapper
 
-interface BaseMapper<I, D> {
+interface LocalBaseMapper<I, D> {
     fun mapTo(dao: D): I
     fun mapBack(internal: I): D
 }
