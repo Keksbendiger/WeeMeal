@@ -19,8 +19,7 @@ fun WeeMealTheme(
         colors = if (darkTheme) DarkColors else LightColors,
         typography = MontserratTypography,
         shapes = AppShapes,
-    )
-    {
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -29,7 +28,7 @@ fun WeeMealTheme(
             Column {
                 content()
             }
-            //Processbar
+            // Processbar
         }
     }
 }

@@ -12,7 +12,6 @@ class RecipeMapper : BaseMapper<Recipe, RecipeDao> {
         )
     }
 
-
     override fun mapBack(internal: Recipe): RecipeDao {
         return RecipeDao(
             internalId = internal.internalId,

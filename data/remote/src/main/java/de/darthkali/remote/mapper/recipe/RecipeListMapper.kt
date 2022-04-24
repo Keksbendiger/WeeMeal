@@ -6,7 +6,6 @@ import de.darthkali.remote.mapper.model.recipe.RecipeJson
 
 class RecipeListMapper : BaseMapper<List<Recipe>, List<RecipeJson>> {
 
-
     private val internalMapper = RecipeMapper()
 
     override fun mapTo(dao: List<RecipeJson>): List<Recipe> {
@@ -26,6 +25,4 @@ class RecipeListMapper : BaseMapper<List<Recipe>, List<RecipeJson>> {
         }
         return resultList
     }
-
-
 }
