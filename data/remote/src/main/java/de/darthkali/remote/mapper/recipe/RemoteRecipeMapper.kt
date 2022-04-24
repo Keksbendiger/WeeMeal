@@ -1,7 +1,7 @@
 package de.darthkali.local.mapper.recipe
 
-import de.darthkali.remote.mapper.RemoteBaseMapper
 import de.darthkali.model.recipe.Recipe
+import de.darthkali.remote.mapper.RemoteBaseMapper
 import de.darthkali.remote.model.recipe.RecipeJson
 
 class RemoteRecipeMapper : RemoteBaseMapper<RecipeJson, Recipe> {
