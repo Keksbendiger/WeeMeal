@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.android_core
+package de.fhe.ai.weemeal.common
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

@@ -40,12 +40,17 @@ android {
         kotlinCompilerExtensionVersion = Compose.composeVersion
     }
     packagingOptions {
-        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+//        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1,gradle-plugins}")
+
     }
 }
 
 dependencies {
 
+//    implementation(project(Modules.domain))
+//    implementation(project(Modules.common))
+    implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":common")))
 
     implementation(AndroidX.coreKtx)

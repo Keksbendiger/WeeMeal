@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.android_core
+package de.fhe.ai.weemeal.common.logger
 
 import de.fhe.ai.weemeal.BuildConfig
 import de.fhe.ai.weemeal.domain.Logger

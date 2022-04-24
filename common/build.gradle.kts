@@ -4,6 +4,26 @@ plugins {
 }
 
 android {
+
+
+    //Compose Config
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Compose.composeVersion
+    }
+
+    packagingOptions {
+        resources.excludes.apply {
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
+        }
+    }
+
+
+    // main config
     compileSdk = Config.compile_sdk_version
 
     defaultConfig {
@@ -36,6 +56,8 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(AndroidX.coreKtx)
+    implementation(Compose.ui)
+    implementation(Compose.material)
 
     implementation(Timber.timber)
 

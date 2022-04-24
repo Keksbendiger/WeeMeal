@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.android_core
+package de.fhe.ai.weemeal.common
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
