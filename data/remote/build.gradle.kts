@@ -58,6 +58,7 @@ dependencies {
     addAndroidXDependencies()
     addComposeDependencies()
     addTimberDependencies()
+    addKtorDependencies()
 
     // Modules
     DOMAIN

@@ -1,19 +1,19 @@
 package de.darthkali.local.mapper.recipe
 
-import de.darthkali.local.database.dao.recipe.RecipeDao
+import de.darthkali.local.database.entity.recipe.RecipeEntity
 import de.darthkali.local.mapper.LocalBaseMapper
 import de.darthkali.model.recipe.Recipe
 
-class RecipeMapperLocal : LocalBaseMapper<Recipe, RecipeDao> {
-    override fun mapTo(dao: RecipeDao): Recipe {
+class RecipeMapperLocal : LocalBaseMapper<Recipe, RecipeEntity> {
+    override fun mapTo(entity: RecipeEntity): Recipe {
         return Recipe(
-            internalId = dao.internalId,
-            name = dao.name,
+            internalId = entity.internalId,
+            name = entity.name,
         )
     }
 
-    override fun mapBack(internal: Recipe): RecipeDao {
-        return RecipeDao(
+    override fun mapBack(internal: Recipe): RecipeEntity {
+        return RecipeEntity(
             internalId = internal.internalId,
             name = internal.name,
         )

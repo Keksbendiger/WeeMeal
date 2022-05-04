@@ -1,24 +1,24 @@
 package de.darthkali.local.mapper.recipe
 
-import de.darthkali.local.database.dao.recipe.RecipeDao
+import de.darthkali.local.database.entity.recipe.RecipeEntity
 import de.darthkali.local.mapper.LocalBaseMapper
 import de.darthkali.model.recipe.Recipe
 
-class RecipeListMapperLocal : LocalBaseMapper<List<Recipe>, List<RecipeDao>> {
+class RecipeListMapperLocal : LocalBaseMapper<List<Recipe>, List<RecipeEntity>> {
 
     private val internalMapper = RecipeMapperLocal()
 
-    override fun mapTo(dao: List<RecipeDao>): List<Recipe> {
+    override fun mapTo(entity: List<RecipeEntity>): List<Recipe> {
         val resultList = mutableListOf<Recipe>()
 
-        dao.forEach {
+        entity.forEach {
             resultList.add(internalMapper.mapTo(it))
         }
         return resultList
     }
 
-    override fun mapBack(internal: List<Recipe>): List<RecipeDao> {
-        val resultList = mutableListOf<RecipeDao>()
+    override fun mapBack(internal: List<Recipe>): List<RecipeEntity> {
+        val resultList = mutableListOf<RecipeEntity>()
 
         internal.forEach {
             resultList.add(internalMapper.mapBack(it))
