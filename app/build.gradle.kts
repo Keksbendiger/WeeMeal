@@ -1,3 +1,5 @@
+//import extensions.addCommonDependencies
+
 plugins {
     id(Plugins.android_app)
     id(Plugins.kotlin_android)
@@ -40,36 +42,13 @@ android {
         kotlinCompilerExtensionVersion = Compose.composeVersion
     }
     packagingOptions {
-        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1,gradle-plugins}")
     }
 }
 
 dependencies {
-
-    implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":android-core")))
-    implementation(project(mapOf("path" to ":data")))
-
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.lifecycleKtx)
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.toolingPreview)
-    implementation(Compose.activityCompose)
-    implementation(Compose.composeNavigation)
-    implementation(Compose.runtimeLiveData)
-
-
-    implementation(Koin.core)
-    implementation(Koin.android)
-    implementation(Koin.androidCompose)
-    implementation(Koin.androidNavigation)
-
-    testImplementation(AndroidX.junit) // TODO: was junit is androidx:junit
-    androidTestImplementation(Compose.junit)
-    androidTestImplementation(AndroidX.espressoCore)
-    androidTestImplementation(AndroidX.testExtJunit)
-    androidTestImplementation(Koin.test)
-
-    debugImplementation(Compose.uiTooling)
+    addAndroidXDependencies()
+    addComposeDependencies()
+    addKoinDependencies()
+    addModuleDependencies()
 }

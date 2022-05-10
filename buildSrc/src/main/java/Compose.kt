@@ -1,5 +1,5 @@
 object Compose {
-    const val composeVersion = "1.0.5" //TODO: why not 1.1?
+    const val composeVersion = "1.1.1" //TODO: why not 1.1?
     private const val composeNavigationVersion = "2.4.1"
     private const val activityComposeVersion = "1.4.0"
 
