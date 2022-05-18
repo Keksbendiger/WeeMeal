@@ -61,4 +61,5 @@ dependencies {
 
     // Modules
     DOMAIN
+    LOCAL
 }

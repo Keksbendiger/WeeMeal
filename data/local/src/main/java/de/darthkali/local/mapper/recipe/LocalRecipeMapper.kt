@@ -1,17 +1,17 @@
 package de.darthkali.local.mapper.recipe
 
 import de.darthkali.domain.models.recipe.Recipe
-import de.darthkali.remote.model.recipe.RecipeJson
+import de.darthkali.local.database.recipe.RecipeEntity
 
-fun RecipeJson.toRemote(
+fun RecipeEntity.toDomain(
 ) = Recipe(
     name = this.name,
     id = this.id
 )
 
-fun Recipe.fromRemote(
+fun Recipe.fromDomain(
 
-) = RecipeJson(
+) = RecipeEntity(
     name = this.name,
     id = this.id
 )

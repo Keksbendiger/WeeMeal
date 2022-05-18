@@ -1,7 +1,7 @@
 package de.fhe.ai.weemeal.app.di.modules
 
+import de.fhe.ai.weemeal.common.logger.Logger
 import de.fhe.ai.weemeal.common.logger.LoggerImpl
-import de.fhe.ai.weemeal.domain.Logger
 import org.koin.dsl.module
 
 val databaseModule = module {

@@ -1,7 +1,11 @@
 package de.darthkali.repository
 
-class RecipeRepository {
+import de.darthkali.domain.models.recipe.Recipe
+import kotlinx.coroutines.flow.Flow
 
-    //TODO: Repo Funktionen inplementieren (getRecipe(), saveRecipe())
-    //ist hier drin, da wir sowohl Rmeote wie auch Local im Repo hinterlegen können. So muss man nur noch ein Repo nutzen / bauen)
+interface RecipeRepository {
+    fun getUsers(): Flow<List<Recipe>>
+    suspend fun getUser( userId: Long ) : Recipe?
+    suspend fun insertUser( user: Recipe ): Long
+    suspend fun updateUser( user: Recipe ): Long // Check Return Type
 }

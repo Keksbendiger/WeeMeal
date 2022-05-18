@@ -1,7 +1,6 @@
 package de.fhe.ai.weemeal.common.logger
 
 import de.fhe.ai.weemeal.BuildConfig
-import de.fhe.ai.weemeal.domain.Logger
 import timber.log.Timber
 
 class LoggerImpl : Logger {
