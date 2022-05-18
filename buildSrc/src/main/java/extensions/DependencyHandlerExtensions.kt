@@ -32,6 +32,18 @@ fun DependencyHandler.debugImplementation(dependencyNotation: Any): Dependency? 
 fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? =
     add("implementation", dependencyNotation)
 
+
+/**
+ * Adds a dependency to the `implementation` configuration.
+ *
+ * @param dependencyNotation name of dependency to add at specific configuration
+ *
+ * @return the dependency
+ */
+fun DependencyHandler.annotationProcessor(dependencyNotation: Any): Dependency? =
+    add("annotationProcessor", dependencyNotation)
+
+
 /**
  * Adds a dependency to the `api` configuration.
  *
@@ -132,9 +144,10 @@ fun DependencyHandler.addKtorDependencies() {
 
 fun DependencyHandler.addRoomDependencies() {
     implementation(Room.roomRuntime)
-    implementation(Room.roomCompiler)
+//    implementation(Room.roomCompiler)
+    annotationProcessor(Room.roomCompiler)
     implementation(Room.roomKtx)
-    implementation(Room.roomCoroutine)
+//    implementation(Room.roomCoroutine)
 
     //Test
     testImplementation(Room.roomTesting)
@@ -152,7 +165,7 @@ fun DependencyHandler.addTimberDependencies() {
 fun DependencyHandler.addModuleDependencies() {
     implementation(project(Modules.domain))
     implementation(project(Modules.common))
-    implementation(project(Modules.model))
+//    implementation(project(Modules.model))
     implementation(project(Modules.local))
     implementation(project(Modules.remote))
     implementation(project(Modules.repository))
@@ -165,9 +178,6 @@ fun DependencyHandler.addModuleDependencies() {
 // Modules
 val DependencyHandler.FEATURE_TEST
     get() =  implementation(project(Modules.featureTest))
-
-val DependencyHandler.MODEL
-    get() =  implementation(project(Modules.model))
 
 val DependencyHandler.LOCAL
     get() =  implementation(project(Modules.local))

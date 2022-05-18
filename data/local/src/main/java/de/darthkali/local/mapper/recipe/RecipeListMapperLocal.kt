@@ -2,7 +2,7 @@ package de.darthkali.local.mapper.recipe
 
 import de.darthkali.local.database.entity.recipe.RecipeEntity
 import de.darthkali.local.mapper.LocalBaseMapper
-import de.darthkali.model.recipe.Recipe
+import de.darthkali.domain.models.recipe.Recipe
 
 class RecipeListMapperLocal : LocalBaseMapper<List<Recipe>, List<RecipeEntity>> {
 

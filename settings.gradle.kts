@@ -13,6 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
+
 rootProject.name = ("weemeal")
 
 include(
@@ -21,7 +22,6 @@ include(
 
 include(":common")
 include(":domain")
-include(":data:model")
 include(":data:local")
 include(":data:remote")
 include(":data:repository")

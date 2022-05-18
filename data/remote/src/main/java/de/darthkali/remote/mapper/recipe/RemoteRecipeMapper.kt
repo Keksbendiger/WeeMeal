@@ -1,6 +1,6 @@
 package de.darthkali.local.mapper.recipe
 
-import de.darthkali.model.recipe.Recipe
+import de.darthkali.domain.models.recipe.Recipe
 import de.darthkali.remote.mapper.RemoteBaseMapper
 import de.darthkali.remote.model.recipe.RecipeJson
 

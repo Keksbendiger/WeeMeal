@@ -24,10 +24,13 @@ stages:
 detekt:
   stage: build
   script:
-    - ./gradlew -Pci --console=plain :app:detekt
+    - ./gradlew -Pci --console=plain detekt
   artifacts:
     paths:
+      - android-core/build/reports/detekt/detekt.*
       - app/build/reports/detekt/detekt.*
+      - data/build/reports/detekt/detekt.*
+      - domain/build/reports/detekt/detekt.*
 #  except:
 #    changes:
 #      - "**/*.md"
@@ -49,10 +52,14 @@ assembleDebug:
 testDebug:
   stage: test
   script:
-    - ./gradlew -Pci --console=plain :app:testDebug
+    - ./gradlew -Pci --console=plain testDebug
   artifacts:
     reports:
-      junit: app/build/test-results/**/TEST-*.xml
+      junit:
+        - android-core/build/test-results/**/TEST-*.xml
+        - app/build/test-results/**/TEST-*.xml
+        - data/build/test-results/**/TEST-*.xml
+        - domain/build/test-results/**/TEST-*.xml
 #  except:
 #    changes:
 #      - "**/*.md"
@@ -61,10 +68,10 @@ testDebug:
 generateDocs:
   stage: docs
   script:
-    - ./gradlew dokkaHtml
+    - ./gradlew dokkaHtmlMultiModule
   artifacts:
     paths:
-      - app/build/dokka/html/**
+      - build/dokkaMultiModuleOutput/**
 #  except:
 #    changes:
 #      - "**/*.md"

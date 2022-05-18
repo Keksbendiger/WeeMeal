@@ -1,5 +1,5 @@
 object Build {
-    private const val gradleBuildToolsVersion = "7.0.0"
+    private const val gradleBuildToolsVersion = "7.1.3"
 //    private const val gradleBuildToolsVersion = "4.2.1" // TODO: Does this work?
     private const val kotlinVersion = "1.6.10"
 
