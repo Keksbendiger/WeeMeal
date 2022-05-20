@@ -169,6 +169,7 @@ fun DependencyHandler.addModuleDependencies() {
     implementation(project(Modules.remote))
     implementation(project(Modules.mocks))
     implementation(project(Modules.repository))
+    implementation(project(Modules.usecases))
     implementation(project(Modules.featureTest))
 }
 
@@ -195,5 +196,8 @@ val DependencyHandler.COMMON
 
 val DependencyHandler.MOCKS
     get() =  implementation(project(Modules.mocks))
+
+val DependencyHandler.USECASES
+    get() =  implementation(project(Modules.usecases))
 
 

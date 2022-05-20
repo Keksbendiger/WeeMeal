@@ -1,5 +1,5 @@
 object Modules {
-    const val app =":app"
+    const val app = ":app"
     const val domain = ":domain"
     const val common = ":common"
     const val model = ":data:model"
@@ -7,6 +7,7 @@ object Modules {
     const val remote = ":data:remote"
     const val repository = ":data:repository"
     const val mocks = ":mocks"
+    const val usecases = ":usecases"
 
     //features
     const val featureTest = ":feature:test"
