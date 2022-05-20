@@ -1,57 +1,64 @@
-//import extensions.addCommonDependencies
-
 plugins {
-    id(Plugins.android_app)
+    id(Plugins.android_library)
     id(Plugins.kotlin_android)
 }
 
 android {
+    // main config
     compileSdk = Config.compile_sdk_version
-    buildToolsVersion = Config.build_tools_version
 
     defaultConfig {
-        applicationId = Config.application_id
         minSdk = Config.min_sdk_version
         targetSdk = Config.target_sdk_version
-        versionCode = Config.version_code
-        versionName = Config.version_name
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
+
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+
     kotlinOptions {
         jvmTarget = Config.jvm_target
     }
+
+    //Compose Config
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.composeVersion
     }
+
     packagingOptions {
-        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1,gradle-plugins}")
+        resources.excludes.apply {
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
+        }
     }
 }
 
 dependencies {
+    //Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
-    addKoinDependencies()
-    addModuleDependencies()
+//    addTimberDependencies()
 
-    //Modules
-    MOCKS
+    // Modules
+    DOMAIN
 }

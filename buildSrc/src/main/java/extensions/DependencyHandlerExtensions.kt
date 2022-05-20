@@ -165,11 +165,10 @@ fun DependencyHandler.addTimberDependencies() {
 fun DependencyHandler.addModuleDependencies() {
     implementation(project(Modules.domain))
     implementation(project(Modules.common))
-//    implementation(project(Modules.model))
     implementation(project(Modules.local))
     implementation(project(Modules.remote))
+    implementation(project(Modules.mocks))
     implementation(project(Modules.repository))
-
     implementation(project(Modules.featureTest))
 }
 
@@ -193,5 +192,8 @@ val DependencyHandler.DOMAIN
 
 val DependencyHandler.COMMON
     get() =  implementation(project(Modules.common))
+
+val DependencyHandler.MOCKS
+    get() =  implementation(project(Modules.mocks))
 
 

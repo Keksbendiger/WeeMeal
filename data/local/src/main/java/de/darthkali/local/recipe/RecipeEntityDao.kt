@@ -1,4 +1,4 @@
-package de.darthkali.local.database.recipe
+package de.darthkali.local.recipe
 
 import androidx.room.Dao
 import androidx.room.Delete

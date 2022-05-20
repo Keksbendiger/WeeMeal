@@ -1,7 +1,7 @@
 package de.darthkali.local.mapper.recipe
 
 import de.darthkali.domain.models.recipe.Recipe
-import de.darthkali.local.database.recipe.RecipeEntity
+import de.darthkali.local.recipe.RecipeEntity
 
 fun RecipeEntity.toDomain(
 ) = Recipe(

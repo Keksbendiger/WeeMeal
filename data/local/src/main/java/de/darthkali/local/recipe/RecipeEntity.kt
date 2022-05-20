@@ -1,4 +1,4 @@
-package de.darthkali.local.database.recipe
+package de.darthkali.local.recipe
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

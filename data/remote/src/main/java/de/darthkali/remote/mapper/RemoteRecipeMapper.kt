@@ -1,7 +1,7 @@
 package de.darthkali.local.mapper.recipe
 
 import de.darthkali.domain.models.recipe.Recipe
-import de.darthkali.remote.model.recipe.RecipeJson
+import de.darthkali.remote.recipe.RecipeJson
 
 fun RecipeJson.toRemote(
 ) = Recipe(
