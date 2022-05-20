@@ -24,9 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import de.darthkali.mocks.RecipeMock
-import de.fhe.ai.weemeal.app.ui.screens.core.AppBar
 import de.fhe.ai.weemeal.app.ui.screens.core.recipe_list.SearchAppBar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

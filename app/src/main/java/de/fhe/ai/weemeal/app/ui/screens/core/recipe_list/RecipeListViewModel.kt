@@ -1,19 +1,19 @@
-//package de.darthkali.weefood.screens.recipe_list
+// package de.darthkali.weefood.screens.recipe_list
 //
-//import androidx.compose.runtime.MutableState
-//import androidx.compose.runtime.mutableStateOf
-//import androidx.lifecycle.viewModelScope
-//import de.darthkali.weefood.domain.model.Recipe
-//import de.darthkali.weefood.interactors.recipe.SearchRecipes
-//import de.darthkali.weefood.presentation.recipe_list.RecipeListEvents
-//import de.darthkali.weefood.presentation.recipe_list.RecipeListState
-//import de.darthkali.weefood.screens.BaseViewModel
-//import de.darthkali.weefood.util.Logger
-//import org.koin.core.component.inject
+// import androidx.compose.runtime.MutableState
+// import androidx.compose.runtime.mutableStateOf
+// import androidx.lifecycle.viewModelScope
+// import de.darthkali.weefood.domain.model.Recipe
+// import de.darthkali.weefood.interactors.recipe.SearchRecipes
+// import de.darthkali.weefood.presentation.recipe_list.RecipeListEvents
+// import de.darthkali.weefood.presentation.recipe_list.RecipeListState
+// import de.darthkali.weefood.screens.BaseViewModel
+// import de.darthkali.weefood.util.Logger
+// import org.koin.core.component.inject
 //
-//class RecipeListViewModel(
+// class RecipeListViewModel(
 //    query: String = ""
-//){ //: BaseViewModel() {
+// ){ //: BaseViewModel() {
 //
 //
 //    private val searchRecipes: SearchRecipes by inject()
@@ -82,4 +82,4 @@
 //        curr.addAll(recipes)
 //        state.value = state.value.copy(recipes = curr)
 //    }
-//}
+// }

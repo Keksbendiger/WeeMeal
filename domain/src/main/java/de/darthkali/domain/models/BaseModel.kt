@@ -1,4 +1,3 @@
 package de.darthkali.domain.models
 
-class BaseModel {
-}
+class BaseModel

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import de.darthkali.local.recipe.RecipeEntityDao
 import de.darthkali.local.recipe.RecipeEntity
+import de.darthkali.local.recipe.RecipeEntityDao
 
 @Database(entities = [RecipeEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
@@ -13,7 +13,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private fun getDatabase(app: Context): AppDatabase {
-            return Room.databaseBuilder( app, AppDatabase::class.java, "app-db")
+            return Room.databaseBuilder(app, AppDatabase::class.java, "app-db")
                 .fallbackToDestructiveMigration()
                 .build()
         }

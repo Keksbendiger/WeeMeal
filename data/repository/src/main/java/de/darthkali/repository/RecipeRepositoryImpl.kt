@@ -1,10 +1,9 @@
 package de.darthkali.repository
 
 import de.darthkali.domain.models.recipe.Recipe
-import de.darthkali.local.recipe.RecipeEntityDao
 import de.darthkali.local.mapper.recipe.fromDomain
 import de.darthkali.local.mapper.recipe.toDomain
-import kotlinx.coroutines.flow.Flow
+import de.darthkali.local.recipe.RecipeEntityDao
 import kotlinx.coroutines.flow.map
 
 class RecipeRepositoryImpl(
@@ -22,7 +21,6 @@ class RecipeRepositoryImpl(
                 returnValue
             }
 
-
     override suspend fun getRecipe(recipeId: Long) = recipeEntityDao.get(recipeId)?.toDomain()
 
     override suspend fun insertRecipe(recipe: Recipe) = recipeEntityDao.insert(recipe.fromDomain())
@@ -30,6 +28,4 @@ class RecipeRepositoryImpl(
     override suspend fun updateRecipe(recipe: Recipe): Long {
         TODO("Not yet implemented")
     }
-
 }
-
