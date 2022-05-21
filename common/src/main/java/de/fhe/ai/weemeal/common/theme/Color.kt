@@ -14,6 +14,7 @@ val Black = Color(0xFF000000)
 val DarkGray = Color(0xFF1B1B1B)
 val LightGray = Color(0xFF5C5C5C)
 
+
 val DarkColors = darkColors(
     primary = Black,
     primaryVariant = LightGray,

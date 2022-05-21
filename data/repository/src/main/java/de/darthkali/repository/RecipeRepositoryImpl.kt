@@ -1,6 +1,6 @@
 package de.darthkali.repository
 
-import de.darthkali.domain.models.recipe.Recipe
+import de.darthkali.domain.models.Recipe
 import de.darthkali.local.mapper.recipe.fromDomain
 import de.darthkali.local.mapper.recipe.toDomain
 import de.darthkali.local.recipe.RecipeEntityDao

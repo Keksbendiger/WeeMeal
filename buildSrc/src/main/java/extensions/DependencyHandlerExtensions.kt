@@ -161,6 +161,12 @@ fun DependencyHandler.addTimberDependencies() {
     implementation(Timber.timber)
 }
 
+fun DependencyHandler.addFakerDependencies() {
+    implementation(Faker.faker)
+    testImplementation(Faker.faker)
+    androidTestImplementation(Faker.faker)
+}
+
 
 fun DependencyHandler.addModuleDependencies() {
     implementation(project(Modules.domain))
@@ -174,30 +180,29 @@ fun DependencyHandler.addModuleDependencies() {
 }
 
 
-
 // Modules
 val DependencyHandler.FEATURE_TEST
-    get() =  implementation(project(Modules.featureTest))
+    get() = implementation(project(Modules.featureTest))
 
 val DependencyHandler.LOCAL
-    get() =  implementation(project(Modules.local))
+    get() = implementation(project(Modules.local))
 
 val DependencyHandler.REMOTE
-    get() =  implementation(project(Modules.remote))
+    get() = implementation(project(Modules.remote))
 
 val DependencyHandler.REPOSITORY
-    get() =  implementation(project(Modules.repository))
+    get() = implementation(project(Modules.repository))
 
 val DependencyHandler.DOMAIN
-    get() =  implementation(project(Modules.domain))
+    get() = implementation(project(Modules.domain))
 
 val DependencyHandler.COMMON
-    get() =  implementation(project(Modules.common))
+    get() = implementation(project(Modules.common))
 
 val DependencyHandler.MOCKS
-    get() =  implementation(project(Modules.mocks))
+    get() = implementation(project(Modules.mocks))
 
 val DependencyHandler.USECASES
-    get() =  implementation(project(Modules.usecases))
+    get() = implementation(project(Modules.usecases))
 
 

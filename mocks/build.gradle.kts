@@ -58,7 +58,9 @@ dependencies {
     addAndroidXDependencies()
     addComposeDependencies()
 //    addTimberDependencies()
+    addFakerDependencies()
 
     // Modules
     DOMAIN
+    COMMON
 }

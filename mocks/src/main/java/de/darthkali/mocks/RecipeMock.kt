@@ -1,15 +1,23 @@
 package de.darthkali.mocks
 
-import de.darthkali.domain.models.recipe.Recipe
+import de.darthkali.domain.models.Recipe
+import io.bloco.faker.Faker
+
 
 object RecipeMock {
+    private var faker: Faker = Faker()
 
-    val recipe = Recipe(id = 1, name = "Pizza")
+    fun generateRecipe():Recipe{
+        return Recipe(name = faker.food.dish())
+    }
 
-    val recipeList = listOf(
-        Recipe(id = 1, name = "Pizza"),
-        Recipe(id = 2, name = "Pasta"),
-        Recipe(id = 3, name = "Döner"),
-        Recipe(id = 4, name = "Salat")
-    )
+    fun generateList(amount: Int): List<Recipe> {
+        assert(amount >= 0)
+        val recipeList: MutableList<Recipe> = mutableListOf()
+
+        for (i in 1..amount) {
+            recipeList.add(generateRecipe())
+        }
+        return recipeList
+    }
 }

@@ -54,4 +54,5 @@ dependencies {
 
     //Modules
     MOCKS
+    DOMAIN
 }

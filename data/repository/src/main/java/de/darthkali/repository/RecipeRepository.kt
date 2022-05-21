@@ -1,6 +1,6 @@
 package de.darthkali.repository
 
-import de.darthkali.domain.models.recipe.Recipe
+import de.darthkali.domain.models.Recipe
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
