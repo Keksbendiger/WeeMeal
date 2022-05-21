@@ -11,6 +11,7 @@ object Modules {
 
     //features
     const val featureRecipe = ":feature:recipe"
+    const val featureMeal = ":feature:meal"
     const val featureIngredient = ":feature:ingredient"
     const val featureOnboarding = ":feature:onboarding"
     const val featureShoppingList = ":feature:shoppinglist"
