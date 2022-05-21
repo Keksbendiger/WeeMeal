@@ -77,7 +77,7 @@ fun RecipeListScreen(
                     )
                     LazyColumn {
                         itemsIndexed(
-                            items = RecipeMock.generateList(20)
+                            items = RecipeMock.generateList()
                         ) { index, recipe ->
                             Column() {
                                 Row(verticalAlignment = Alignment.CenterVertically) {

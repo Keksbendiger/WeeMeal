@@ -24,11 +24,11 @@ object RecipeMock {
         )
     }
 
-    fun generateList(amount: Int): List<Recipe> {
-        assert(amount >= 0)
+    fun generateList(amount: Int? = faker.number.between(1, 30)): List<Recipe> {
+
         val recipeList: MutableList<Recipe> = mutableListOf()
 
-        for (i in 1..amount) {
+        for (i in 1..amount!!) {
             recipeList.add(generateRecipe())
         }
         return recipeList
