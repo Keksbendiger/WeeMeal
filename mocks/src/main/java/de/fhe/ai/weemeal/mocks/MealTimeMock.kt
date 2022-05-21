@@ -1,9 +1,8 @@
 package de.fhe.ai.weemeal.mocks
 
-import de.fhe.ai.weemeal.domain.models.enums.MealTime
+import de.fhe.ai.weemeal.domain.enums.MealTime
 
 object MealTimeMock {
-    val randomMealTime = MealTime.getRandom()
 
     fun generateList(amount: Int): List<MealTime> {
         assert(amount >= 0)
