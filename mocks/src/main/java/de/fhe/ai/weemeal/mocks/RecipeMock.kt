@@ -1,5 +1,7 @@
 package de.fhe.ai.weemeal.mocks
 
+import de.fhe.ai.weemeal.common.extentions.timeUnit
+import de.fhe.ai.weemeal.common.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Recipe
 import io.bloco.faker.Faker
 
@@ -11,9 +13,18 @@ object RecipeMock {
             name = faker.food.dish(),
             defaultServings = faker.number.between(1, 10),
             defaultIngredients = IngredientMock.generateList(faker.number.between(1, 20)),
-//        timePreparation = TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
-//        timeActiveCooking = TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
-//        timeOverall = TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
+            timePreparation = TimeFormat(
+                value = faker.number.between(1, 60).toFloat(),
+                unit = faker.timeUnit()
+            ),
+            timeActiveCooking = TimeFormat(
+                value = faker.number.between(1, 60).toFloat(),
+                unit = faker.timeUnit()
+            ),
+            timeOverall = TimeFormat(
+                value = faker.number.between(1, 60).toFloat(),
+                unit = faker.timeUnit()
+            ),
             instructions = faker.lorem.paragraph(faker.number.between(1, 20), true),
 //        image = String? = "",
 //        seasonality = List<String>? = listOf(),
