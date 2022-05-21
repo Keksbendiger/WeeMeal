@@ -1,6 +1,6 @@
 package de.darthkali.domain.models
 
-import de.darthkali.domain.models.enums.Mealtime
+import de.darthkali.domain.models.enums.MealTime
 import de.fhe.ai.weemeal.common.formats.TimeFormat
 
 
@@ -14,7 +14,7 @@ data class Recipe(
     val instructions: String? = "",
     val image: String? = "",
     val seasonality: List<String>? = listOf(),                                      // TODO: Liste?
-    val mealtime: List<Mealtime>? = listOf(),                                       // TODO: Liste?
+    val mealTime: List<MealTime>? = listOf(),                                       // TODO: Liste?
     val optionalTags: List<Tag>? = listOf(),                                        // TODO: Liste?
 //    -nutritionalValue : ?,
 )

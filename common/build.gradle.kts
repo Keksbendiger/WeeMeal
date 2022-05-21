@@ -57,4 +57,5 @@ dependencies {
     addAndroidXDependencies()
     addComposeDependencies()
     addTimberDependencies()
+    addFakerDependencies()
 }
