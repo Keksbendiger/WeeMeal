@@ -11,7 +11,7 @@ object IngredientMock {
     fun generateIngredient(): Ingredient {
         return Ingredient(
             name = faker.food.ingredient(),
-            // val image: String? = "",
+            image = "",
             quantity = QuantityFormat(
                 quantity = faker.number.between(1, 100).toFloat(),
                 unit = faker.measurementUnit()
@@ -20,11 +20,10 @@ object IngredientMock {
         )
     }
 
-    fun generateList(amount: Int): List<Ingredient> {
-        assert(amount >= 0)
+    fun generateList(amount: Int? = faker.number.between(1, 30)): List<Ingredient> {
         val ingredientList: MutableList<Ingredient> = mutableListOf()
 
-        for (i in 1..amount) {
+        for (i in 1..amount!!) {
             ingredientList.add(generateIngredient())
         }
         return ingredientList

@@ -1,7 +1,6 @@
 package de.fhe.weefood.screens.recipe_list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +27,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.mocks.RecipeMock
+import de.fhe.ai.weemeal.recipe_list.CustomChip
+import de.fhe.ai.weemeal.recipe_list.ListComponent
 import de.fhe.ai.weemeal.recipe_list.SearchAppBar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -80,45 +81,62 @@ fun RecipeListScreen(
                             items = RecipeMock.generateList()
                         ) { index, recipe ->
                             Column() {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-//                                    CircleImage(
-//                                        url = recipe.image ?: NO_IMAGE,
-//                                        contentDescription = recipe.name
-//                                    )
-                                    Column(Modifier.fillMaxWidth()) {
-                                        Text(
-                                            text = recipe.name,
-                                            modifier = Modifier
-                                                .fillMaxWidth(0.85f)
-                                                .wrapContentWidth(Alignment.Start)
-                                                .padding(
-                                                    top = 16.dp,
-                                                    bottom = 16.dp,
-                                                ),
-                                            style = MaterialTheme.typography.h2
-                                        )
 
-                                        var mealTimeConc: String = ""
+                                Column(Modifier.fillMaxWidth()) {
+                                    Text(
+                                        text = recipe.name,
+                                        modifier = Modifier
+                                            .fillMaxWidth(0.85f)
+                                            .wrapContentWidth(Alignment.Start)
+                                            .padding(
+                                                top = 16.dp,
+                                                bottom = 16.dp,
+                                            ),
+                                        style = MaterialTheme.typography.h2
+                                    )
+
+                                    Row() {
                                         recipe.mealTime?.forEach {
-                                            mealTimeConc += it.name + " "
+                                            CustomChip(
+                                                text = it.mealTimeName,
+                                                modifier = Modifier.padding(start = 5.dp)
+                                            )
                                         }
-                                        Text(text = mealTimeConc)
-                                        Spacer(modifier = Modifier.height(10.dp))
-
-                                        Text(text = "defaultServings: " + recipe.defaultServings)
-                                        recipe.defaultIngredients?.forEach {
-                                            Row(
-                                                modifier = Modifier.fillMaxWidth(),
-                                                horizontalArrangement = Arrangement.SpaceBetween
-                                            ) {
-                                                Text(text = it.name)
-                                                Text(text = it.quantity.quantity.toString() + " " + it.quantity.unit)
-                                            }
-                                        }
-                                        Spacer(modifier = Modifier.height(10.dp))
-
-                                        Text(text = recipe.instructions ?: "")
                                     }
+
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    ListComponent(
+                                        textLeft = "timeActiveCooking",
+                                        textRight = recipe.timeActiveCooking.toString()
+                                    )
+
+                                    ListComponent(
+                                        textLeft = "timePreparation",
+                                        textRight = recipe.timePreparation.toString()
+                                    )
+
+                                    ListComponent(
+                                        textLeft = "timeOverall",
+                                        textRight = recipe.timeOverall.toString()
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    ListComponent(
+                                        textLeft = "defaultServings",
+                                        textRight = recipe.defaultServings.toString()
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    recipe.defaultIngredients?.forEach {
+                                        ListComponent(
+                                            textLeft = it.name,
+                                            textRight = it.quantity.quantity.toString() + "  " + it.quantity.unit
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    Text(text = recipe.instructions ?: "")
                                 }
                             }
                         }

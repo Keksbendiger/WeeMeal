@@ -168,25 +168,7 @@ fun DependencyHandler.addFakerDependencies() {
 }
 
 
-// DANGER: Use this with caution. This could cause
-fun DependencyHandler.addModuleDependencies() {
-    implementation(project(Modules.mocks))
-    implementation(project(Modules.local))
-    implementation(project(Modules.domain))
-    implementation(project(Modules.common))
-    implementation(project(Modules.remote))
-    implementation(project(Modules.usecases))
-    implementation(project(Modules.repository))
 
-    //features
-    implementation(project(Modules.featureRecipe))
-    implementation(project(Modules.featureWeekList))
-    implementation(project(Modules.featureSettings))
-    implementation(project(Modules.featureIngredient))
-    implementation(project(Modules.featureOnboarding))
-    implementation(project(Modules.featureShoppingList))
-
-}
 
 
 // Modules
@@ -215,14 +197,23 @@ val DependencyHandler.USECASES
 // Features
 val DependencyHandler.FEATURE_RECIPE
     get() = implementation(project(Modules.featureRecipe))
+
+val DependencyHandler.FEATURE_MEAL
+    get() = implementation(project(Modules.featureMeal))
+
 val DependencyHandler.FEATURE_WEEK_LIST
     get() = implementation(project(Modules.featureWeekList))
+
 val DependencyHandler.FEATURE_SETTINGS
     get() = implementation(project(Modules.featureSettings))
+
 val DependencyHandler.FEATURE_INGREDIENT
     get() = implementation(project(Modules.featureIngredient))
+
 val DependencyHandler.FEATURE_ONBOARDING
     get() = implementation(project(Modules.featureOnboarding))
+
 val DependencyHandler.FEATURE_SHOPPING_LIST
     get() = implementation(project(Modules.featureShoppingList))
+
 
