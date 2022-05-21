@@ -2,7 +2,7 @@ package de.fhe.ai.weemeal.common.formats
 
 import java.security.SecureRandom
 
-enum class MeasurementUnit(val value:String) {
+enum class MeasurementUnit(val value: String) {
     EMPTY(""),
 
     GRAM("g"),
@@ -10,15 +10,15 @@ enum class MeasurementUnit(val value:String) {
     TABLESPOON("EL"),
     TEASPOON("TL"),
 
-    BUNCH ("Bund"),
+    BUNCH("Bund"),
     PINCH("Prise"),
 
     MILLILITER("ml"),
     LITER("L");
 
     companion object {
-        fun getRandom():MeasurementUnit{
-            return MeasurementUnit.values()[SecureRandom().nextInt(MeasurementUnit.values().size)];
+        fun getRandom(): MeasurementUnit {
+            return MeasurementUnit.values()[SecureRandom().nextInt(MeasurementUnit.values().size)]
         }
     }
 }

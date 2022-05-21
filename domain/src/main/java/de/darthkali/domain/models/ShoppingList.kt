@@ -1,5 +1,5 @@
 package de.darthkali.domain.models
 
-data class  ShoppingList (
+data class ShoppingList(
     val items: List<Ingredient>
 )

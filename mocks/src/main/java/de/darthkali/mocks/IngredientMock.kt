@@ -5,14 +5,13 @@ import de.fhe.ai.weemeal.common.extentions.measurementUnit
 import de.fhe.ai.weemeal.common.formats.QuantityFormat
 import io.bloco.faker.Faker
 
-
 object IngredientMock {
     private var faker: Faker = Faker()
 
     fun generateIngredient(): Ingredient {
         return Ingredient(
             name = faker.food.ingredient(),
-            //val image: String? = "",
+            // val image: String? = "",
             quantity = QuantityFormat(
                 quantity = faker.number.between(1, 100).toFloat(),
                 unit = faker.measurementUnit()

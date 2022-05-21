@@ -15,4 +15,3 @@ object MealTimeMock {
         return mealTimeList
     }
 }
-

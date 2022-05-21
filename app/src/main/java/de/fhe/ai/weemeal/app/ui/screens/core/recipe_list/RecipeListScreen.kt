@@ -1,7 +1,6 @@
 package de.darthkali.weefood.screens.recipe_list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,10 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.unit.dp
-import de.darthkali.mocks.IngredientMock
-import de.darthkali.mocks.MealTimeMock
 import de.darthkali.mocks.RecipeMock
 import de.fhe.ai.weemeal.app.ui.screens.core.recipe_list.SearchAppBar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -102,7 +98,7 @@ fun RecipeListScreen(
                                             style = MaterialTheme.typography.h2
                                         )
 
-                                        var mealTimeConc :String = ""
+                                        var mealTimeConc: String = ""
                                         recipe.mealTime?.forEach {
                                             mealTimeConc += it.name + " "
                                         }
@@ -111,15 +107,15 @@ fun RecipeListScreen(
 
                                         Text(text = "defaultServings: " + recipe.defaultServings)
                                         recipe.defaultIngredients?.forEach {
-                                            Row(modifier = Modifier.fillMaxWidth(),
-                                                horizontalArrangement = Arrangement.SpaceBetween) {
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                horizontalArrangement = Arrangement.SpaceBetween
+                                            ) {
                                                 Text(text = it.name)
                                                 Text(text = it.quantity.quantity.toString() + " " + it.quantity.unit)
                                             }
-
                                         }
                                         Spacer(modifier = Modifier.height(10.dp))
-
 
                                         Text(text = recipe.instructions ?: "")
                                     }

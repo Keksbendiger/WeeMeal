@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import de.fhe.ai.weemeal.common.formats.MeasurementUnit
 import io.bloco.faker.Faker
 
-
-fun Faker.measurementUnit(): String{
+fun Faker.measurementUnit(): String {
     return MeasurementUnit.getRandom().value
 }
 
