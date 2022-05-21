@@ -1,7 +1,7 @@
 package de.fhe.ai.weemeal.mocks
 
-import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.enums.CookColor
+import de.fhe.ai.weemeal.domain.models.Meal
 import io.bloco.faker.Faker
 
 object MealMock {

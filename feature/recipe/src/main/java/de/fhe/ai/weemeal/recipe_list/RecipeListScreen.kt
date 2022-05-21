@@ -95,7 +95,6 @@ fun RecipeListScreen(
                                         style = MaterialTheme.typography.h2
                                     )
 
-
                                     Row() {
                                         recipe.mealTime?.forEach {
                                             CustomChip(
@@ -122,7 +121,6 @@ fun RecipeListScreen(
                                         textRight = recipe.timeOverall.toString()
                                     )
                                     Spacer(modifier = Modifier.height(10.dp))
-
 
                                     ListComponent(
                                         textLeft = "defaultServings",
