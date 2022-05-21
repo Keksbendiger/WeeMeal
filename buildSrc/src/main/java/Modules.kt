@@ -10,5 +10,10 @@ object Modules {
     const val usecases = ":usecases"
 
     //features
-    const val featureTest = ":feature:test"
+    const val featureRecipe = ":feature:recipe"
+    const val featureIngredient = ":feature:ingredient"
+    const val featureOnboarding = ":feature:onboarding"
+    const val featureShoppingList = ":feature:shoppinglist"
+    const val featureWeekList = ":feature:weeklist"
+    const val featureSettings = ":feature:settings"
 }

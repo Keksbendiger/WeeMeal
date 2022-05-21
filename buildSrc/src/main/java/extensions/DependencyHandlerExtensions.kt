@@ -168,22 +168,28 @@ fun DependencyHandler.addFakerDependencies() {
 }
 
 
+// DANGER: Use this with caution. This could cause
 fun DependencyHandler.addModuleDependencies() {
+    implementation(project(Modules.mocks))
+    implementation(project(Modules.local))
     implementation(project(Modules.domain))
     implementation(project(Modules.common))
-    implementation(project(Modules.local))
     implementation(project(Modules.remote))
-    implementation(project(Modules.mocks))
-    implementation(project(Modules.repository))
     implementation(project(Modules.usecases))
-    implementation(project(Modules.featureTest))
+    implementation(project(Modules.repository))
+
+    //features
+    implementation(project(Modules.featureRecipe))
+    implementation(project(Modules.featureWeekList))
+    implementation(project(Modules.featureSettings))
+    implementation(project(Modules.featureIngredient))
+    implementation(project(Modules.featureOnboarding))
+    implementation(project(Modules.featureShoppingList))
+
 }
 
 
 // Modules
-val DependencyHandler.FEATURE_TEST
-    get() = implementation(project(Modules.featureTest))
-
 val DependencyHandler.LOCAL
     get() = implementation(project(Modules.local))
 
@@ -205,4 +211,18 @@ val DependencyHandler.MOCKS
 val DependencyHandler.USECASES
     get() = implementation(project(Modules.usecases))
 
+
+// Features
+val DependencyHandler.FEATURE_RECIPE
+    get() = implementation(project(Modules.featureRecipe))
+val DependencyHandler.FEATURE_WEEK_LIST
+    get() = implementation(project(Modules.featureWeekList))
+val DependencyHandler.FEATURE_SETTINGS
+    get() = implementation(project(Modules.featureSettings))
+val DependencyHandler.FEATURE_INGREDIENT
+    get() = implementation(project(Modules.featureIngredient))
+val DependencyHandler.FEATURE_ONBOARDING
+    get() = implementation(project(Modules.featureOnboarding))
+val DependencyHandler.FEATURE_SHOPPING_LIST
+    get() = implementation(project(Modules.featureShoppingList))
 

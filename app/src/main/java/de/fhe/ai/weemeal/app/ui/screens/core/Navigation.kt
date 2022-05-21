@@ -11,8 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import de.darthkali.weefood.screens.recipe_list.RecipeListScreen
-import de.fhe.ai.weemeal.app.Greeting
+import de.fhe.weefood.screens.recipe_list.RecipeListScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 enum class Screens(val icon: ImageVector) {
@@ -40,7 +39,6 @@ fun AppNavigationHost(
         }
         composable(Screens.Settings.name) {
             onNavigation(Screens.Settings.name)
-            Greeting(name = "settings")
         }
     }
 }

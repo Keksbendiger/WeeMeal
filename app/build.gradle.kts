@@ -50,9 +50,11 @@ dependencies {
     addAndroidXDependencies()
     addComposeDependencies()
     addKoinDependencies()
-    addModuleDependencies()
+
 
     //Modules
-    MOCKS
-    DOMAIN
+    COMMON
+
+    //Features
+    FEATURE_RECIPE
 }
