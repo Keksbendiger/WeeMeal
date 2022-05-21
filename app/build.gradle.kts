@@ -50,5 +50,11 @@ dependencies {
     addAndroidXDependencies()
     addComposeDependencies()
     addKoinDependencies()
-    addModuleDependencies()
+
+
+    //Modules
+    COMMON
+
+    //Features
+    FEATURE_RECIPE
 }

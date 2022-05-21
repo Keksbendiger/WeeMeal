@@ -161,37 +161,68 @@ fun DependencyHandler.addTimberDependencies() {
     implementation(Timber.timber)
 }
 
-
-fun DependencyHandler.addModuleDependencies() {
-    implementation(project(Modules.domain))
-    implementation(project(Modules.common))
-//    implementation(project(Modules.model))
-    implementation(project(Modules.local))
-    implementation(project(Modules.remote))
-    implementation(project(Modules.repository))
-
-    implementation(project(Modules.featureTest))
+fun DependencyHandler.addFakerDependencies() {
+    implementation(Faker.faker)
+    testImplementation(Faker.faker)
+    androidTestImplementation(Faker.faker)
 }
 
 
+// DANGER: Use this with caution. This could cause
+fun DependencyHandler.addModuleDependencies() {
+    implementation(project(Modules.mocks))
+    implementation(project(Modules.local))
+    implementation(project(Modules.domain))
+    implementation(project(Modules.common))
+    implementation(project(Modules.remote))
+    implementation(project(Modules.usecases))
+    implementation(project(Modules.repository))
+
+    //features
+    implementation(project(Modules.featureRecipe))
+    implementation(project(Modules.featureWeekList))
+    implementation(project(Modules.featureSettings))
+    implementation(project(Modules.featureIngredient))
+    implementation(project(Modules.featureOnboarding))
+    implementation(project(Modules.featureShoppingList))
+
+}
+
 
 // Modules
-val DependencyHandler.FEATURE_TEST
-    get() =  implementation(project(Modules.featureTest))
-
 val DependencyHandler.LOCAL
-    get() =  implementation(project(Modules.local))
+    get() = implementation(project(Modules.local))
 
 val DependencyHandler.REMOTE
-    get() =  implementation(project(Modules.remote))
+    get() = implementation(project(Modules.remote))
 
 val DependencyHandler.REPOSITORY
-    get() =  implementation(project(Modules.repository))
+    get() = implementation(project(Modules.repository))
 
 val DependencyHandler.DOMAIN
-    get() =  implementation(project(Modules.domain))
+    get() = implementation(project(Modules.domain))
 
 val DependencyHandler.COMMON
-    get() =  implementation(project(Modules.common))
+    get() = implementation(project(Modules.common))
 
+val DependencyHandler.MOCKS
+    get() = implementation(project(Modules.mocks))
+
+val DependencyHandler.USECASES
+    get() = implementation(project(Modules.usecases))
+
+
+// Features
+val DependencyHandler.FEATURE_RECIPE
+    get() = implementation(project(Modules.featureRecipe))
+val DependencyHandler.FEATURE_WEEK_LIST
+    get() = implementation(project(Modules.featureWeekList))
+val DependencyHandler.FEATURE_SETTINGS
+    get() = implementation(project(Modules.featureSettings))
+val DependencyHandler.FEATURE_INGREDIENT
+    get() = implementation(project(Modules.featureIngredient))
+val DependencyHandler.FEATURE_ONBOARDING
+    get() = implementation(project(Modules.featureOnboarding))
+val DependencyHandler.FEATURE_SHOPPING_LIST
+    get() = implementation(project(Modules.featureShoppingList))
 

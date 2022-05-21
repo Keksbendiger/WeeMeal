@@ -60,5 +60,5 @@ dependencies {
 //    addTimberDependencies()
 
     // Modules
-//    DOMAIN
+    COMMON
 }
