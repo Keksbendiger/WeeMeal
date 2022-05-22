@@ -57,8 +57,11 @@ dependencies {
     //Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
+    addKoinDependencies()
 //    addTimberDependencies()
 
     // Modules
+    DOMAIN
     REPOSITORY
+    COMMON
 }

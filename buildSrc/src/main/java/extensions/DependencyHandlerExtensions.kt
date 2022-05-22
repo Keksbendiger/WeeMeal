@@ -128,7 +128,8 @@ fun DependencyHandler.addKoinDependencies() {
     implementation(Koin.androidNavigation)
 
     //Test
-    testImplementation(Koin.test)
+    androidTestImplementation(Koin.test)
+    androidTestImplementation(Koin.testJunit4)
 }
 
 fun DependencyHandler.addKontlinxDependencies() {

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 
 class RecipeRepositoryImpl(
     private val recipeEntityDao: RecipeEntityDao
-) : RecipeRepository {
+) : de.fhe.ai.weemeal.repository.RecipeRepository {
 
     override fun getRecipes() =
         recipeEntityDao.getAllAsFlow()

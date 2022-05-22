@@ -1,7 +1,7 @@
 package de.fhe.ai.weemeal.mocks
 
 import de.fhe.ai.weemeal.common.extentions.measurementUnit
-import de.fhe.ai.weemeal.common.formats.QuantityFormat
+import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import io.bloco.faker.Faker
 

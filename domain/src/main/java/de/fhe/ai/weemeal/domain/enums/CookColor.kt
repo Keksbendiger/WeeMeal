@@ -3,6 +3,7 @@ package de.fhe.ai.weemeal.domain.enums
 import androidx.compose.ui.graphics.Color
 import java.security.SecureRandom
 
+//TODO: depends on compose?
 enum class CookColor(val color: Color) {
     TRANSPARENT(Color.Transparent),
     YELLOW(Color.Yellow),

@@ -1,7 +1,7 @@
 package de.fhe.ai.weemeal.mocks
 
 import de.fhe.ai.weemeal.common.extentions.timeUnit
-import de.fhe.ai.weemeal.common.formats.TimeFormat
+import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.domain.models.Tag
 import io.bloco.faker.Faker

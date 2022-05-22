@@ -55,10 +55,8 @@ android {
 
 dependencies {
     //Dependencies
-    addAndroidXDependencies()
     addComposeDependencies()
-//    addTimberDependencies()
 
     // Modules
-    COMMON
+    // should not depend on any modules
 }

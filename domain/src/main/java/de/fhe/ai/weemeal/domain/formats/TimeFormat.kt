@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.common.formats
+package de.fhe.ai.weemeal.domain.formats
 
 data class TimeFormat(
     val value: Float,
