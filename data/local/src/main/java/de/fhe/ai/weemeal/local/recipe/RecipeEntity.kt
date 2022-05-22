@@ -2,9 +2,25 @@ package de.fhe.ai.weemeal.local.recipe
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import de.fhe.ai.weemeal.domain.enums.MealTime
+import de.fhe.ai.weemeal.domain.formats.TimeFormat
+import de.fhe.ai.weemeal.domain.models.Ingredient
+import de.fhe.ai.weemeal.domain.models.Tag
 
 @Entity
 data class RecipeEntity(
-    @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    val name: String
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
+    val name: String,
+    val defaultServings: Int? = 1,
+    val defaultIngredients: List<Ingredient>? = listOf(),
+    val timePreparation: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"), // TODO: TimeFormat? in Common?
+    val timeActiveCooking: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"), // TODO: TimeFormat?
+    val timeOverall: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"), // TODO: TimeFormat?
+    val instructions: String? = "",
+    val image: String? = "",
+    val seasonality: List<String>? = listOf(), // TODO: Liste?
+    val mealTime: List<MealTime>? = listOf(), // TODO: Liste?
+    val optionalTags: List<Tag>? = listOf(), // TODO: Liste?
+//    -nutritionalValue : ?,
 )
