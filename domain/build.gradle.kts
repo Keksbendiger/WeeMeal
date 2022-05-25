@@ -55,6 +55,7 @@ android {
 
 dependencies {
     //Dependencies
+    // Should not have any dependencies
     addComposeDependencies()
 
     // Modules
