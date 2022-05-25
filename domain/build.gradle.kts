@@ -58,5 +58,5 @@ dependencies {
     addComposeDependencies()
 
     // Modules
-    // should not depend on any modules
+    // Should not be dependent on any modules
 }
