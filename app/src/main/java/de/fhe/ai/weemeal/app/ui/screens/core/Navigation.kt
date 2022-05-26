@@ -42,7 +42,7 @@ fun AppNavigationHost(
         }
         composable(Screens.RecipeList.name) {
             onNavigation(Screens.RecipeList.name)
-             RecipeListScreen()
+            RecipeListScreen()
         }
         composable(Screens.ShoppingList.name) {
             onNavigation(Screens.ShoppingList.name)
@@ -56,7 +56,5 @@ fun AppNavigationHost(
             onNavigation(Screens.Recipe.name)
             // Settings() TODO: hier den Settings Screen einfügen
         }
-
-
     }
 }
