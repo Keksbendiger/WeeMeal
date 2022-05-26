@@ -3,14 +3,9 @@ package de.fhe.ai.weemeal.app.di.modules
 import de.fhe.ai.weemeal.common.logger.Logger
 import de.fhe.ai.weemeal.common.logger.LoggerImpl
 import de.fhe.ai.weemeal.local.WeeMealDatabase
-import org.koin.android.BuildConfig
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
-
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
     startKoin {
@@ -23,13 +18,11 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
         )
     }
 
-
 val androidCoreModule = module {
     single<Logger> {
         LoggerImpl()
     }
 }
-
 
 val databaseModule = module {
 
@@ -41,11 +34,10 @@ val databaseModule = module {
 //    }
 }
 
-//val useCaseModule = module {
+// val useCaseModule = module {
 //    factory { GetUsers(get()) }
-//}
+// }
 
-//val viewModelModule = module {
+// val viewModelModule = module {
 //    viewModel { MainScreenViewModel(get()) }
-//}
-
+// }
