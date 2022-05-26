@@ -36,14 +36,6 @@ android {
         jvmTarget = Config.jvm_target
     }
 
-    //Compose Config
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
-    }
 
     packagingOptions {
         resources.excludes.apply {
@@ -54,11 +46,4 @@ android {
 }
 
 dependencies {
-    //Dependencies
-    addAndroidXDependencies()
-    addComposeDependencies()
-//    addTimberDependencies()
-
-    // Modules
-    COMMON
 }

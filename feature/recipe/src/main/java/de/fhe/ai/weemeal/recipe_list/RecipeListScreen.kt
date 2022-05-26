@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
@@ -95,13 +96,16 @@ fun RecipeListScreen(
                                         style = MaterialTheme.typography.h2
                                     )
 
-                                    Row() {
-                                        recipe.mealTime?.forEach {
-                                            CustomChip(
-                                                text = it.mealTimeName,
-                                                modifier = Modifier.padding(start = 5.dp)
-                                            )
-                                        }
+                                    LazyRow {
+                                        itemsIndexed(
+                                            items = recipe.tags!!
+                                        ) { _,  tag ->
+                                        CustomChip(
+                                            text = tag.name,
+                                            modifier = Modifier.padding(start = 5.dp)
+                                        )
+                                    }
+
                                     }
 
                                     Spacer(modifier = Modifier.height(10.dp))

@@ -1,6 +1,6 @@
 package de.fhe.ai.weemeal.domain.models
 
-import de.fhe.ai.weemeal.common.formats.QuantityFormat
+import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 
 data class Ingredient(
     val name: String,
