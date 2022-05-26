@@ -1,15 +1,14 @@
 package de.fhe.ai.weemeal.domain.enums
 
-import androidx.compose.ui.graphics.Color
 import java.security.SecureRandom
 
-//TODO: depends on compose?
-enum class CookColor(val color: Color) {
-    TRANSPARENT(Color.Transparent),
-    YELLOW(Color.Yellow),
-    GREEN(Color.Green),
-    RED(Color.Red),
-    BLUE(Color.Blue);
+enum class CookColor(val color: String) {
+
+    TRANSPARENT("0x00000000"),
+    YELLOW("0xFFFFFF00"),
+    GREEN("0xFF00FF00"),
+    RED("0xFFFF0000"),
+    BLUE("0xFF0000FF");
 
     companion object {
         fun getRandom(): CookColor {

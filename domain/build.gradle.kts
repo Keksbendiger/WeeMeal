@@ -36,14 +36,6 @@ android {
         jvmTarget = Config.jvm_target
     }
 
-    //Compose Config
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
-    }
 
     packagingOptions {
         resources.excludes.apply {
@@ -54,10 +46,4 @@ android {
 }
 
 dependencies {
-    //Dependencies
-    // Should not have any dependencies
-    addComposeDependencies()
-
-    // Modules
-    // Should not be dependent on any modules
 }

@@ -3,7 +3,6 @@ package de.fhe.ai.weemeal.mocks
 import de.fhe.ai.weemeal.common.extentions.timeUnit
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.domain.models.Tag
 import io.bloco.faker.Faker
 
 object RecipeMock {
@@ -28,11 +27,7 @@ object RecipeMock {
             ),
             instructions = faker.lorem.paragraph(faker.number.between(1, 20), true),
             image = "",
-            seasonality = listOf("Herbst", "Sommer"),
-            mealTime = MealTimeMock.generateList(faker.number.between(1, 5)),
-            optionalTags = listOf(Tag("custom")),
-//    -nutritionalValue : ?,
-
+            tags = TagMock.generateList(),
         )
     }
 
