@@ -13,7 +13,7 @@ object TagMock {
     fun generateList(amount: Int? = faker.number.between(1, 30)): List<Tag> {
 
         val recipeList: MutableList<Tag> = mutableListOf()
-        Tag.generateDefaultTagList().forEach(){
+        Tag.generateDefaultTagList().forEach() {
             recipeList.add(it)
         }
         for (i in 1..amount!!) {
