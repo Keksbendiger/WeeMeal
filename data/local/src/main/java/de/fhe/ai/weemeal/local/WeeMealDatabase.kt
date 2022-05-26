@@ -6,14 +6,21 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import de.fhe.ai.weemeal.local.recipe.RecipeEntity
 import de.fhe.ai.weemeal.local.recipe.RecipeEntityDao
+import de.fhe.ai.weemeal.local.recipe.RecipeIngredientEntity
 
-@Database(entities = [RecipeEntity::class], version = 1)
+@Database(
+    entities = [
+        RecipeEntity::class,
+        RecipeIngredientEntity::class,
+    ],
+    version = 1
+)
 abstract class WeeMealDatabase : RoomDatabase() {
     abstract fun recipeEntityDao(): RecipeEntityDao
 
     companion object {
         fun getDatabase(app: Context): WeeMealDatabase {
-            return Room.databaseBuilder( app, WeeMealDatabase::class.java, "weemeal-database")
+            return Room.databaseBuilder(app, WeeMealDatabase::class.java, "weemeal-database")
                 .fallbackToDestructiveMigration()
                 .build()
         }
