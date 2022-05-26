@@ -58,4 +58,7 @@ dependencies {
     addComposeDependencies()
     addTimberDependencies()
     addFakerDependencies()
+
+    //Modules
+    DOMAIN
 }
