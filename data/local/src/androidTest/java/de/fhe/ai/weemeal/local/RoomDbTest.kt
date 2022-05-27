@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.WeeMealDatabase
-import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
+import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertNotNull

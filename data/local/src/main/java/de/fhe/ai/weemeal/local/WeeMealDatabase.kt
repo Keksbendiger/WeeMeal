@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import de.fhe.ai.weemeal.local.dao.IngredientEntityDao
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
-import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeIngredientEntityDao
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
 import de.fhe.ai.weemeal.local.entity.MealEntity
+import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
 
 @Database(
@@ -56,8 +56,5 @@ abstract class WeeMealDatabase : RoomDatabase() {
         fun getRecipeIngredientEntityDao(app: Context): RecipeIngredientEntityDao {
             return getDatabase(app).recipeIngredientEntityDao()
         }
-
-
     }
-
 }

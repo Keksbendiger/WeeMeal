@@ -1,9 +1,9 @@
 package de.fhe.ai.weemeal.repository
 
 import de.fhe.ai.weemeal.domain.models.Recipe
+import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.local.mapper.recipe.fromDomain
 import de.fhe.ai.weemeal.local.mapper.recipe.toDomain
-import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import kotlinx.coroutines.flow.map
 
 class RecipeRepositoryImpl(
