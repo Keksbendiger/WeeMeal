@@ -1,6 +1,5 @@
-package de.fhe.weefood.screens.recipe_list
+package de.fhe.ai.weemeal.recipeList
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,11 +27,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
+import de.fhe.ai.weemeal.common.components.CustomChip
+import de.fhe.ai.weemeal.common.components.ListComponent
+import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.mocks.RecipeMock
-import de.fhe.ai.weemeal.recipe_list.CustomChip
-import de.fhe.ai.weemeal.recipe_list.ListComponent
-import de.fhe.ai.weemeal.recipe_list.SearchAppBar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Preview

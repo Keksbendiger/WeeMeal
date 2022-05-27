@@ -1,5 +1,5 @@
 build:
-  maxIssues: 0
+  maxIssues: 10
   excludeCorrectable: false
   weights:
   # complexity: 2
@@ -575,7 +575,7 @@ style:
   NestedClassesVisibility:
     active: true
   NewLineAtEndOfFile:
-    active: true
+    active: false
   NoTabs:
     active: false
   ObjectLiteralToLambda:
