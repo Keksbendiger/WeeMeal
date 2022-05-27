@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import de.fhe.ai.weemeal.recipe_detail.RecipeDetailsScreen
 import de.fhe.weefood.screens.recipe_list.RecipeDetailScreen
 import de.fhe.weefood.screens.recipe_list.RecipeListScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,7 +40,7 @@ fun AppNavigationHost(
     ) {
         composable(Screens.Recipe.name) {
             onNavigation(Screens.Recipe.name)
-            // RecipeScreen() TODO: hier den Recipe Screen einfügen
+            RecipeDetailsScreen()
         }
         composable(Screens.RecipeList.name) {
             onNavigation(Screens.RecipeList.name)
