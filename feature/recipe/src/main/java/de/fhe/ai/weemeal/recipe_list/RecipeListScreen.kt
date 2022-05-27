@@ -4,16 +4,15 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons.Filled
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -92,6 +91,9 @@ fun RecipeListScreen(
 
 @Composable
 private fun RecipeList(recipes: List<Recipe>) {
+//    TODO: Remember where list was left and move back to that index
+//    val listState = rememberLazyListState()
+
     LazyColumn {
         itemsIndexed(
             items = recipes
@@ -119,6 +121,9 @@ private fun RecipeListItemContent(recipe: Recipe) {
 
     Row(
         modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = { expanded = !expanded })
+            .padding(8.dp)
             .animateContentSize(
                 animationSpec = spring(
                     dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -126,46 +131,62 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 )
             )
     ) {
-        Column( modifier= Modifier
-            .padding(12.dp)
-            .weight(1f)
+        Column(
         ) {
-            Row(modifier = Modifier
+            Row(
+                modifier = Modifier
                     .fillMaxWidth()
-            ){
+            ) {
                 //            TODO: Use Image of Food/Recipe
                 Icon(
-                    imageVector = Filled.Lock,
+                    imageVector = Filled.Face,
                     contentDescription = "Dummy-Image",
-                    modifier = Modifier
-                        .fillMaxHeight())
+                    modifier = Modifier.size(70.dp)
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
                 Text(
                     text = recipe.name,
                     style = MaterialTheme.typography.h6.copy(
                         fontWeight = FontWeight.ExtraBold
-                    )
+                    ),
+                    modifier= Modifier
+                        .align(Alignment.CenterVertically)
+                        .weight(1f)
                 )
 
                 IconButton(
-                    onClick = { expanded = !expanded }
+//                    TODO: Navigate to Edit Recipe Screen
+                    onClick = { },
+                    modifier = Modifier
+                        .align(Alignment.Top)
                 ) {
                     Icon(
-//                TODO: Use better Icons -> ExpandLess and ExpandMore
-                        imageVector = if (expanded) Filled.Close else Filled.Search,
-                        contentDescription = if (expanded) {
-                            "show less"
-                        } else {
-                            "show more"
-                        }
+                        imageVector = Filled.Edit,
+//                        TODO: Extract String Ressource
+                        contentDescription = "Edit Recipe"
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.height(12.dp))
-            
+
             if (expanded) {
                 RecipeListItemContentExpanded(recipe = recipe)
             }
+            Icon(
+//                TODO: Use better Icons -> ExpandLess and ExpandMore
+//                      Dependency: implementation "androidx.compose.material:material-icons-extended:$compose_version"
+                imageVector = if (expanded) Filled.Close else Filled.ArrowDropDown,
+                contentDescription = if (expanded) {
+                    "show less"
+                } else {
+                    "show more"
+                },
+            modifier = Modifier
+                .align(alignment = Alignment.CenterHorizontally)
+            )
         }
     }
 }
@@ -173,7 +194,10 @@ private fun RecipeListItemContent(recipe: Recipe) {
 @Composable
 private fun RecipeListItemContentExpanded(recipe: Recipe) {
     Column(Modifier.fillMaxWidth()) {
-        Text(text = "Some Recipe Info")
+        Text(text = "Some Recipe Info:")
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         LazyRow {
             itemsIndexed(
                 items = recipe.tags!!
