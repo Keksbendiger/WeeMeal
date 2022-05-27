@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package de.fhe.ai.weemeal.app.ui.screens.core
 
 import androidx.compose.foundation.ExperimentalFoundationApi
