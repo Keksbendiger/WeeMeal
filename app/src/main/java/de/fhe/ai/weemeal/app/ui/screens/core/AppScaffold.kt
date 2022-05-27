@@ -30,7 +30,7 @@ val LocalScaffoldState = staticCompositionLocalOf<ScaffoldState> { error("no sca
 fun AppScaffold() {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
-    var title by rememberSaveable { mutableStateOf(Screens.Main.name) }
+    var title by rememberSaveable { mutableStateOf(Screens.WeekList.name) }
 
     CompositionLocalProvider(
         LocalNavCtrl provides navController,
