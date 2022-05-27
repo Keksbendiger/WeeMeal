@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.recipe_list
+package de.fhe.ai.weemeal.common.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
