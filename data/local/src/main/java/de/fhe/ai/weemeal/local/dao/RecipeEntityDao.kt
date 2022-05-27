@@ -1,9 +1,10 @@
-package de.fhe.ai.weemeal.local.recipe
+package de.fhe.ai.weemeal.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -6,5 +6,4 @@ data class Ingredient(
     val name: String,
     val image: String? = "",
     var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"), // TODO: QuantityFormat?
-    //    val nutritionalValue? : ?
 )
