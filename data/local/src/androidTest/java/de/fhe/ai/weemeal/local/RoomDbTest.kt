@@ -91,7 +91,7 @@ class RoomDbTest {
         recipeEntityMockList.forEach {
             recipeEntityDao.insert(it)
         }
-        recipeEntityDao.insert(RecipeMock.generateRecipeEntity(name="FrontSubstringBack"))
+        recipeEntityDao.insert(RecipeMock.generateRecipeEntity(name = "FrontSubstringBack"))
 
         val recipeEntityListResult = recipeEntityDao.search("Substring").first()
 
@@ -101,35 +101,51 @@ class RoomDbTest {
         }
     }
 
-    @Test
-    fun read() {
-    }
 
     @Test
-    fun update() {
-    }
-
-    @Test
-    fun delete() {
-    }
-
-    @Test
-    fun writeReadDeleteSingleDiaryEntry() = runBlocking {
+    fun update() = runBlocking {
 
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
 
-        val entityId = recipeEntityDao.insert(prepareUserEntity())
-        assertTrue("DB should contain one entry", recipeEntityDao.getAll().size == 1)
+        val recipeEntityMockList = RecipeMock.generateEntityList(amount = 30)
+        recipeEntityMockList.forEach {
+            recipeEntityDao.insert(it)
+        }
 
-        val loadedEntity = recipeEntityDao.get(entityId)
-        assertNotNull("Loaded diary entry should not be null", loadedEntity)
 
-        recipeEntityDao.delete(loadedEntity!!)
-        assertNull("DB should not contain deleted Entity", recipeEntityDao.get(entityId))
-        assertTrue("DB should be empty after deletion", recipeEntityDao.getAll().isEmpty())
+        val updateRecipeEntity = recipeEntityDao.getAll().get(recipeEntityMockList.indices.random())
+
+        val newsjdfh = updateRecipeEntity //TODO change nameing
+        newsjdfh.name = "updated"//TODO change nameing
+
+        recipeEntityDao.update(newsjdfh)//TODO change nameing
+
+        val newadfadsfs = recipeEntityDao.get(updateRecipeEntity.id)//TODO change nameing
+        assert(newadfadsfs!!.name == newsjdfh.name)//TODO change nameing
+
     }
 
-    private fun prepareUserEntity(): RecipeEntity {
-        return RecipeEntity(name = "Steffen")
+    @Test
+    fun should_delete_entity() = runBlocking {
+
+        assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
+
+        val recipeEntityMockList = RecipeMock.generateEntityList(amount = 30)
+        recipeEntityMockList.forEach {
+            recipeEntityDao.insert(it)
+        }
+
+        val deleteRecipeEntity = recipeEntityDao.getAll().get(recipeEntityMockList.indices.random())
+
+        recipeEntityDao.delete(deleteRecipeEntity)
+        assertNull(
+            "DB should not contain deleted Entity",
+            recipeEntityDao.get(deleteRecipeEntity.id)
+        )
+        assertTrue(
+            "DB should have 1 item less after deletion",
+            recipeEntityDao.getAll().size == recipeEntityMockList.size - 1
+        )
     }
+
 }

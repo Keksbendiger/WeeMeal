@@ -9,12 +9,12 @@ import de.fhe.ai.weemeal.domain.models.Tag
 @Entity
 data class RecipeEntity(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
-    val name: String,
-    val defaultServings: Int? = 1,
-    val timePreparation: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
-    val timeActiveCooking: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
-    val timeOverall: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
-    val instructions: String? = "",
-    val image: String? = "",
+    val id: Long = 0,
+    var name: String,
+    var defaultServings: Int? = 1,
+    var timePreparation: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
+    var timeActiveCooking: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
+    var timeOverall: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
+    var instructions: String? = "",
+    var image: String? = "",
 )
