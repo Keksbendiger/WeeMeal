@@ -4,12 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import de.fhe.ai.weemeal.common.extentions.timeUnit
-import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
-import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.mocks.RecipeMock
-import io.bloco.faker.Faker
 import java.io.IOException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -28,10 +24,12 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class RoomDbTest {
-    private var faker: Faker = Faker()
     private lateinit var recipeEntityDao: RecipeEntityDao
     private lateinit var db: WeeMealDatabase
 
+    //----------------------------------------------------------------------------------------------
+    // SETUP
+    //----------------------------------------------------------------------------------------------
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -48,6 +46,9 @@ class RoomDbTest {
     }
 
 
+    //----------------------------------------------------------------------------------------------
+    // CREATE
+    //----------------------------------------------------------------------------------------------
     @Test
     fun should_create_a_list_of_recipes() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
@@ -67,6 +68,9 @@ class RoomDbTest {
         }
     }
 
+    //----------------------------------------------------------------------------------------------
+    // READ
+    //----------------------------------------------------------------------------------------------
     @Test
     fun should_get_a_recipe_by_id() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
@@ -101,7 +105,9 @@ class RoomDbTest {
         }
     }
 
-
+    //----------------------------------------------------------------------------------------------
+    // UPDATE
+    //----------------------------------------------------------------------------------------------
     @Test
     fun update() = runBlocking {
 
@@ -125,6 +131,9 @@ class RoomDbTest {
 
     }
 
+    //----------------------------------------------------------------------------------------------
+    // DELETE
+    //----------------------------------------------------------------------------------------------
     @Test
     fun should_delete_entity() = runBlocking {
 
