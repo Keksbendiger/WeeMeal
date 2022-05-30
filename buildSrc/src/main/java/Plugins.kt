@@ -1,6 +1,6 @@
 object Plugins {
     //TODO update plugins and version
-    const val detektVersion = "1.19.0"
+    const val detektVersion = "1.20.0"
     const val dokkaVersion = "1.6.10"
 
     const val android_app = "com.android.application"
