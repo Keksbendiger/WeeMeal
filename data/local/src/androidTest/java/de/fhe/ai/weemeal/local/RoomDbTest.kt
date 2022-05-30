@@ -118,16 +118,16 @@ class RoomDbTest {
             recipeEntityDao.insert(it)
         }
 
+        val updateRecipeEntity = recipeEntityDao.getAll()[recipeEntityMockList.indices.random()]
+        println(updateRecipeEntity)
+        val changedRecipeEntity = RecipeMock.generateRecipeEntity(id = updateRecipeEntity.id)
+        println(changedRecipeEntity)
 
-        val updateRecipeEntity = recipeEntityDao.getAll().get(recipeEntityMockList.indices.random())
+        recipeEntityDao.update(changedRecipeEntity)//TODO change nameing
 
-        val newsjdfh = updateRecipeEntity //TODO change nameing
-        newsjdfh.name = "updated"//TODO change nameing
-
-        recipeEntityDao.update(newsjdfh)//TODO change nameing
-
-        val newadfadsfs = recipeEntityDao.get(updateRecipeEntity.id)//TODO change nameing
-        assert(newadfadsfs!!.name == newsjdfh.name)//TODO change nameing
+        val updatedRecipeEntity = recipeEntityDao.get(updateRecipeEntity.id)
+        println(updatedRecipeEntity)
+        assert(updatedRecipeEntity!!.name == changedRecipeEntity.name)
 
     }
 
