@@ -12,6 +12,6 @@ data class MealEntity(
     val recipeId: Long,
     val servings: Int? = 1,
     val cookColor: CookColor? = CookColor.TRANSPARENT,
-    val cookingDate: Date, // TODO: TypeCOnverter???
-    val shoppingListCreatedAt: Date? = null, // TODO: TypeCOnverter???
+    val cookingDate: Date,
+    val shoppingListCreatedAt: Date? = null,
 )

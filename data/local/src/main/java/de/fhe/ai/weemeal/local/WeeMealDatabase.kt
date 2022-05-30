@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import de.fhe.ai.weemeal.local.dao.IngredientEntityDao
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
@@ -12,6 +13,7 @@ import de.fhe.ai.weemeal.local.entity.IngredientEntity
 import de.fhe.ai.weemeal.local.entity.MealEntity
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
+import de.fhe.ai.weemeal.local.mapper.Converters
 
 @Database(
     entities = [
@@ -22,6 +24,7 @@ import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
     ],
     version = 1
 )
+@TypeConverters(Converters::class)
 abstract class WeeMealDatabase : RoomDatabase() {
     abstract fun ingredientEntityDao(): IngredientEntityDao
     abstract fun mealEntityDao(): MealEntityDao

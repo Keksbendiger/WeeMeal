@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.domain.formats
+package de.fhe.ai.weemeal.domain.enums
 
 import java.security.SecureRandom
 
@@ -13,4 +13,6 @@ enum class TimeUnit(val value: String) {
             return TimeUnit.values()[SecureRandom().nextInt(TimeUnit.values().size)]
         }
     }
+
+
 }

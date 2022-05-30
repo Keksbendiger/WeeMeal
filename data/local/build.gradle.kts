@@ -61,10 +61,14 @@ dependencies {
     addTimberDependencies()
     addRoomDependencies()
     addKoinDependencies()
+    addFakerDependencies()
+
+    androidTestImplementation(project(Modules.mocks))
 
     kapt( Room.roomCompiler )
 
     // Modules
     DOMAIN
     COMMON
+
 }

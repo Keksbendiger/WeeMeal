@@ -18,6 +18,9 @@ interface RecipeEntityDao {
     @Query("SELECT * FROM RecipeEntity WHERE id = :id")
     suspend fun get(id: Long): RecipeEntity?
 
+    @Query("SELECT * FROM RecipeEntity WHERE name LIKE '%' || :name || '%'")
+    fun search(name: String?): Flow<List<RecipeEntity>>
+
     @Insert
     suspend fun insert(entity: RecipeEntity): Long
 

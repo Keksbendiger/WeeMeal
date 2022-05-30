@@ -10,5 +10,5 @@ data class IngredientEntity(
     var id: Long = 0,
     val name: String,
     val image: String? = "",
-    var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"), // TODO: TypeConverter?
+    var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"),
 )
