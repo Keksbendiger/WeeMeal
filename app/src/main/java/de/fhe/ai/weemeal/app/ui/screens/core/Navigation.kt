@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import weeklist_component.WeeklistScreen
 
 enum class Screens(val icon: ImageVector) {
     Recipe(Icons.Filled.Home),
@@ -51,7 +52,7 @@ fun AppNavigationHost(
         }
         composable(Screens.WeekList.name) {
             onNavigation(Screens.WeekList.name)
-            // WeekList() TODO: hier den WeekList Screen einfügen
+            WeeklistScreen()
         }
         composable(Screens.Settings.name) {
             onNavigation(Screens.Recipe.name)
