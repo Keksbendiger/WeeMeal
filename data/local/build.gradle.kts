@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.android_library)
     id(Plugins.kotlin_android)
+    id(Plugins.kotlin_kapt)
 }
 
 android {
@@ -59,8 +60,15 @@ dependencies {
     addComposeDependencies()
     addTimberDependencies()
     addRoomDependencies()
+    addKoinDependencies()
+    addFakerDependencies()
+
+    androidTestImplementation(project(Modules.mocks))
+
+    kapt( Room.roomCompiler )
 
     // Modules
     DOMAIN
     COMMON
+
 }

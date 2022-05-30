@@ -8,5 +8,6 @@ object Koin {
 
     //Test
     const val test = "io.insert-koin:koin-test:${koinVersion}"
+    const val testJunit4 = "io.insert-koin:koin-test-junit4:${koinVersion}"
 
 }

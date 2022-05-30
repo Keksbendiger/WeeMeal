@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.domain.formats
+package de.fhe.ai.weemeal.domain.enums
 
 import java.security.SecureRandom
 
