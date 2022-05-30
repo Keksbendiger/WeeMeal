@@ -23,7 +23,7 @@ import java.io.IOException
  * See: https://developer.android.com/training/data-storage/room/testing-db
  */
 @RunWith(AndroidJUnit4::class)
-class RoomDbTest {
+class RecipeEntityTest {
     private lateinit var recipeEntityDao: RecipeEntityDao
     private lateinit var db: WeeMealDatabase
 
