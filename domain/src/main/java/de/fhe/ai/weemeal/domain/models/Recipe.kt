@@ -1,7 +1,6 @@
 package de.fhe.ai.weemeal.domain.models
 
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
-import de.fhe.ai.weemeal.domain.enums.TimeUnit
 
 data class Recipe(
     val name: String,

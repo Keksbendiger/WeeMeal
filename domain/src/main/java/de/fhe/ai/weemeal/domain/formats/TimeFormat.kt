@@ -1,7 +1,5 @@
 package de.fhe.ai.weemeal.domain.formats
 
-import de.fhe.ai.weemeal.domain.enums.TimeUnit
-
 data class TimeFormat(
     val value: Float,
     val unit: String

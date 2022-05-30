@@ -13,6 +13,4 @@ enum class TimeUnit(val value: String) {
             return TimeUnit.values()[SecureRandom().nextInt(TimeUnit.values().size)]
         }
     }
-
-
 }

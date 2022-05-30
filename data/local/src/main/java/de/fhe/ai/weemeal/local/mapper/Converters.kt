@@ -3,7 +3,6 @@ package de.fhe.ai.weemeal.local.mapper
 import androidx.room.TypeConverter
 import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
-import de.fhe.ai.weemeal.domain.enums.TimeUnit
 import java.util.Date
 
 class Converters {
@@ -19,7 +18,6 @@ class Converters {
         return quantityFormat?.toTypeConvertString()
     }
 
-
     @TypeConverter
     fun timeFormatToString(value: String?): TimeFormat? {
         return value?.let {
@@ -31,7 +29,6 @@ class Converters {
     fun stringToTimeFormat(timeFormat: TimeFormat?): String? {
         return timeFormat?.toTypeConvertString()
     }
-
 
     @TypeConverter
     fun longToDate(value: Long?): Date? {

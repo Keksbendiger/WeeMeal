@@ -42,7 +42,6 @@ object RecipeMock {
         return recipeList
     }
 
-
     fun generateRecipeEntity(
         id: Long = 0,
         name: String = faker.food.dish(),

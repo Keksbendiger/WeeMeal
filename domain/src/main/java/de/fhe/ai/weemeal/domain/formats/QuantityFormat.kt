@@ -1,6 +1,5 @@
 package de.fhe.ai.weemeal.domain.formats
 
-
 data class QuantityFormat(
     val quantity: Float,
     val unit: String
@@ -8,5 +7,4 @@ data class QuantityFormat(
     fun toTypeConvertString(): String {
         return "$quantity;$unit"
     }
-
 }

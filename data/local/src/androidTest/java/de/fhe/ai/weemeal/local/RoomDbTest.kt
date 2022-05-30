@@ -6,7 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.mocks.RecipeMock
-import java.io.IOException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -16,6 +15,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -27,9 +27,9 @@ class RoomDbTest {
     private lateinit var recipeEntityDao: RecipeEntityDao
     private lateinit var db: WeeMealDatabase
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     // SETUP
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -45,10 +45,9 @@ class RoomDbTest {
         db.close()
     }
 
-
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     // CREATE
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     @Test
     fun should_create_a_list_of_recipes() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
@@ -68,9 +67,9 @@ class RoomDbTest {
         }
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     // READ
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     @Test
     fun should_get_a_recipe_by_id() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
@@ -105,9 +104,9 @@ class RoomDbTest {
         }
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     // UPDATE
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     @Test
     fun update() = runBlocking {
 
@@ -123,17 +122,16 @@ class RoomDbTest {
         val changedRecipeEntity = RecipeMock.generateRecipeEntity(id = updateRecipeEntity.id)
         println(changedRecipeEntity)
 
-        recipeEntityDao.update(changedRecipeEntity)//TODO change nameing
+        recipeEntityDao.update(changedRecipeEntity) // TODO change nameing
 
         val updatedRecipeEntity = recipeEntityDao.get(updateRecipeEntity.id)
         println(updatedRecipeEntity)
         assert(updatedRecipeEntity!!.name == changedRecipeEntity.name)
-
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     // DELETE
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
     @Test
     fun should_delete_entity() = runBlocking {
 
@@ -156,5 +154,4 @@ class RoomDbTest {
             recipeEntityDao.getAll().size == recipeEntityMockList.size - 1
         )
     }
-
 }
