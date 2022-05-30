@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.recipe_detail
+package de.fhe.ai.weemeal.recipeDetail
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import de.fhe.ai.weemeal.common.components.CustomChip
+import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.mocks.RecipeMock
-import de.fhe.ai.weemeal.recipe_list.CustomChip
-import de.fhe.ai.weemeal.recipe_list.ListComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Preview
@@ -53,7 +53,8 @@ fun RecipeDetailsScreen(
                 Column(
                     Modifier
                         .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())) {
+                        .verticalScroll(rememberScrollState())
+                ) {
                     // Image
                     // TODO content description / Localization
                     Column(
@@ -67,7 +68,7 @@ fun RecipeDetailsScreen(
                             modifier = Modifier
                                 .size(120.dp),
 
-                            )
+                        )
                     }
 
                     // Recipe Name
@@ -120,9 +121,7 @@ fun RecipeDetailsScreen(
                                     bottom = 2.dp,
                                 ),
                         )
-
                     }
-
 
                     Column {
                         recipe.defaultIngredients?.forEach {
@@ -134,7 +133,6 @@ fun RecipeDetailsScreen(
                     }
 
                     Spacer(modifier = Modifier.height(10.dp))
-
 
                     // cooking time
                     Text(
@@ -155,24 +153,27 @@ fun RecipeDetailsScreen(
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Row (
+                        Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween) {
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
                             // TODO different icons, localization
                             Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.outdoor_grill), contentDescription = "active cooking time")
                             Text("Kochen")
                             Text(recipe.timeActiveCooking.toString())
                         }
-                        Row (
+                        Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween) {
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
                             Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.set_meal), contentDescription = "preparation time")
                             Text("Vorbereitung")
                             Text(recipe.timePreparation.toString())
                         }
-                        Row (
+                        Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween) {
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
                             Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.access_time), contentDescription = "overall time")
                             Text("Gesamt")
                             Text(recipe.timeOverall.toString())

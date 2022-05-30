@@ -11,9 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import de.fhe.ai.weemeal.recipe_detail.RecipeDetailsScreen
-import de.fhe.weefood.screens.recipe_list.RecipeDetailScreen
-import de.fhe.weefood.screens.recipe_list.RecipeListScreen
+import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
+import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 enum class Screens(val icon: ImageVector) {
