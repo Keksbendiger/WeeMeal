@@ -1,3 +1,4 @@
+@file: Suppress("MatchingDeclarationName")
 package de.fhe.ai.weemeal.app.ui.screens.core
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,8 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
+import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import weeklist_component.WeeklistScreen
 
 enum class Screens(val icon: ImageVector) {
     Recipe(Icons.Filled.Home),

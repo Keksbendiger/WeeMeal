@@ -166,7 +166,12 @@ fun RecipeDetailsScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             // TODO different icons, localization
-                            Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.outdoor_grill), contentDescription = "active cooking time")
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.recipe.R.drawable.outdoor_grill
+                                ),
+                                contentDescription = "active cooking time"
+                            )
                             Text("Kochen")
                             Text(recipe.timeActiveCooking.toString())
                         }
@@ -174,7 +179,12 @@ fun RecipeDetailsScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.set_meal), contentDescription = "preparation time")
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.recipe.R.drawable.set_meal
+                                ),
+                                contentDescription = "preparation time"
+                            )
                             Text("Vorbereitung")
                             Text(recipe.timePreparation.toString())
                         }
@@ -182,7 +192,12 @@ fun RecipeDetailsScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.access_time), contentDescription = "overall time")
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.recipe.R.drawable.access_time
+                                ),
+                                contentDescription = "overall time"
+                            )
                             Text("Gesamt")
                             Text(recipe.timeOverall.toString())
                         }
