@@ -17,7 +17,7 @@ object MealMock {
         )
     }
 
-    fun generateList(amount: Int? = faker.number.between(1, 30)): List<Meal> {
+    fun generateList(amount: Int? = faker.number.between(1, 7)): List<Meal> {
 
         val recipeList: MutableList<Meal> = mutableListOf()
 

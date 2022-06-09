@@ -2,7 +2,7 @@
 
 plugins {
     id(Plugins.detekt).version(Plugins.detektVersion)
-    id(Plugins.dokka).version (Plugins.dokkaVersion)
+    id(Plugins.dokka).version(Plugins.dokkaVersion)
 }
 
 subprojects {
@@ -16,14 +16,15 @@ subprojects {
         toolVersion = Plugins.detektVersion
         config = files("../config/detekt/detekt.yml")
         buildUponDefaultConfig = true
+        autoCorrect = true
     }
 }
 
 dependencies {
-    detektPlugins( Plugins.detekt_plugin_formatting )
+    detektPlugins(Plugins.detekt_plugin_formatting)
 }
 
-tasks.register("clean",Delete::class){
+tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
 buildscript {

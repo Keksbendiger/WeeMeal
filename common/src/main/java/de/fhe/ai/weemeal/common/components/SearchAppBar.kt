@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.recipe_list
+package de.fhe.ai.weemeal.common.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
