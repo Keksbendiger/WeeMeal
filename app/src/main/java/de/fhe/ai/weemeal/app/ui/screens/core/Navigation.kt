@@ -8,11 +8,13 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import weeklist_component.WeeklistScreen
 
@@ -48,7 +50,8 @@ fun AppNavigationHost(
         }
         composable(Screens.ShoppingList.name) {
             onNavigation(Screens.ShoppingList.name)
-            // ShoppingList() TODO: hier den ShoppingList Screen einfügen
+            ShoppingListScreen()
+            //TODO: hier den ShoppingList Screen einfügen
         }
         composable(Screens.WeekList.name) {
             onNavigation(Screens.WeekList.name)
