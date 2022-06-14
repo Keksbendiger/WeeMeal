@@ -33,7 +33,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -163,13 +162,11 @@ private fun RecipeListItemContent(recipe: Recipe) {
                     .fillMaxWidth()
             ) {
                 //            TODO: Use Image of Food/Recipe
-                recipe.image?.let{
-                    Image(
-                        painterResource(id = it),
-                        contentDescription = "Dummy-Image",
-                        modifier = Modifier.size(70.dp)
-                    )
-                }
+                Image(
+                    painterResource(id = recipe.image),
+                    contentDescription = "Dummy-Image",
+                    modifier = Modifier.size(70.dp)
+                )
 
                 Spacer(modifier = Modifier.width(8.dp))
 
