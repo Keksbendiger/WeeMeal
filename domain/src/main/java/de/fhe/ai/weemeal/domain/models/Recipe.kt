@@ -1,5 +1,6 @@
 package de.fhe.ai.weemeal.domain.models
 
+import de.fhe.ai.weemeal.domain.R
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 
 data class Recipe(
@@ -10,6 +11,6 @@ data class Recipe(
     val timeActiveCooking: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
     val timeOverall: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
     val instructions: String? = "",
-    val image: String? = "",
+    val image: Int = R.drawable.recipe_placeholder,
     val tags: List<Tag>? = Tag.generateDefaultTagList(),
 )

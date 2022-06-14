@@ -27,7 +27,7 @@ object RecipeMock {
                 unit = faker.timeUnit()
             ),
             instructions = faker.lorem.paragraph(faker.number.between(1, 20), true),
-            image = "",
+            image = de.fhe.ai.weemeal.R.drawable.recipe_placeholder,
             tags = TagMock.generateList(),
         )
     }
@@ -59,7 +59,7 @@ object RecipeMock {
             unit = faker.timeUnit()
         ),
         instructions: String? = faker.lorem.paragraph(faker.number.between(1, 20), true),
-        image: String? = "",
+        image: Int = de.fhe.ai.weemeal.R.drawable.recipe_placeholder,
     ): RecipeEntity {
         return RecipeEntity(
             id = id,

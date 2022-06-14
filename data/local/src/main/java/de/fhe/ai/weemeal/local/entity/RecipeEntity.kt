@@ -14,5 +14,5 @@ data class RecipeEntity(
     var timeActiveCooking: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
     var timeOverall: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
     var instructions: String? = "",
-    var image: String? = "",
+    var image: Int = de.fhe.ai.weemeal.R.drawable.recipe_placeholder
 )
