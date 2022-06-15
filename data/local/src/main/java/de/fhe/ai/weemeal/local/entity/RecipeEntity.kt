@@ -15,4 +15,31 @@ data class RecipeEntity(
     var timeOverall: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),
     var instructions: String? = "",
     var image: String? = "",
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return (
+                (other is RecipeEntity) &&
+                        other.id == this.id &&
+                        other.name == this.name &&
+                        other.defaultServings == this.defaultServings &&
+                        other.timePreparation == this.timePreparation &&
+                        other.timeActiveCooking == this.timeActiveCooking &&
+                        other.timeOverall == this.timeOverall &&
+                        other.instructions == this.instructions &&
+                        other.image == this.image
+                )
+    }
+
+    fun equalsWithoutId(other: Any?): Boolean {
+        return (
+                (other is RecipeEntity) &&
+                        other.name == this.name &&
+                        other.defaultServings == this.defaultServings &&
+                        other.timePreparation == this.timePreparation &&
+                        other.timeActiveCooking == this.timeActiveCooking &&
+                        other.timeOverall == this.timeOverall &&
+                        other.instructions == this.instructions &&
+                        other.image == this.image
+                )
+    }
+}

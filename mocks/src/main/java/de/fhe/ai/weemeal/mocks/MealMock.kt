@@ -5,11 +5,10 @@ import de.fhe.ai.weemeal.domain.models.Meal
 import io.bloco.faker.Faker
 
 object MealMock {
-    private var faker: Faker = Faker()
-
-    fun generateMeal(): Meal {
+    private val faker: Faker = Faker()
+    fun generateSingleObject(): Meal {
         return Meal(
-            recipe = RecipeMock.generateRecipe(),
+            recipe = RecipeMock.generateSingleObject(),
             servings = faker.number.between(1, 10),
             cookColor = CookColor.getRandom(),
             cookingDate = faker.date.forward(),
@@ -19,11 +18,11 @@ object MealMock {
 
     fun generateList(amount: Int? = faker.number.between(1, 30)): List<Meal> {
 
-        val recipeList: MutableList<Meal> = mutableListOf()
+        val internalList: MutableList<Meal> = mutableListOf()
 
         for (i in 1..amount!!) {
-            recipeList.add(generateMeal())
+            internalList.add(generateSingleObject())
         }
-        return recipeList
+        return internalList
     }
 }
