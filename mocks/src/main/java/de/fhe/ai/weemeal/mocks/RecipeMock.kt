@@ -8,7 +8,7 @@ import io.bloco.faker.Faker
 object RecipeMock {
     private val faker: Faker = Faker()
 
-    fun generateSingleObject(): Recipe {
+    fun generateRecipe(): Recipe { //TODO rename to generateSingleObject
         return Recipe(
             name = faker.food.dish(),
             defaultServings = faker.number.between(1, 10),
@@ -31,12 +31,12 @@ object RecipeMock {
         )
     }
 
-    fun generateList(amount: Int?): List<Recipe> {
+    fun generateList(amount: Int? = faker.number.between(1, 30)): List<Recipe> {
 
         val internalList: MutableList<Recipe> = mutableListOf()
 
         for (i in 1..amount!!) {
-            internalList.add(generateSingleObject())
+            internalList.add(generateRecipe())
         }
         return internalList
     }

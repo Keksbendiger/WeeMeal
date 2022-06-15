@@ -80,7 +80,7 @@ fun RecipeDetailScreen(
                     )
                     LazyColumn {
                         itemsIndexed(
-                            items = RecipeMock.generateList<Any?>()
+                            items = RecipeMock.generateList()
                         ) { index, recipe ->
                             Column() {
 
