@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -44,11 +42,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.VerticalAlignmentLine
-import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.R
@@ -58,7 +53,6 @@ import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
-import kotlin.math.ceil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 // @Preview
@@ -166,7 +160,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 )
             )
     ) {
-        Box()   // Align ExpandIcon to BottomCenter in Row
+        Box() // Align ExpandIcon to BottomCenter in Row
         {
             Row() {
                 Image(
@@ -182,8 +176,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .height(imagesize)
-                    ,
+                        .height(imagesize),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
@@ -192,7 +185,8 @@ private fun RecipeListItemContent(recipe: Recipe) {
                         modifier = Modifier
                     )
 
-                    Spacer(modifier = Modifier.height(expandIconSize))  // Buffer to make recipename not touch the expandicon
+                    // Buffer to make recipename not touch the expandicon
+                    Spacer(modifier = Modifier.height(expandIconSize))
                 }
 
                 IconButton(
@@ -203,7 +197,9 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 ) {
                     Icon(
                         imageVector = Filled.Edit,
-                        contentDescription = stringResource(de.fhe.ai.weemeal.recipe.R.string.edit_recipe)
+                        contentDescription = stringResource(
+                            de.fhe.ai.weemeal.recipe.R.string.edit_recipe
+                        )
                     )
                 }
             }
