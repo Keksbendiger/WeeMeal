@@ -12,14 +12,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -29,21 +26,19 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
-import de.fhe.ai.weemeal.common.components.CustomChipButton
-import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.components.RecipeNumberInput
+import de.fhe.ai.weemeal.common.components.RecipeStringInput
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.recipe.R
@@ -67,7 +62,7 @@ fun RecipeEditScreen(
 //            topBar = {
 //                AppBar(title = "Rezeptansicht")
 //            },
-//            bottomBar = { BottomBar(navController) },j
+//            bottomBar = { BottomBar(navController) },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 val recipe = RecipeMock.generateRecipe()
@@ -132,17 +127,16 @@ fun RecipeEditScreen(
                                 modifier = Modifier.padding(start = 5.dp)
                             )
                         }
+                        item {
+                            IconButton(onClick = { /*TODO add Tag*/ }) {
+                                Icon(Icons.Filled.Add, "Add Tag Button")
+                            }
+                        }
                     }
-                    CustomChipButton(
-                        onClick = { /*TODO*/ },
-                        text = "Tag hinzufügen..",
-                        modifier = Modifier.padding(start = 5.dp)
-                    )
 
                     // Ingredients
                     Row {
                         Text(
-                            // TODO Localization
                             text = "Zutaten",
                             modifier = Modifier
                                 .wrapContentWidth(Alignment.Start)
@@ -154,9 +148,24 @@ fun RecipeEditScreen(
                         )
 
                         Text(
-                            // TODO Localization
-                            // TODO vertical alignment (center or bottom)
-                            text = " für " + recipe.defaultServings + " Portionen",
+                            text = " für ",
+                            modifier = Modifier
+                                .wrapContentWidth(Alignment.Start)
+                                .padding(
+                                    top = 16.dp,
+                                ),
+                        )
+
+                        RecipeNumberInput(
+                            value = recipe.defaultServings.toString(),
+                            onValueChange = {
+                                if (it.toInt() > 0) recipe.defaultServings = it.toInt()
+                            },
+                            Modifier.align(Alignment.Bottom)
+                        )
+
+                        Text(
+                            text = " Portionen",
                             modifier = Modifier
                                 .wrapContentWidth(Alignment.Start)
                                 .padding(
@@ -167,29 +176,52 @@ fun RecipeEditScreen(
 
                     Column {
                         recipe.defaultIngredients?.forEach {
-                            Row (
+                            Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
-                            )
-                            {
-                                Text(
-                                    text = it.name,
+                            ) {
+                                var ingredient = it
+
+                                IconButton(
+                                    onClick = { /*TODO*/ },
                                     modifier = Modifier
+                                        .size(20.dp)
+                                        .align(Alignment.CenterVertically)
+                                ) {
+                                    Icon(Icons.Filled.Delete, "delete ingredient")
+                                }
+
+                                RecipeStringInput(
+                                    value = ingredient.name,
+                                    onValueChange = {
+                                        ingredient.name = it
+                                    },
+                                    wide = true
                                 )
 
-                                var ingredient = it;
-
-                                Row (horizontalArrangement = Arrangement.End){
+                                Row(horizontalArrangement = Arrangement.End) {
 
                                     RecipeNumberInput(
                                         value = ingredient.quantity.quantity.toString(),
                                         onValueChange = { ingredient.quantity.quantity }
                                     )
 
-                                    Text(
-                                        text = ingredient.quantity.unit
+                                    RecipeStringInput(
+                                        value = ingredient.quantity.unit,
+                                        onValueChange = {
+                                            ingredient.quantity.unit = it
+                                        }
                                     )
                                 }
+                            }
+                        }
+                        Row() {
+                            IconButton(
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier
+                                    .size(20.dp)
+                            ) {
+                                Icon(Icons.Filled.Add, "add ingredient")
                             }
                         }
                     }
@@ -219,13 +251,27 @@ fun RecipeEditScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            // TODO different icons, localization
+                            // TODO different icons
                             Icon(
                                 painterResource(id = R.drawable.outdoor_grill),
                                 contentDescription = "active cooking time"
                             )
                             Text("Kochen")
-                            Text(recipe.timeActiveCooking.toString())
+
+                            Row(horizontalArrangement = Arrangement.End) {
+                                RecipeNumberInput(
+                                    value = recipe.timeActiveCooking?.value.toString(),
+                                    onValueChange = {
+                                        recipe.timeActiveCooking!!.value = it.toFloat()
+                                    }
+                                )
+                                RecipeStringInput(
+                                    value = recipe.timeActiveCooking?.unit ?: "",
+                                    onValueChange = {
+                                        recipe.timeActiveCooking!!.unit = it
+                                    }
+                                )
+                            }
                         }
 
                         Row(
@@ -238,14 +284,20 @@ fun RecipeEditScreen(
                             )
                             Text("Vorbereitung")
 
-                            Row {
-//                                RecipeNumberInput(
-//                                    value = recipe.timePreparation.,
-//                                    onValueChange =
-//                                )
-                                // TODO: KOCHZEITEN EDITIEREN
+                            Row(horizontalArrangement = Arrangement.End) {
+                                RecipeNumberInput(
+                                    value = recipe.timePreparation?.value.toString(),
+                                    onValueChange = {
+                                        recipe.timePreparation!!.value = it.toFloat()
+                                    }
+                                )
+                                RecipeStringInput(
+                                    value = recipe.timePreparation?.unit ?: "",
+                                    onValueChange = {
+                                        recipe.timePreparation!!.unit = it
+                                    }
+                                )
                             }
-                            Text(recipe.timePreparation.toString())
                         }
 
                         Row(
@@ -257,7 +309,21 @@ fun RecipeEditScreen(
                                 contentDescription = "overall time"
                             )
                             Text("Gesamt")
-                            Text(recipe.timeOverall.toString())
+
+                            Row(horizontalArrangement = Arrangement.End) {
+                                RecipeNumberInput(
+                                    value = recipe.timeOverall?.value.toString(),
+                                    onValueChange = {
+                                        recipe.timeOverall!!.value = it.toFloat()
+                                    }
+                                )
+                                RecipeStringInput(
+                                    value = recipe.timeOverall?.unit ?: "",
+                                    onValueChange = {
+                                        recipe.timeOverall!!.unit = it
+                                    }
+                                )
+                            }
                         }
                     }
 

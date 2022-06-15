@@ -1,8 +1,8 @@
 package de.fhe.ai.weemeal.domain.formats
 
 data class TimeFormat(
-    val value: Float,
-    val unit: String
+    var value: Float,
+    var unit: String
 //    val unit: TimeUnit
 ) {
     override fun toString(): String {

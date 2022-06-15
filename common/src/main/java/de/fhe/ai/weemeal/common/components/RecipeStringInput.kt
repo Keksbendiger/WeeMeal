@@ -10,25 +10,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.theme.LightColors
 
 @Composable
-fun RecipeNumberInput(
+fun RecipeStringInput(
     value: String,
     onValueChange: (String) -> Unit,
+    wide: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    var width = 50.dp
+    if (wide) width = 220.dp
+
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier
             .padding(1.dp)
-            .width(50.dp)
+            .width(width)
             .height(24.dp)
             .background(color = LightColors.primaryVariant),
-        textStyle = TextStyle(color = LightColors.onBackground, textAlign = TextAlign.End),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        textStyle = TextStyle(color = LightColors.onBackground),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
     )
 }

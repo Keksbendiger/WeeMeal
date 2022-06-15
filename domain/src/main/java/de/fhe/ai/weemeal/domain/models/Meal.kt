@@ -5,7 +5,7 @@ import java.util.Date
 
 data class Meal(
     val recipe: Recipe,
-    val servings: Int? = 1,
+    var servings: Int? = 1,
     val cookColor: CookColor? = CookColor.TRANSPARENT,
     val cookingDate: Date,
     val shoppingListCreatedAt: Date? = null,

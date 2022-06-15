@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.recipeDetail
+package de.fhe.ai.weemeal.mealDetail
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -18,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -31,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
-import de.fhe.ai.weemeal.mocks.RecipeMock
+import de.fhe.ai.weemeal.mocks.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Preview
@@ -40,7 +41,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun RecipeDetailsScreen(
+fun MealDetailsScreen(
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -56,7 +57,8 @@ fun RecipeDetailsScreen(
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateRecipe()
+                val meal = MealMock.generateMeal()
+                val recipe = meal.recipe
 
                 Column(
                     Modifier
@@ -64,7 +66,6 @@ fun RecipeDetailsScreen(
                         .verticalScroll(rememberScrollState())
                 ) {
                     // Image
-                    // TODO content description / Localization
                     Column(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -105,10 +106,34 @@ fun RecipeDetailsScreen(
                     // Ingredients
                     Row {
                         Text(
-                            // TODO Localization
-                            text = "Zutaten",
+                            text = "Zutaten für",
                             modifier = Modifier
                                 .wrapContentWidth(Alignment.Start)
+                                .padding(
+                                    top = 8.dp,
+                                    bottom = 2.dp,
+                                ),
+                            // style = MaterialTheme.typography.h1
+                        )
+                        // Servings
+                        IconButton(
+                            onClick = {
+                                if (meal.servings!! > 1) {
+                                    meal.servings = meal.servings!! - 1
+                                }
+                            }
+                        ) {
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_remove_circle_24,
+                                ),
+                                contentDescription = "decrease button"
+                            )
+                        }
+
+                        Text(
+                            text = meal.servings.toString(),
+                            modifier = Modifier
                                 .padding(
                                     top = 8.dp,
                                     bottom = 2.dp,
@@ -116,16 +141,27 @@ fun RecipeDetailsScreen(
                             style = MaterialTheme.typography.h1
                         )
 
+                        IconButton(
+                            onClick = {
+                                meal.servings = meal.servings!! + 1
+                            }
+                        ) {
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_add_circle_24,
+                                ),
+                                contentDescription = "increase button"
+                            )
+                        }
+
                         Text(
-                            // TODO Localization
-                            // TODO vertical alignment (center or bottom)
-                            text = " für " + recipe.defaultServings + " Portionen",
+                            text = "Portionen",
                             modifier = Modifier
-                                .wrapContentWidth(Alignment.Start)
                                 .padding(
-                                    top = 4.dp,
+                                    top = 8.dp,
                                     bottom = 2.dp,
                                 ),
+                            // style = MaterialTheme.typography.h1
                         )
                     }
 
@@ -142,7 +178,6 @@ fun RecipeDetailsScreen(
 
                     // cooking time
                     Text(
-                        // TODO Localization
                         text = "Kochzeiten",
                         modifier = Modifier
                             .fillMaxWidth(0.85f)
@@ -163,10 +198,10 @@ fun RecipeDetailsScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            // TODO different icons, localization
+                            // TODO different icons
                             Icon(
                                 painterResource(
-                                    id = de.fhe.ai.weemeal.recipe.R.drawable.outdoor_grill
+                                    id = de.fhe.ai.weemeal.meal.R.drawable.outdoor_grill
                                 ),
                                 contentDescription = "active cooking time"
                             )
@@ -179,7 +214,7 @@ fun RecipeDetailsScreen(
                         ) {
                             Icon(
                                 painterResource(
-                                    id = de.fhe.ai.weemeal.recipe.R.drawable.set_meal
+                                    id = de.fhe.ai.weemeal.meal.R.drawable.set_meal
                                 ),
                                 contentDescription = "preparation time"
                             )
@@ -192,7 +227,7 @@ fun RecipeDetailsScreen(
                         ) {
                             Icon(
                                 painterResource(
-                                    id = de.fhe.ai.weemeal.recipe.R.drawable.access_time
+                                    id = de.fhe.ai.weemeal.meal.R.drawable.access_time
                                 ),
                                 contentDescription = "overall time"
                             )
@@ -204,7 +239,6 @@ fun RecipeDetailsScreen(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        // TODO Localization
                         text = "Zubereitung",
                         modifier = Modifier
                             .wrapContentWidth(Alignment.Start)
