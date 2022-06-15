@@ -6,10 +6,13 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,8 +33,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,17 +42,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import de.fhe.ai.weemeal.R
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
+import kotlin.math.ceil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 // @Preview
@@ -144,9 +149,12 @@ private fun RecipeListItem(recipe: Recipe) {
 private fun RecipeListItemContent(recipe: Recipe) {
     var expanded by remember { mutableStateOf(false) }
 
-    Row(
+    val imagesize = 90.dp // also used for Column height of recipe name + expand icon
+    val expandIconSize = 24.dp
+
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
+//            .fillMaxWidth()
             .clickable(onClick = { expanded = !expanded })
             .padding(8.dp)
             .animateContentSize(
@@ -156,62 +164,65 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 )
             )
     ) {
-        Column() {
-            Row(
+        Row() {
+            Image(
+                painterResource(id = recipe.image),
+                contentDescription = "Dummy-Image",
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .size(imagesize)
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(imagesize)
+                ,
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                //            TODO: Use Image of Food/Recipe
-                Image(
-                    painterResource(id = recipe.image),
-                    contentDescription = "Dummy-Image",
-                    modifier = Modifier.size(70.dp)
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
                 Text(
                     text = recipe.name,
-                    style = MaterialTheme.typography.h6.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    ),
+                    style = MaterialTheme.typography.h6.copy(),
                     modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .weight(1f)
                 )
 
-                IconButton(
-//                    TODO: Navigate to Edit Recipe Screen
-                    onClick = { },
-                    modifier = Modifier
-                        .align(Alignment.Top)
-                ) {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                if (!expanded) {
                     Icon(
-                        imageVector = Filled.Edit,
-//                        TODO: Extract String Ressource
-                        contentDescription = "Edit Recipe"
+                        painter = painterResource(id = R.drawable.ic_expand_more),
+                        contentDescription = stringResource(R.string.show_more),
+                        modifier = Modifier
+                            .size(expandIconSize)
+                            .align(Alignment.CenterHorizontally)
                     )
                 }
             }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            if (expanded) {
-                RecipeListItemContentExpanded(recipe = recipe)
-            }
-            Icon(
-//                TODO: Use better Icons -> ExpandLess and ExpandMore
-//                      Dependency: implementation "androidx.compose.material:material-icons-extended:$compose_version"
-                imageVector = if (expanded) Filled.Close else Filled.ArrowDropDown,
-                contentDescription = if (expanded) {
-                    "show less"
-                } else {
-                    "show more"
-                },
+            IconButton(
+//                    TODO: Navigate to Edit Recipe Screen
+                onClick = { },
                 modifier = Modifier
+                    .align(Alignment.Top)
+            ) {
+                Icon(
+                    imageVector = Filled.Edit,
+                    contentDescription = stringResource(de.fhe.ai.weemeal.recipe.R.string.edit_recipe)
+                )
+            }
+        }
+
+        if (expanded) {
+            RecipeListItemContentExpanded(recipe = recipe)
+            Icon(
+                painter = painterResource(id = R.drawable.ic_expand_less),
+                contentDescription = stringResource(R.string.show_less),
+                modifier = Modifier
+                    .size(expandIconSize)
                     .align(alignment = Alignment.CenterHorizontally)
             )
         }
+
     }
 }
 
