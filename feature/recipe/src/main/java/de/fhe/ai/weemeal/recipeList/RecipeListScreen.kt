@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
@@ -42,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.res.painterResource
@@ -164,50 +166,55 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 )
             )
     ) {
-        Row() {
-            Image(
-                painterResource(id = recipe.image),
-                contentDescription = "Dummy-Image",
-                modifier = Modifier
-                    .size(imagesize)
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(imagesize)
-                ,
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = recipe.name,
-                    style = MaterialTheme.typography.h6.copy(),
+        Box()   // Align ExpandIcon to BottomCenter in Row
+        {
+            Row() {
+                Image(
+                    painterResource(id = recipe.image),
+                    contentDescription = "Dummy-Image",
                     modifier = Modifier
+                        .size(imagesize)
+                        .clip(RoundedCornerShape(50.dp))
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
-                if (!expanded) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_expand_more),
-                        contentDescription = stringResource(R.string.show_more),
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(imagesize)
+                    ,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = recipe.name,
+                        style = MaterialTheme.typography.h6.copy(),
                         modifier = Modifier
-                            .size(expandIconSize)
-                            .align(Alignment.CenterHorizontally)
+                    )
+
+                    Spacer(modifier = Modifier.height(expandIconSize))  // Buffer to make recipename not touch the expandicon
+                }
+
+                IconButton(
+//                    TODO: Navigate to Edit Recipe Screen
+                    onClick = { },
+                    modifier = Modifier
+                        .align(Alignment.Top)
+                ) {
+                    Icon(
+                        imageVector = Filled.Edit,
+                        contentDescription = stringResource(de.fhe.ai.weemeal.recipe.R.string.edit_recipe)
                     )
                 }
             }
-            IconButton(
-//                    TODO: Navigate to Edit Recipe Screen
-                onClick = { },
-                modifier = Modifier
-                    .align(Alignment.Top)
-            ) {
+
+            if (!expanded) {
                 Icon(
-                    imageVector = Filled.Edit,
-                    contentDescription = stringResource(de.fhe.ai.weemeal.recipe.R.string.edit_recipe)
+                    painter = painterResource(id = R.drawable.ic_expand_more),
+                    contentDescription = stringResource(R.string.show_more),
+                    modifier = Modifier
+                        .size(expandIconSize)
+                        .align(Alignment.BottomCenter)
                 )
             }
         }
@@ -222,7 +229,6 @@ private fun RecipeListItemContent(recipe: Recipe) {
                     .align(alignment = Alignment.CenterHorizontally)
             )
         }
-
     }
 }
 
