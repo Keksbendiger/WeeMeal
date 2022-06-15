@@ -59,4 +59,5 @@ dependencies {
 
     //Features
     FEATURE_RECIPE
+    FEATURE_WEEK_LIST
 }

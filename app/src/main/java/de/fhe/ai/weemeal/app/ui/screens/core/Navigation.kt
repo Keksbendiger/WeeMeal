@@ -1,4 +1,4 @@
-@file:Suppress("MatchingDeclarationName")
+@file: Suppress("MatchingDeclarationName")
 package de.fhe.ai.weemeal.app.ui.screens.core
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
+import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 enum class Screens(val icon: ImageVector) {
@@ -39,7 +41,7 @@ fun AppNavigationHost(
     ) {
         composable(Screens.Recipe.name) {
             onNavigation(Screens.Recipe.name)
-            // RecipeScreen() TODO: hier den Recipe Screen einfügen
+            RecipeDetailsScreen()
         }
         composable(Screens.RecipeList.name) {
             onNavigation(Screens.RecipeList.name)
@@ -51,7 +53,7 @@ fun AppNavigationHost(
         }
         composable(Screens.WeekList.name) {
             onNavigation(Screens.WeekList.name)
-            // WeekList() TODO: hier den WeekList Screen einfügen
+            WeeklistScreen()
         }
         composable(Screens.Settings.name) {
             onNavigation(Screens.Recipe.name)
