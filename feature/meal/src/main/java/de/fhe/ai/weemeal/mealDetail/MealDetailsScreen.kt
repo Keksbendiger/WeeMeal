@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
-import de.fhe.ai.weemeal.mocks.MealMock
+import de.fhe.ai.weemeal.mocks.domain.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Preview
@@ -57,7 +57,7 @@ fun MealDetailsScreen(
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val meal = MealMock.generateMeal()
+                val meal = MealMock.generateSingleObject()
                 val recipe = meal.recipe
 
                 Column(

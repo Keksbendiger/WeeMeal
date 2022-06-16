@@ -340,7 +340,9 @@ fun RecipeEditScreen(
                             ),
                         style = MaterialTheme.typography.h1
                     )
-                    TextField(value = recipe.instructions ?: "", onValueChange = { recipe.instructions })
+                    TextField(
+                        value = recipe.instructions ?: "",
+                        onValueChange = { recipe.instructions })
                 }
             }
         }

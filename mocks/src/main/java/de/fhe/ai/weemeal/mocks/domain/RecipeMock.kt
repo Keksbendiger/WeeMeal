@@ -1,16 +1,18 @@
-package de.fhe.ai.weemeal.mocks.domain
+package de.fhe.ai.weemeal.mocks
 
 import de.fhe.ai.weemeal.common.extentions.timeUnit
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Recipe
+import de.fhe.ai.weemeal.local.entity.RecipeEntity
+import de.fhe.ai.weemeal.mocks.domain.IngredientMock
+import de.fhe.ai.weemeal.mocks.domain.TagMock
 import io.bloco.faker.Faker
 
 object RecipeMock {
-    private val faker: Faker = Faker()
+    private var faker: Faker = Faker()
 
-    fun generateRecipe(internalId: Long = 0): Recipe { // TODO rename to generateSingleObject
+    fun generateRecipe(): Recipe {
         return Recipe(
-            internalId = internalId,
             name = faker.food.dish(),
             defaultServings = faker.number.between(1, 10),
             defaultIngredients = IngredientMock.generateList(faker.number.between(1, 20)),
@@ -27,18 +29,59 @@ object RecipeMock {
                 unit = faker.timeUnit()
             ),
             instructions = faker.lorem.paragraph(faker.number.between(1, 20), true),
-            image = "",
+            image = de.fhe.ai.weemeal.R.drawable.recipe_placeholder,
             tags = TagMock.generateList(),
         )
     }
 
     fun generateList(amount: Int? = faker.number.between(1, 30)): List<Recipe> {
 
-        val internalList: MutableList<Recipe> = mutableListOf()
+        val recipeList: MutableList<Recipe> = mutableListOf()
 
         for (i in 1..amount!!) {
-            internalList.add(generateRecipe())
+            recipeList.add(generateRecipe())
         }
-        return internalList
+        return recipeList
+    }
+
+    fun generateRecipeEntity(
+        id: Long = 0,
+        name: String = faker.food.dish(),
+        defaultServings: Int? = faker.number.between(1, 10),
+        timePreparation: TimeFormat? = TimeFormat(
+            value = faker.number.between(1, 60).toFloat(),
+            unit = faker.timeUnit()
+        ),
+        timeActiveCooking: TimeFormat? = TimeFormat(
+            value = faker.number.between(1, 60).toFloat(),
+            unit = faker.timeUnit()
+        ),
+        timeOverall: TimeFormat? = TimeFormat(
+            value = faker.number.between(1, 60).toFloat(),
+            unit = faker.timeUnit()
+        ),
+        instructions: String? = faker.lorem.paragraph(faker.number.between(1, 20), true),
+        image: Int = de.fhe.ai.weemeal.R.drawable.recipe_placeholder,
+    ): RecipeEntity {
+        return RecipeEntity(
+            id = id,
+            name = name,
+            defaultServings = defaultServings,
+            timePreparation = timePreparation,
+            timeActiveCooking = timeActiveCooking,
+            timeOverall = timeOverall,
+            instructions = instructions,
+            image = image,
+        )
+    }
+
+    fun generateEntityList(amount: Int? = faker.number.between(1, 30)): List<RecipeEntity> {
+
+        val recipeList: MutableList<RecipeEntity> = mutableListOf()
+
+        for (i in 1..amount!!) {
+            recipeList.add(generateRecipeEntity())
+        }
+        return recipeList
     }
 }
