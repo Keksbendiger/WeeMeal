@@ -10,13 +10,13 @@ object MealEntityMock {
 
     fun generateSingleObject(
         id: Long = 0,
-        recipeId : Long = faker.number.between(1, 10).toLong(), //TODO: could cause an error
-        servings : Int?= faker.number.between(1, 10),
+        recipeId: Long = faker.number.between(1, 10).toLong(), // TODO: could cause an error
+        servings: Int? = faker.number.between(1, 10),
         cookColor: CookColor? = CookColor.getRandom(),
         cookingDate: Date = faker.date.forward(),
         shoppingListCreatedAt: Date = faker.date.forward(),
 
-        ): MealEntity {
+    ): MealEntity {
         return MealEntity(
             id = id,
             recipeId = recipeId,

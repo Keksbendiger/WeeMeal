@@ -15,7 +15,6 @@ class IngredientRepositoryTest : BaseTest() {
 
     private val ingredientRepository: IngredientRepository by inject()
 
-
 //    // ----------------------------------------------------------------------------------------------
 //    // SETUP
 //    // ----------------------------------------------------------------------------------------------
@@ -27,7 +26,6 @@ class IngredientRepositoryTest : BaseTest() {
 //            .build()
 //        ingredientEntityDao = db.ingredientEntityDao()
 //    }
-
 
 //    @Test
 //    fun should_create_a_list_of_ingredients() = runBlocking {

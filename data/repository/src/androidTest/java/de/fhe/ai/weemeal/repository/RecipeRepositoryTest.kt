@@ -3,11 +3,11 @@ package de.fhe.ai.weemeal.repository
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.mocks.domain.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
-import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.inject
+import kotlin.test.assertEquals
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -18,7 +18,6 @@ import org.koin.test.inject
 class RecipeRepositoryTest : BaseTest() {
 
     private val recipeRepository: RecipeRepository by inject()
-
 
 //    // ----------------------------------------------------------------------------------------------
 //    // SETUP
@@ -31,7 +30,6 @@ class RecipeRepositoryTest : BaseTest() {
 //            .build()
 //        recipeEntityDao = db.recipeEntityDao()
 //    }
-
 
     @Test
     fun should_create_a_list_of_recipes() = runBlocking {

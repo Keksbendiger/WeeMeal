@@ -14,4 +14,4 @@ data class Recipe(
     val instructions: String? = "",
     val image: String? = "",
     val tags: List<Tag>? = Tag.generateDefaultTagList(),
-): BaseModel
+) : BaseModel

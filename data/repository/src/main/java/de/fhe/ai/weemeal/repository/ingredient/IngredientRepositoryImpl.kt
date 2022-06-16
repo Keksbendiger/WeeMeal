@@ -2,7 +2,6 @@ package de.fhe.ai.weemeal.repository.ingredient
 
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.local.dao.IngredientEntityDao
-import de.fhe.ai.weemeal.local.dao.RecipeIngredientEntityDao
 import de.fhe.ai.weemeal.local.mapper.recipe.fromDomain
 import de.fhe.ai.weemeal.local.mapper.recipe.toDomain
 import kotlinx.coroutines.flow.Flow
@@ -11,9 +10,9 @@ import timber.log.Timber
 
 class IngredientRepositoryImpl(
     private val ingredientEntityDao: IngredientEntityDao,
-    private val recipeIngredientEntityDao: RecipeIngredientEntityDao,
+//    private val recipeIngredientEntityDao: RecipeIngredientEntityDao,
 
-    ) : IngredientRepository {
+) : IngredientRepository {
 
     override fun getIngredients(): Flow<List<Ingredient>> {
         Timber.i("Get All Ingredients from database as Flow")
@@ -29,35 +28,27 @@ class IngredientRepositoryImpl(
             }
     }
 
-
     override suspend fun getIngredient(ingredientId: Long): Ingredient? {
-        return try {
-            Timber.i("Get Ingredient from database by ID")
-            ingredientEntityDao.get(id = ingredientId)?.toDomain()
-        } catch (e: Exception) {
-            Timber.i(e.toString())
-            null
-        }
+        Timber.i("Get Ingredient from database by ID")
+        return ingredientEntityDao.get(id = ingredientId)?.toDomain()
     }
 
     override suspend fun getAllIngredientsByRecipeId(recipeId: Long): List<Ingredient>? {
-        return try {
-            Timber.i("Get all Ingredients by recipe ID")
-            val ingredientResultList: MutableList<Ingredient> = mutableListOf()
 
-            recipeIngredientEntityDao.getAllByRecipeId(recipeId)
-                .let { recipeIngredientEntities ->
-                    recipeIngredientEntities.forEach { recipeIngredientEntity ->
-                        ingredientEntityDao.get(recipeIngredientEntity.ingredientId)?.toDomain()
-                            ?.let { ingredient -> ingredientResultList.add(ingredient) }
-                    }
-                }
+//        Timber.i("Get all Ingredients by recipe ID")
+//        val ingredientResultList: MutableList<Ingredient> = mutableListOf()
+//
+//        recipeIngredientEntityDao.getAllByRecipeId(recipeId)
+//            .let { recipeIngredientEntities ->
+//                recipeIngredientEntities.forEach { recipeIngredientEntity ->
+//                    ingredientEntityDao.get(recipeIngredientEntity.ingredientId)?.toDomain()
+//                        ?.let { ingredient -> ingredientResultList.add(ingredient) }
+//                }
+//            }
+//
+//        return ingredientResultList
 
-            ingredientResultList
-        } catch (e: Exception) {
-            Timber.i(e.toString())
-            null
-        }
+        return null
     }
 
     override suspend fun insertIngredient(ingredient: Ingredient) =
@@ -84,9 +75,8 @@ class IngredientRepositoryImpl(
 //            }
 //            return null
 //        } catch (e: Exception) {
-////            logger.log(e.toString())
+// //            logger.log(e.toString())
 //            return null
 //        }
 //    }
-
 }

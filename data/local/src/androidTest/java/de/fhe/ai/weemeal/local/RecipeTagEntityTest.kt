@@ -9,6 +9,4 @@ import org.junit.runner.RunWith
  * See: https://developer.android.com/training/data-storage/room/testing-db
  */
 @RunWith(AndroidJUnit4::class)
-class RecipeTagEntityTest {
-
-}
+class RecipeTagEntityTest

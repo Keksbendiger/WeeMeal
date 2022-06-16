@@ -6,8 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
 import de.fhe.ai.weemeal.mocks.local.MealEntityMock
-import java.io.IOException
-import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertNotNull
@@ -16,6 +14,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
+import kotlin.test.assertEquals
 
 /**
  * Instrumented test, which will execute on an Android device.

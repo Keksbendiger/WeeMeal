@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
-import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

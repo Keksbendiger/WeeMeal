@@ -7,13 +7,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.mocks.local.IngredientEntityMock
 import de.fhe.ai.weemeal.mocks.local.RecipeIngredientEntityMock
-import java.io.IOException
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
+import java.io.IOException
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -78,7 +77,7 @@ class RecipeIngredientEntityTest {
 //        val ingredientList = ingredientRepository.getAllIngredientsByRecipeId(recipeId)
 //        assertEquals(expected = ingredientListInsert, actual = ingredientList)
 
-        //TODO test entity
+        // TODO test entity
     }
 
 //    // ----------------------------------------------------------------------------------------------
@@ -171,4 +170,3 @@ class RecipeIngredientEntityTest {
 //        )
 //    }
 }
-

@@ -8,7 +8,7 @@ import io.bloco.faker.Faker
 object RecipeMock {
     private val faker: Faker = Faker()
 
-    fun generateRecipe(internalId: Long = 0): Recipe { //TODO rename to generateSingleObject
+    fun generateRecipe(internalId: Long = 0): Recipe { // TODO rename to generateSingleObject
         return Recipe(
             internalId = internalId,
             name = faker.food.dish(),
