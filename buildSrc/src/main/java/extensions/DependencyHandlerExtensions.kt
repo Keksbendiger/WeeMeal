@@ -205,15 +205,6 @@ val DependencyHandler.FEATURE_MEAL
 val DependencyHandler.FEATURE_WEEK_LIST
     get() = implementation(project(Modules.featureWeekList))
 
-val DependencyHandler.FEATURE_SETTINGS
-    get() = implementation(project(Modules.featureSettings))
-
-val DependencyHandler.FEATURE_INGREDIENT
-    get() = implementation(project(Modules.featureIngredient))
-
-val DependencyHandler.FEATURE_ONBOARDING
-    get() = implementation(project(Modules.featureOnboarding))
-
 val DependencyHandler.FEATURE_SHOPPING_LIST
     get() = implementation(project(Modules.featureShoppingList))
 
