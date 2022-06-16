@@ -56,7 +56,7 @@ fun RecipeDetailsScreen(
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateRecipe()
+                val recipe = RecipeMock.generateSingleObject()
 
                 Column(
                     Modifier

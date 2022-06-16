@@ -65,7 +65,7 @@ fun RecipeEditScreen(
 //            bottomBar = { BottomBar(navController) },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateRecipe()
+                val recipe = RecipeMock.generateSingleObject()
 
                 Column(
                     Modifier

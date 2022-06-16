@@ -2,6 +2,7 @@ package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal
+import de.fhe.ai.weemeal.mocks.RecipeMock
 import io.bloco.faker.Faker
 
 object MealMock {
@@ -9,7 +10,7 @@ object MealMock {
 
     fun generateSingleObject(): Meal {
         return Meal(
-            recipe = RecipeMock.generateRecipe(),
+            recipe = RecipeMock.generateSingleObject(),
             servings = faker.number.between(1, 10),
             cookColor = CookColor.getRandom(),
             cookingDate = faker.date.forward(),

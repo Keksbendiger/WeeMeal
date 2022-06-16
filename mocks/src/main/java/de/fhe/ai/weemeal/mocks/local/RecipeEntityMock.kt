@@ -1,6 +1,7 @@
 package de.fhe.ai.weemeal.mocks.local
 
 import de.fhe.ai.weemeal.common.extentions.timeUnit
+import de.fhe.ai.weemeal.domain.R
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import io.bloco.faker.Faker
@@ -25,7 +26,7 @@ object RecipeEntityMock {
             unit = faker.timeUnit()
         ),
         instructions: String? = faker.lorem.paragraph(faker.number.between(1, 20), true),
-        image: String? = "",
+        image: Int = R.drawable.recipe_placeholder,
     ): RecipeEntity {
         return RecipeEntity(
             id = id,
