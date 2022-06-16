@@ -342,7 +342,8 @@ fun RecipeEditScreen(
                     )
                     TextField(
                         value = recipe.instructions ?: "",
-                        onValueChange = { recipe.instructions })
+                        onValueChange = { recipe.instructions }
+                    )
                 }
             }
         }
