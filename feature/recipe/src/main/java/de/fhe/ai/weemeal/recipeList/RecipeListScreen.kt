@@ -51,7 +51,7 @@ import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.RecipeMock
+import de.fhe.ai.weemeal.mocks.domain.RecipeMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 // @Preview

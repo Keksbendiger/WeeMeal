@@ -1,13 +1,13 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal
 import io.bloco.faker.Faker
 
 object MealMock {
-    private var faker: Faker = Faker()
+    private val faker: Faker = Faker()
 
-    fun generateMeal(): Meal {
+    fun generateSingleObject(): Meal {
         return Meal(
             recipe = RecipeMock.generateRecipe(),
             servings = faker.number.between(1, 10),
@@ -19,11 +19,11 @@ object MealMock {
 
     fun generateList(amount: Int? = faker.number.between(1, 7)): List<Meal> {
 
-        val recipeList: MutableList<Meal> = mutableListOf()
+        val internalList: MutableList<Meal> = mutableListOf()
 
         for (i in 1..amount!!) {
-            recipeList.add(generateMeal())
+            internalList.add(generateSingleObject())
         }
-        return recipeList
+        return internalList
     }
 }

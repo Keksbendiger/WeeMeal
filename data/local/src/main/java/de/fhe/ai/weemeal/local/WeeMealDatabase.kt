@@ -9,10 +9,14 @@ import de.fhe.ai.weemeal.local.dao.IngredientEntityDao
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeIngredientEntityDao
+import de.fhe.ai.weemeal.local.dao.RecipeTagEntityDao
+import de.fhe.ai.weemeal.local.dao.TagEntityDao
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
 import de.fhe.ai.weemeal.local.entity.MealEntity
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
+import de.fhe.ai.weemeal.local.entity.RecipeTagEntity
+import de.fhe.ai.weemeal.local.entity.TagEntity
 import de.fhe.ai.weemeal.local.mapper.Converters
 
 @Database(
@@ -21,6 +25,8 @@ import de.fhe.ai.weemeal.local.mapper.Converters
         MealEntity::class,
         RecipeEntity::class,
         RecipeIngredientEntity::class,
+        RecipeTagEntity::class,
+        TagEntity::class,
     ],
     version = 1
 )
@@ -30,6 +36,8 @@ abstract class WeeMealDatabase : RoomDatabase() {
     abstract fun mealEntityDao(): MealEntityDao
     abstract fun recipeEntityDao(): RecipeEntityDao
     abstract fun recipeIngredientEntityDao(): RecipeIngredientEntityDao
+    abstract fun recipeTagEntityDao(): RecipeTagEntityDao
+    abstract fun tagEntityDao(): TagEntityDao
 
     companion object {
         var db: WeeMealDatabase? = null
@@ -58,6 +66,14 @@ abstract class WeeMealDatabase : RoomDatabase() {
 
         fun getRecipeIngredientEntityDao(app: Context): RecipeIngredientEntityDao {
             return getDatabase(app).recipeIngredientEntityDao()
+        }
+
+        fun getRecipeTagEntityDao(app: Context): RecipeTagEntityDao {
+            return getDatabase(app).recipeTagEntityDao()
+        }
+
+        fun getTagEntityDao(app: Context): TagEntityDao {
+            return getDatabase(app).tagEntityDao()
         }
     }
 }

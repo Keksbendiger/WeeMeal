@@ -1,24 +1,23 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.domain.models.Tag
 import io.bloco.faker.Faker
 
 object TagMock {
-    private var faker: Faker = Faker()
-
-    fun generateCustomTag(): Tag {
+    private val faker: Faker = Faker()
+    fun generateSingleObject(): Tag {
         return Tag(name = faker.lorem.word())
     }
 
     fun generateList(amount: Int? = faker.number.between(1, 30)): List<Tag> {
 
-        val recipeList: MutableList<Tag> = mutableListOf()
+        val internalList: MutableList<Tag> = mutableListOf()
         Tag.generateDefaultTagList().forEach() {
-            recipeList.add(it)
+            internalList.add(it)
         }
         for (i in 1..amount!!) {
-            recipeList.add(generateCustomTag())
+            internalList.add(generateSingleObject())
         }
-        return recipeList
+        return internalList
     }
 }
