@@ -11,4 +11,4 @@ data class Meal(
     val cookColor: CookColor? = CookColor.TRANSPARENT,
     val cookingDate: Date,
     val shoppingListCreatedAt: Date? = null,
-): BaseModel
+) : BaseModel

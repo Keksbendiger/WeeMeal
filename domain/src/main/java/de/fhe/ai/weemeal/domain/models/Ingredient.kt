@@ -8,4 +8,4 @@ data class Ingredient(
     var name: String,
     val image: String? = "",
     var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"),
-): BaseModel
+) : BaseModel
