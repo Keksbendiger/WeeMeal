@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.domain.models.Tag
 import io.bloco.faker.Faker

@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal

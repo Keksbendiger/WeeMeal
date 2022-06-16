@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
-import de.fhe.ai.weemeal.mocks.MealEntityMock
+import de.fhe.ai.weemeal.mocks.local.MealEntityMock
 import java.io.IOException
 import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking

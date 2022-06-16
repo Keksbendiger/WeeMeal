@@ -1,19 +1,13 @@
-package de.fhe.ai.weemeal.local
+package de.fhe.ai.weemeal.repository
 
-import android.content.Context
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
-import de.fhe.ai.weemeal.mocks.local.IngredientEntityMock
-import de.fhe.ai.weemeal.mocks.local.RecipeIngredientEntityMock
-import java.io.IOException
+import de.fhe.ai.weemeal.mocks.domain.RecipeMock
+import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
+import org.koin.test.inject
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -21,28 +15,39 @@ import org.junit.runner.RunWith
  * See: https://developer.android.com/training/data-storage/room/testing-db
  */
 @RunWith(AndroidJUnit4::class)
-class RecipeIngredientEntityTest {
-    private lateinit var recipeEntityDao: RecipeEntityDao
-    private lateinit var db: WeeMealDatabase
+class RecipeRepositoryTest : BaseTest() {
 
-    // ----------------------------------------------------------------------------------------------
-    // SETUP
-    // ----------------------------------------------------------------------------------------------
-    @Before
-    fun createDb() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        db = Room.inMemoryDatabaseBuilder(context, WeeMealDatabase::class.java)
-            .allowMainThreadQueries()
-            .build()
-        recipeEntityDao = db.recipeEntityDao()
+    private val recipeRepository: RecipeRepository by inject()
+
+
+//    // ----------------------------------------------------------------------------------------------
+//    // SETUP
+//    // ----------------------------------------------------------------------------------------------
+//    @Before
+//    fun createDb() {
+//        val context = ApplicationProvider.getApplicationContext<Context>()
+//        db = Room.inMemoryDatabaseBuilder(context, WeeMealDatabase::class.java)
+//            .allowMainThreadQueries()
+//            .build()
+//        recipeEntityDao = db.recipeEntityDao()
+//    }
+
+
+    @Test
+    fun should_create_a_list_of_recipes() = runBlocking {
+        val testRecipe = RecipeMock.generateRecipe(197)
+        val restRecipeId = recipeRepository.insertRecipe(testRecipe)
+        val loadedRecipe = recipeRepository.getRecipe(restRecipeId)
+        assertEquals(expected = testRecipe, actual = loadedRecipe)
     }
 
-    @After
-    @Throws(IOException::class)
-    fun closeDb() {
-        db.close()
-    }
-
+//
+//    @After
+//    @Throws(IOException::class)
+//    fun closeDb() {
+//        db.close()
+//    }
+//
 //    // ----------------------------------------------------------------------------------------------
 //    // CREATE
 //    // ----------------------------------------------------------------------------------------------
@@ -64,23 +69,7 @@ class RecipeIngredientEntityTest {
 //            println(it)
 //        }
 //    }
-
-    @Test
-    fun should_create_a_list_of_ingredients() = runBlocking {
-        val recipeId: Long = 50
-        val ingredientListInsert = IngredientEntityMock.generateList()
-        val recipeIngredientEntityList =
-            RecipeIngredientEntityMock.generateList(
-                ingredientList = ingredientListInsert,
-                recipeId = recipeId
-            )
-
-//        val ingredientList = ingredientRepository.getAllIngredientsByRecipeId(recipeId)
-//        assertEquals(expected = ingredientListInsert, actual = ingredientList)
-
-        //TODO test entity
-    }
-
+//
 //    // ----------------------------------------------------------------------------------------------
 //    // READ
 //    // ----------------------------------------------------------------------------------------------
@@ -171,4 +160,3 @@ class RecipeIngredientEntityTest {
 //        )
 //    }
 }
-

@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.common.extentions.timeUnit
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
@@ -8,8 +8,9 @@ import io.bloco.faker.Faker
 object RecipeMock {
     private val faker: Faker = Faker()
 
-    fun generateRecipe(): Recipe { //TODO rename to generateSingleObject
+    fun generateRecipe(internalId: Long = 0): Recipe { //TODO rename to generateSingleObject
         return Recipe(
+            internalId = internalId,
             name = faker.food.dish(),
             defaultServings = faker.number.between(1, 10),
             defaultIngredients = IngredientMock.generateList(faker.number.between(1, 20)),

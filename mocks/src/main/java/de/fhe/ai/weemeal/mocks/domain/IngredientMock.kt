@@ -1,11 +1,8 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.domain
 
 import de.fhe.ai.weemeal.common.extentions.measurementUnit
-import de.fhe.ai.weemeal.common.extentions.timeUnit
 import de.fhe.ai.weemeal.domain.formats.QuantityFormat
-import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Ingredient
-import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import io.bloco.faker.Faker
 
 object IngredientMock {

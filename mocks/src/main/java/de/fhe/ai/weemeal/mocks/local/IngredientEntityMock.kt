@@ -1,8 +1,9 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.local
 
 import de.fhe.ai.weemeal.common.extentions.measurementUnit
 import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
+import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
 import io.bloco.faker.Faker
 
 object IngredientEntityMock {
@@ -36,5 +37,4 @@ object IngredientEntityMock {
         }
         return internalList
     }
-
 }

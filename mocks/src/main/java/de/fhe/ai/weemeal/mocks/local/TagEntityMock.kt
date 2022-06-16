@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.local
 
 import de.fhe.ai.weemeal.domain.models.Tag
 import de.fhe.ai.weemeal.local.entity.TagEntity

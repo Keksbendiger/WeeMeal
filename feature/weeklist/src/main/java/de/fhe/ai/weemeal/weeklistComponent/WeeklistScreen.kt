@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
-import de.fhe.ai.weemeal.mocks.MealMock
+import de.fhe.ai.weemeal.mocks.domain.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi

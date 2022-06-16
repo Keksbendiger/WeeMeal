@@ -5,8 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
-import de.fhe.ai.weemeal.mocks.RecipeEntityMock
-import de.fhe.ai.weemeal.mocks.RecipeMock
+import de.fhe.ai.weemeal.mocks.local.RecipeEntityMock
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After

@@ -18,6 +18,9 @@ interface RecipeIngredientEntityDao {
     @Query("SELECT * FROM RecipeIngredientEntity WHERE id = :id")
     suspend fun get(id: Long): RecipeIngredientEntity?
 
+    @Query("SELECT * FROM RecipeIngredientEntity WHERE recipeId = :recipeId")
+    suspend fun getAllByRecipeId(recipeId: Long): List<RecipeIngredientEntity>
+
     @Insert
     suspend fun insert(entity: RecipeIngredientEntity): Long
 

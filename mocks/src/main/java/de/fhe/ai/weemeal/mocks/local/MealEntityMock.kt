@@ -1,10 +1,6 @@
-package de.fhe.ai.weemeal.mocks
+package de.fhe.ai.weemeal.mocks.local
 
-import de.fhe.ai.weemeal.common.extentions.measurementUnit
 import de.fhe.ai.weemeal.domain.enums.CookColor
-import de.fhe.ai.weemeal.domain.formats.QuantityFormat
-import de.fhe.ai.weemeal.domain.models.Meal
-import de.fhe.ai.weemeal.local.entity.IngredientEntity
 import de.fhe.ai.weemeal.local.entity.MealEntity
 import io.bloco.faker.Faker
 import java.util.Date
@@ -20,7 +16,7 @@ object MealEntityMock {
         cookingDate: Date = faker.date.forward(),
         shoppingListCreatedAt: Date = faker.date.forward(),
 
-    ): MealEntity {
+        ): MealEntity {
         return MealEntity(
             id = id,
             recipeId = recipeId,

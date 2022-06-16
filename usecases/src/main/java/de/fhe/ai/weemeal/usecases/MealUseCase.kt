@@ -2,7 +2,7 @@
 //
 // import de.fhe.ai.weemeal.common.DataState
 // import de.fhe.ai.weemeal.domain.models.Meal
-// import de.fhe.ai.weemeal.repository.RecipeRepository
+// import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
 // import kotlinx.coroutines.flow.Flow
 // import kotlinx.coroutines.flow.flow
 // import org.koin.core.component.KoinComponent
