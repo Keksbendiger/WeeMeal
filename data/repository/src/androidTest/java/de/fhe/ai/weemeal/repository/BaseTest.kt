@@ -21,25 +21,7 @@ abstract class BaseTest : KoinTest {
     val koinTestRule = KoinTestRule.create {
         androidContext(ApplicationProvider.getApplicationContext())
         androidLogger()
-        modules(
-            module {
-                single<RecipeRepository> {
-                    RecipeRepositoryImpl(
-                        recipeEntityDao = WeeMealDatabase.getRecipeEntityDao(get()),
-                        ingredientEntityDao = WeeMealDatabase.getIngredientEntityDao(get()),
-                        tagEntityDao = WeeMealDatabase.getTagEntityDao(get()),
-                        recipeIngredientEntityDao = WeeMealDatabase.getRecipeIngredientEntityDao(get()),
-                        recipeTagEntityDao = WeeMealDatabase.getRecipeTagEntityDao(get())
-                    )
-                }
-//                single<IngredientRepository> {
-//                    IngredientRepositoryImpl(
-//                        WeeMealDatabase.getIngredientEntityDao(get()),
-//                        WeeMealDatabase.getRecipeIngredientEntityDao(get())
-//                    )
-//                }
-            }
-        )
+        modules(repository)
     }
 
     fun <T> runTest(
