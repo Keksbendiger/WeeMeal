@@ -67,6 +67,16 @@ class RecipeRepositoryImpl(
         return null
     }
 
+    override suspend fun getAll(): List<Recipe> {
+       val recipeList = mutableListOf<Recipe>()
+
+        recipeEntityDao.getAll().forEach {
+            getRecipe(it.id)?.let { recipe -> recipeList.add(recipe) }
+        }
+
+        return recipeList
+    }
+
     override suspend fun searchRecipeByName(recipeName: String): Flow<List<Recipe>> {
         Timber.i("Search Recipe by Name")
 
@@ -117,5 +127,63 @@ class RecipeRepositoryImpl(
             }
         }
         return getRecipe(recipeId)
+    }
+
+    override suspend fun deleteRecipe(recipe: Recipe): Boolean {
+
+        recipeIngredientEntityDao.getAllByRecipeId(recipe.internalId)
+            .forEach { recipeIngredientEntity ->
+
+                ingredientEntityDao.get(recipeIngredientEntity.ingredientId)
+                    ?.let { ingredientEntity ->
+                        ingredientEntityDao.delete(ingredientEntity)
+                    }
+
+                recipeIngredientEntityDao.delete(recipeIngredientEntity)
+            }
+
+        recipeTagEntityDao.getAllByRecipeId(recipe.internalId)
+            .forEach { recipeTagEntity ->
+
+                tagEntityDao.get(recipeTagEntity.tagId)?.let { tagEntity ->
+                    tagEntityDao.delete(tagEntity)
+                }
+
+                recipeTagEntityDao.delete(recipeTagEntity)
+            }
+
+        recipeEntityDao.delete(recipe.fromDomain())
+
+        return true //TODO: change
+    }
+
+    override suspend fun deleteAllRecipes(): Boolean {
+
+        recipeEntityDao.getAll().forEach {
+            recipeIngredientEntityDao.getAllByRecipeId(it.id)
+                .forEach { recipeIngredientEntity ->
+
+                    ingredientEntityDao.get(recipeIngredientEntity.ingredientId)
+                        ?.let { ingredientEntity ->
+                            ingredientEntityDao.delete(ingredientEntity)
+                        }
+
+                    recipeIngredientEntityDao.delete(recipeIngredientEntity)
+                }
+
+            recipeTagEntityDao.getAllByRecipeId(it.id)
+                .forEach { recipeTagEntity ->
+
+                    tagEntityDao.get(recipeTagEntity.tagId)?.let { tagEntity ->
+                        tagEntityDao.delete(tagEntity)
+                    }
+
+                    recipeTagEntityDao.delete(recipeTagEntity)
+                }
+        }
+
+        recipeEntityDao.deleteAll()
+
+        return true //TODO: change
     }
 }

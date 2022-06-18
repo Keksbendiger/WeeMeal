@@ -5,6 +5,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.WeeMealDatabase
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepositoryImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.android.ext.koin.androidContext
@@ -38,5 +40,11 @@ abstract class BaseTest : KoinTest {
 //                }
             }
         )
+    }
+
+    fun <T> runTest(
+        block: suspend CoroutineScope.() -> T
+    ) {
+        runBlocking { block() }
     }
 }
