@@ -2,8 +2,8 @@ package de.fhe.ai.weemeal.repository.ingredient
 
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.local.dao.IngredientEntityDao
-import de.fhe.ai.weemeal.local.mapper.recipe.fromDomain
-import de.fhe.ai.weemeal.local.mapper.recipe.toDomain
+import de.fhe.ai.weemeal.local.mapper.fromDomain
+import de.fhe.ai.weemeal.local.mapper.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber

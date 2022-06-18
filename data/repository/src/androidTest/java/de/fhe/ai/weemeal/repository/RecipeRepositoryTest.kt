@@ -1,13 +1,15 @@
 package de.fhe.ai.weemeal.repository
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import de.fhe.ai.weemeal.mocks.domain.RecipeMock
+import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.inject
-import kotlin.test.assertEquals
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -31,79 +33,73 @@ class RecipeRepositoryTest : BaseTest() {
 //        recipeEntityDao = db.recipeEntityDao()
 //    }
 
-    @Test
-    fun should_create_a_list_of_recipes() = runBlocking {
-        val testRecipe = RecipeMock.generateRecipe(197)
-        val restRecipeId = recipeRepository.insertRecipe(testRecipe)
-        val loadedRecipe = recipeRepository.getRecipe(restRecipeId)
-        assertEquals(expected = testRecipe, actual = loadedRecipe)
-    }
 
-//
+    //
 //    @After
 //    @Throws(IOException::class)
 //    fun closeDb() {
 //        db.close()
 //    }
 //
-//    // ----------------------------------------------------------------------------------------------
-//    // CREATE
-//    // ----------------------------------------------------------------------------------------------
-//    @Test
-//    fun should_create_a_list_of_recipes() = runBlocking {
-//        assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
-//
-//        val recipeEntityMockList = RecipeEntityMock.generateList()
-//        recipeEntityMockList.forEach {
-//            recipeEntityDao.insert(it)
-//        }
-//
-//        val recipeList = recipeEntityDao.getAll()
-//        assertTrue(
-//            "DB should contain ${recipeEntityMockList.size} entry",
-//            recipeEntityDao.getAll().size == recipeEntityMockList.size
-//        )
-//        recipeList.forEach {
-//            println(it)
-//        }
-//    }
-//
-//    // ----------------------------------------------------------------------------------------------
-//    // READ
-//    // ----------------------------------------------------------------------------------------------
-//    @Test
-//    fun should_get_a_recipe_by_id() = runBlocking {
-//        assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
-//
-//        val recipeEntityMock = RecipeEntityMock.generateSingleObject()
-//
-//        val loadedEntityId = recipeEntityDao.insert(recipeEntityMock)
-//
-//        val loadedEntity = recipeEntityDao.get(loadedEntityId)
-//        assertNotNull("Loaded diary entry should not be null", loadedEntity)
-//
-//        recipeEntityDao.getAll().forEach {
-//            println(it)
-//        }
-//    }
-//
-//    @Test
-//    fun should_find_at_least_one_recipe_by_name() = runBlocking {
-//        assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
-//
-//        val recipeEntityMockList = RecipeEntityMock.generateList(amount = 30)
-//        recipeEntityMockList.forEach {
-//            recipeEntityDao.insert(it)
-//        }
-//        recipeEntityDao.insert(RecipeEntityMock.generateSingleObject(name = "FrontSubstringBack"))
-//
-//        val recipeEntityListResult = recipeEntityDao.search("Substring").first()
-//
-//        assertTrue("Loaded diary entry should not be empty", recipeEntityListResult.isNotEmpty())
-//        recipeEntityListResult.forEach() {
-//            println(it)
-//        }
-//    }
+
+    // ----------------------------------------------------------------------------------------------
+    // CREATE
+    // ----------------------------------------------------------------------------------------------
+    @Test
+    fun should_create_a_recipes() = runBlocking {
+        var id: Long = 1
+        while (recipeRepository.getRecipe(id) != null) {
+            id++
+        }
+
+        val testRecipe = RecipeMock.generateSingleObject(id)
+        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) //insertOrUpdate
+        val loadedRecipe = recipeRepository.getRecipe(id)
+        assertEquals(insertedRecipe, loadedRecipe)
+        assertTrue(testRecipe.equalsWithoutId(loadedRecipe))
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // READ
+    // ----------------------------------------------------------------------------------------------
+
+    @Test
+    fun should_get_a_recipe_by_id() = runBlocking {
+
+        RecipeMock.generateList().forEach {
+            recipeRepository.insertOrUpdateRecipe(it)
+        }
+
+        var id: Long = 1
+        while (recipeRepository.getRecipe(id) != null) {
+            id++
+        }
+
+        val testRecipe = RecipeMock.generateSingleObject(id)
+        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) //insertOrUpdate
+        val loadedRecipe = recipeRepository.getRecipe(id)
+        assertEquals(insertedRecipe, loadedRecipe)
+        assertTrue(testRecipe.equalsWithoutId(loadedRecipe))
+    }
+
+    @Test
+    fun should_find_at_least_one_recipe_by_name() = runBlocking {
+
+        var id: Long = 1
+        while (recipeRepository.getRecipe(id) != null) {
+            id++
+        }
+
+        val testRecipe = RecipeMock.generateSingleObject(id)
+        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) //insertOrUpdate
+        val loadedRecipeList = recipeRepository.searchRecipeByName(testRecipe.name).first()
+        assertTrue(loadedRecipeList.isNotEmpty())
+        loadedRecipeList.forEach() {
+            println(it)
+        }
+    }
+
+
 //
 //    // ----------------------------------------------------------------------------------------------
 //    // UPDATE

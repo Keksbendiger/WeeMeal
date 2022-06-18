@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.local.mapper.recipe
+package de.fhe.ai.weemeal.local.mapper
 
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
@@ -14,7 +14,6 @@ fun RecipeEntity.toDomain() = Recipe(
     image = this.image,
     defaultIngredients = listOf(),
     tags = listOf()
-
 )
 
 fun Recipe.fromDomain() = RecipeEntity(

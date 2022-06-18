@@ -2,7 +2,7 @@ package de.fhe.ai.weemeal.mocks.local
 
 import de.fhe.ai.weemeal.domain.models.Tag
 import de.fhe.ai.weemeal.local.entity.TagEntity
-import de.fhe.ai.weemeal.local.mapper.recipe.fromDomain
+import de.fhe.ai.weemeal.local.mapper.fromDomain
 import io.bloco.faker.Faker
 
 object TagEntityMock {
