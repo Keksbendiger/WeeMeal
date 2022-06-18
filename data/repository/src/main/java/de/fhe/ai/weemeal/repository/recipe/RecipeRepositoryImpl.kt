@@ -68,7 +68,7 @@ class RecipeRepositoryImpl(
     }
 
     override suspend fun getAll(): List<Recipe> {
-       val recipeList = mutableListOf<Recipe>()
+        val recipeList = mutableListOf<Recipe>()
 
         recipeEntityDao.getAll().forEach {
             getRecipe(it.id)?.let { recipe -> recipeList.add(recipe) }
@@ -154,7 +154,7 @@ class RecipeRepositoryImpl(
 
         recipeEntityDao.delete(recipe.fromDomain())
 
-        return true //TODO: change
+        return true // TODO: change
     }
 
     override suspend fun deleteAllRecipes(): Boolean {
@@ -184,6 +184,6 @@ class RecipeRepositoryImpl(
 
         recipeEntityDao.deleteAll()
 
-        return true //TODO: change
+        return true // TODO: change
     }
 }
