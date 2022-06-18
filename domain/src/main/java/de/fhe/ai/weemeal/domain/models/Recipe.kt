@@ -22,17 +22,17 @@ data class Recipe(
     fun equalsWithoutId(other: Any?): Boolean {
 
         return (
-                (other is Recipe) &&
-                        other.name == this.name &&
-                        other.defaultServings == this.defaultServings &&
-                        other.timePreparation == this.timePreparation &&
-                        other.timeActiveCooking == this.timeActiveCooking &&
-                        other.timeOverall == this.timeOverall &&
-                        other.instructions == this.instructions &&
-                        other.image == this.image &&
-                        other.defaultIngredients!!.areIngredientListsEqualWithoutId(this.defaultIngredients) &&
-                        other.tags!!.areTagListsEqualWithoutId(this.tags)
-                )
+            (other is Recipe) &&
+                other.name == this.name &&
+                other.defaultServings == this.defaultServings &&
+                other.timePreparation == this.timePreparation &&
+                other.timeActiveCooking == this.timeActiveCooking &&
+                other.timeOverall == this.timeOverall &&
+                other.instructions == this.instructions &&
+                other.image == this.image &&
+                other.defaultIngredients!!.areIngredientListsEqualWithoutId(this.defaultIngredients) &&
+                other.tags!!.areTagListsEqualWithoutId(this.tags)
+            )
     }
 
     companion object {

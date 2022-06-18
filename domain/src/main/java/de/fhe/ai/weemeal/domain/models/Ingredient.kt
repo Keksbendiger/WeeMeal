@@ -12,11 +12,11 @@ data class Ingredient(
 
     fun equalsWithoutId(other: Any?): Boolean {
         return (
-                (other is Ingredient) &&
-                        other.name == this.name &&
-                        other.image == this.image &&
-                        other.quantity == this.quantity
-                )
+            (other is Ingredient) &&
+                other.name == this.name &&
+                other.image == this.image &&
+                other.quantity == this.quantity
+            )
     }
     companion object {
         fun List<Ingredient>.areIngredientListsEqualWithoutId(other: List<Ingredient>?): Boolean {
@@ -29,4 +29,3 @@ data class Ingredient(
         }
     }
 }
-

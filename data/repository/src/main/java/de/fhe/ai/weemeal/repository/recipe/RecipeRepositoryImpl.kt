@@ -54,7 +54,6 @@ class RecipeRepositoryImpl(
             }
             recipe.defaultIngredients = ingredientList
 
-
             recipeTagEntityDao.getAllByRecipeId(recipeId).forEach { recipeTagEntity ->
                 tagEntityDao.get(recipeTagEntity.id)?.let { tagEntity ->
                     tagList.add(
@@ -79,23 +78,21 @@ class RecipeRepositoryImpl(
             }
             returnValue
         }
-
     }
 
     override suspend fun insertOrUpdateRecipe(recipe: Recipe): Recipe? {
 
-        val recipeId: Long = if(recipeEntityDao.get(recipe.internalId) != null){
+        val recipeId: Long = if (recipeEntityDao.get(recipe.internalId) != null) {
             recipeEntityDao.update(recipe.fromDomain())
             recipe.internalId
-        }else{
-            recipeEntityDao.insert (recipe.fromDomain())
+        } else {
+            recipeEntityDao.insert(recipe.fromDomain())
         }
 
-
         recipe.tags?.forEach { tag ->
-            if(tagEntityDao.get(tag.internalId) != null){
+            if (tagEntityDao.get(tag.internalId) != null) {
                 tagEntityDao.update(tag.fromDomain())
-            }else{
+            } else {
                 val tagId = tagEntityDao.insert(tag.fromDomain())
                 recipeTagEntityDao.insert(
                     RecipeTagEntity(
@@ -104,13 +101,12 @@ class RecipeRepositoryImpl(
                     )
                 )
             }
-
         }
 
         recipe.defaultIngredients?.forEach { ingredient ->
-            if(ingredientEntityDao.get(ingredient.internalId) != null){
+            if (ingredientEntityDao.get(ingredient.internalId) != null) {
                 ingredientEntityDao.insert(ingredient.fromDomain())
-            }else{
+            } else {
                 val ingredientId = ingredientEntityDao.insert(ingredient.fromDomain())
                 recipeIngredientEntityDao.insert(
                     RecipeIngredientEntity(
@@ -119,9 +115,7 @@ class RecipeRepositoryImpl(
                     )
                 )
             }
-
         }
         return getRecipe(recipeId)
     }
-
 }

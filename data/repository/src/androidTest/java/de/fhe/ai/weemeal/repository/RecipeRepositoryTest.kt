@@ -3,13 +3,13 @@ package de.fhe.ai.weemeal.repository
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.inject
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,7 +33,6 @@ class RecipeRepositoryTest : BaseTest() {
 //        recipeEntityDao = db.recipeEntityDao()
 //    }
 
-
     //
 //    @After
 //    @Throws(IOException::class)
@@ -53,7 +52,7 @@ class RecipeRepositoryTest : BaseTest() {
         }
 
         val testRecipe = RecipeMock.generateSingleObject(id)
-        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) //insertOrUpdate
+        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) // insertOrUpdate
         val loadedRecipe = recipeRepository.getRecipe(id)
         assertEquals(insertedRecipe, loadedRecipe)
         assertTrue(testRecipe.equalsWithoutId(loadedRecipe))
@@ -76,7 +75,7 @@ class RecipeRepositoryTest : BaseTest() {
         }
 
         val testRecipe = RecipeMock.generateSingleObject(id)
-        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) //insertOrUpdate
+        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) // insertOrUpdate
         val loadedRecipe = recipeRepository.getRecipe(id)
         assertEquals(insertedRecipe, loadedRecipe)
         assertTrue(testRecipe.equalsWithoutId(loadedRecipe))
@@ -91,14 +90,13 @@ class RecipeRepositoryTest : BaseTest() {
         }
 
         val testRecipe = RecipeMock.generateSingleObject(id)
-        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) //insertOrUpdate
+        val insertedRecipe = recipeRepository.insertOrUpdateRecipe(testRecipe) // insertOrUpdate
         val loadedRecipeList = recipeRepository.searchRecipeByName(testRecipe.name).first()
         assertTrue(loadedRecipeList.isNotEmpty())
         loadedRecipeList.forEach() {
             println(it)
         }
     }
-
 
 //
 //    // ----------------------------------------------------------------------------------------------

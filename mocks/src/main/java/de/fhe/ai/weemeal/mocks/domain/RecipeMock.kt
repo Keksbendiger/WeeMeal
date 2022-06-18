@@ -3,7 +3,6 @@ package de.fhe.ai.weemeal.mocks
 import de.fhe.ai.weemeal.common.extentions.timeUnit
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.mocks.domain.IngredientMock
 import de.fhe.ai.weemeal.mocks.domain.TagMock
 import io.bloco.faker.Faker
@@ -11,7 +10,7 @@ import io.bloco.faker.Faker
 object RecipeMock {
     private var faker: Faker = Faker()
 
-    fun generateSingleObject(internalId : Long = 0): Recipe {
+    fun generateSingleObject(internalId: Long = 0): Recipe {
         return Recipe(
             internalId = internalId,
             name = faker.food.dish(),

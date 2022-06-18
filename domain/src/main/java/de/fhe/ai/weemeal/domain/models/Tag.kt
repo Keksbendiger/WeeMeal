@@ -10,10 +10,10 @@ data class Tag(
 
     fun equalsWithoutId(other: Any?): Boolean {
         return (
-                (other is Tag) &&
-                        other.name == this.name &&
-                        other.isDefaultValue == this.isDefaultValue
-                )
+            (other is Tag) &&
+                other.name == this.name &&
+                other.isDefaultValue == this.isDefaultValue
+            )
     }
 
     companion object {
