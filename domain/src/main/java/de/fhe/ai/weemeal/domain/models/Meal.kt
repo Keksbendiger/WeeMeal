@@ -16,13 +16,13 @@ data class Meal(
     fun equalsWithoutId(other: Any?): Boolean {
 
         return (
-                (other is Meal) &&
-                        other.recipe == this.recipe &&
-                        other.servings == this.servings &&
-                        other.cookColor == this.cookColor &&
-                        other.cookingDate == this.cookingDate &&
-                        other.shoppingListCreatedAt == this.shoppingListCreatedAt
-                )
+            (other is Meal) &&
+                other.recipe == this.recipe &&
+                other.servings == this.servings &&
+                other.cookColor == this.cookColor &&
+                other.cookingDate == this.cookingDate &&
+                other.shoppingListCreatedAt == this.shoppingListCreatedAt
+            )
     }
 
     companion object {
