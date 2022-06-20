@@ -66,15 +66,11 @@ class MealRepositoryImpl(
         return getMeal(mealId)
     }
 
-    override suspend fun deleteMeal(meal: Meal): Boolean {
+    override suspend fun deleteMeal(meal: Meal) {
         mealEntityDao.delete(meal.fromDomain())
-
-        return true // TODO: change
     }
 
-    override suspend fun deleteAllMeals(): Boolean {
+    override suspend fun deleteAllMeals() {
         mealEntityDao.deleteAll()
-
-        return true // TODO: change
     }
 }

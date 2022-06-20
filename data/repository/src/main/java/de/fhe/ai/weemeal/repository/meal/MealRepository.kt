@@ -8,6 +8,6 @@ interface MealRepository {
     suspend fun getMeal(mealId: Long): Meal?
     suspend fun getAll(): List<Meal>
     suspend fun insertOrUpdateMeal(meal: Meal): Meal?
-    suspend fun deleteMeal(meal: Meal): Boolean
-    suspend fun deleteAllMeals(): Boolean
+    suspend fun deleteMeal(meal: Meal)
+    suspend fun deleteAllMeals()
 }
