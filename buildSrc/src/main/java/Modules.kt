@@ -9,7 +9,7 @@ object Modules {
     const val mocks = ":mocks"
     const val usecases = ":usecases"
 
-    //features
+    // features
     const val featureRecipe = ":feature:recipe"
     const val featureMeal = ":feature:meal"
     const val featureIngredient = ":feature:ingredient"

@@ -24,7 +24,6 @@ val ktlintDebug by tasks.creating(JavaExec::class) {
     classpath = ktlint
     main = "com.pinterest.ktlint.Main"
     args = listOf("src/**/*.kt", "!**/build/generated/*", "--reporter=plain")
-
 }
 
 val ktlintRelease by tasks.creating(JavaExec::class) {

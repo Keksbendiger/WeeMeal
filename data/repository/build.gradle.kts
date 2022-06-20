@@ -54,13 +54,16 @@ android {
 }
 
 dependencies {
-    //Dependencies
+    // Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
-//    addTimberDependencies()
+    addTimberDependencies()
+    addKoinDependencies()
+    addKotlinDependencies()
 
     // Modules
     DOMAIN
     LOCAL
     COMMON
+    MOCKS
 }

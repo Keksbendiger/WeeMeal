@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -100,7 +101,7 @@ fun RecipeListScreen(
                     )
                     var recipes: List<Recipe>? = RecipeMock.generateList()
 
-//                  Nullcheck -> TODO: More elegant way possible?
+//                  Nullcheck -> TODO: More elegant way possible? If else lol
                     recipes?.let {
                         RecipeList(recipes)
                     } ?: kotlin.run {
@@ -161,8 +162,8 @@ private fun RecipeListItemContent(recipe: Recipe) {
                     .fillMaxWidth()
             ) {
                 //            TODO: Use Image of Food/Recipe
-                Icon(
-                    imageVector = Filled.Face,
+                Image(
+                    painterResource(id = recipe.image),
                     contentDescription = "Dummy-Image",
                     modifier = Modifier.size(70.dp)
                 )
