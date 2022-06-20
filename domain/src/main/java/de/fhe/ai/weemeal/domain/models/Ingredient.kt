@@ -8,4 +8,24 @@ data class Ingredient(
     var name: String,
     val image: String? = "",
     var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"),
-) : BaseModel
+) : BaseModel {
+
+    fun equalsWithoutId(other: Any?): Boolean {
+        return (
+            (other is Ingredient) &&
+                other.name == this.name &&
+                other.image == this.image &&
+                other.quantity == this.quantity
+            )
+    }
+    companion object {
+        fun List<Ingredient>.areIngredientListsEqualWithoutId(other: List<Ingredient>?): Boolean {
+            this.forEachIndexed { index, thisItem ->
+                if (!thisItem.equalsWithoutId(other?.get(index))) {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+}

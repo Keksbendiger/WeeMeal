@@ -28,7 +28,7 @@ import de.fhe.ai.weemeal.local.mapper.Converters
         RecipeTagEntity::class,
         TagEntity::class,
     ],
-    version = 1
+    version = 3
 )
 @TypeConverters(Converters::class)
 abstract class WeeMealDatabase : RoomDatabase() {

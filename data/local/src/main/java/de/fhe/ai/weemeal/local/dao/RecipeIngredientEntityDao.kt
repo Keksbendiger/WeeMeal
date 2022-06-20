@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -23,6 +24,9 @@ interface RecipeIngredientEntityDao {
 
     @Insert
     suspend fun insert(entity: RecipeIngredientEntity): Long
+
+    @Update
+    suspend fun update(entity: RecipeIngredientEntity)
 
     @Delete
     suspend fun delete(entity: RecipeIngredientEntity)

@@ -1,13 +1,18 @@
-package de.fhe.ai.weemeal.local.mapper.recipe
+package de.fhe.ai.weemeal.local.mapper
 
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
 
-// TODO: find a better solution for this
 fun IngredientEntity.toDomain() = Ingredient(
+    internalId = this.id,
     name = this.name,
+    image = image,
+    quantity = quantity
 )
 
 fun Ingredient.fromDomain() = IngredientEntity(
-    name = this.name
+    id = this.internalId,
+    name = this.name,
+    image = image,
+    quantity = quantity
 )

@@ -32,7 +32,6 @@ fun DependencyHandler.debugImplementation(dependencyNotation: Any): Dependency? 
 fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? =
     add("implementation", dependencyNotation)
 
-
 /**
  * Adds a dependency to the `implementation` configuration.
  *
@@ -42,7 +41,6 @@ fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? =
  */
 fun DependencyHandler.annotationProcessor(dependencyNotation: Any): Dependency? =
     add("annotationProcessor", dependencyNotation)
-
 
 /**
  * Adds a dependency to the `api` configuration.
@@ -74,7 +72,6 @@ fun DependencyHandler.kapt(dependencyNotation: Any): Dependency? =
 fun DependencyHandler.testImplementation(dependencyNotation: Any): Dependency? =
     add("testImplementation", dependencyNotation)
 
-
 /**
  * Adds a dependency to the `androidTestImplementation` configuration.
  *
@@ -95,7 +92,6 @@ fun DependencyHandler.androidTestImplementation(dependencyNotation: Any): Depend
 fun DependencyHandler.ksp(dependencyNotation: Any): Dependency? =
     add("ksp", dependencyNotation)
 
-
 fun DependencyHandler.addAndroidXDependencies() {
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleKtx)
@@ -103,7 +99,6 @@ fun DependencyHandler.addAndroidXDependencies() {
     implementation(AndroidX.testExtJunit)
     implementation(AndroidX.junit)
 }
-
 
 fun DependencyHandler.addComposeDependencies() {
 
@@ -117,7 +112,7 @@ fun DependencyHandler.addComposeDependencies() {
     // Test
     androidTestImplementation(Compose.junit)
 
-    //DebugDependencies
+    // DebugDependencies
     debugImplementation(Compose.uiTooling)
 }
 
@@ -127,15 +122,23 @@ fun DependencyHandler.addKoinDependencies() {
     implementation(Koin.androidCompose)
     implementation(Koin.androidNavigation)
 
-    //Test
+    // Test
     androidTestImplementation(Koin.test)
     androidTestImplementation(Koin.testJunit4)
 }
 
-fun DependencyHandler.addKontlinxDependencies() {
+fun DependencyHandler.addKotlinxDependencies() {
     implementation(Kotlinx.kotlinCoroutinesCore)
     implementation(Kotlinx.kotlinCoroutinesAndroid)
 }
+
+fun DependencyHandler.addKotlinDependencies() {
+    implementation(Kotlin.annotations)
+    testImplementation(Kotlin.commonTest)
+    testImplementation(Kotlin.jvm)
+    testImplementation(Kotlin.junit)
+}
+
 
 fun DependencyHandler.addKtorDependencies() {
     implementation(Ktor.core)
@@ -145,12 +148,10 @@ fun DependencyHandler.addKtorDependencies() {
 
 fun DependencyHandler.addRoomDependencies() {
     implementation(Room.roomRuntime)
-//    implementation(Room.roomCompiler)
     annotationProcessor(Room.roomCompiler)
     implementation(Room.roomKtx)
-//    implementation(Room.roomCoroutine)
 
-    //Test
+    // Test
     testImplementation(Room.roomTesting)
 }
 
@@ -167,10 +168,6 @@ fun DependencyHandler.addFakerDependencies() {
     testImplementation(Faker.faker)
     androidTestImplementation(Faker.faker)
 }
-
-
-
-
 
 // Modules
 val DependencyHandler.LOCAL
@@ -194,7 +191,6 @@ val DependencyHandler.MOCKS
 val DependencyHandler.USECASES
     get() = implementation(project(Modules.usecases))
 
-
 // Features
 val DependencyHandler.FEATURE_RECIPE
     get() = implementation(project(Modules.featureRecipe))
@@ -207,5 +203,3 @@ val DependencyHandler.FEATURE_WEEK_LIST
 
 val DependencyHandler.FEATURE_SHOPPING_LIST
     get() = implementation(project(Modules.featureShoppingList))
-
-

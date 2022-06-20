@@ -8,8 +8,9 @@ import io.bloco.faker.Faker
 object MealMock {
     private val faker: Faker = Faker()
 
-    fun generateSingleObject(): Meal {
+    fun generateSingleObject(internalId: Long = 0): Meal {
         return Meal(
+            internalId = internalId,
             recipe = RecipeMock.generateSingleObject(),
             servings = faker.number.between(1, 10),
             cookColor = CookColor.getRandom(),

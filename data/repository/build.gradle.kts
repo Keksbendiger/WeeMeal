@@ -54,11 +54,12 @@ android {
 }
 
 dependencies {
-    //Dependencies
+    // Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
     addTimberDependencies()
     addKoinDependencies()
+    addKotlinDependencies()
 
     // Modules
     DOMAIN
