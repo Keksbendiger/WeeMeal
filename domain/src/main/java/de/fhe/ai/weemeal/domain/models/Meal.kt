@@ -17,12 +17,30 @@ data class Meal(
 
         return (
             (other is Meal) &&
-                other.recipe == this.recipe &&
+                other.recipe!!.equalsWithoutId(this.recipe) &&
                 other.servings == this.servings &&
                 other.cookColor == this.cookColor &&
                 other.cookingDate == this.cookingDate &&
                 other.shoppingListCreatedAt == this.shoppingListCreatedAt
             )
+    }
+
+    override fun toString(): String {
+        return StringBuilder()
+            .append("|internalId: ")
+            .append(this.internalId)
+            .append("| recipe: ")
+            .append(this.recipe)
+            .append("| servings: ")
+            .append(this.servings)
+            .append("| cookColor: ")
+            .append(this.cookColor)
+            .append("| cookingDate: ")
+            .append(this.cookingDate)
+            .append("| description: ")
+            .append(this.shoppingListCreatedAt)
+            .append("| shoppingListCreatedAt: ")
+            .toString()
     }
 
     companion object {

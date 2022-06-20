@@ -35,15 +35,10 @@ class MealRepositoryTest : BaseTest() {
     // CREATE
     // ----------------------------------------------------------------------------------------------
     @Test
-    fun should_create_a_meals() = runTest {
+    fun should_create_a_meal() = runTest {
         val mealMock = MealMock.generateSingleObject()
         val insertedMeal = mealRepository.insertOrUpdateMeal(mealMock)
         assertTrue(mealMock.equalsWithoutId(insertedMeal))
-
-        val loadedMeal = mealRepository.getMeal(insertedMeal!!.internalId)
-
-        assertEquals(insertedMeal, loadedMeal)
-        assertTrue(mealMock.equalsWithoutId(loadedMeal))
     }
 
     // ----------------------------------------------------------------------------------------------
@@ -124,4 +119,5 @@ class MealRepositoryTest : BaseTest() {
         mealRepository.deleteAllMeals()
         assertTrue(mealRepository.getAll().isEmpty())
     }
+
 }

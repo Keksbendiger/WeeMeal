@@ -35,6 +35,31 @@ data class Recipe(
             )
     }
 
+    override fun toString(): String {
+        return StringBuilder()
+            .append("|internalId: ")
+            .append(this.internalId)
+            .append("| name: ")
+            .append(this.name)
+            .append("| defaultServings: ")
+            .append(this.defaultServings)
+            .append("| defaultIngredients: ")
+            .append(this.defaultIngredients)
+            .append("| timePreparation: ")
+            .append(this.timePreparation)
+            .append("| timeActiveCooking: ")
+            .append(this.timeActiveCooking)
+            .append("| timeOverall: ")
+            .append(this.timeOverall)
+            .append("| instructions: ")
+            .append(this.instructions)
+            .append("| image: ")
+            .append(this.image)
+            .append("| tags: ")
+            .append(this.tags)
+            .toString()
+    }
+
     companion object {
         fun List<Recipe>.areRecipeListsEqualWithoutId(other: List<Recipe>?): Boolean {
             this.forEachIndexed { index, thisItem ->
