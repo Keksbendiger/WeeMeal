@@ -8,7 +8,7 @@ import de.fhe.ai.weemeal.domain.models.Tag.Companion.areTagListsEqualWithoutId
 
 data class Recipe(
     override var internalId: Long = 0,
-    val name: String,
+    val name: String = "",
     var defaultServings: Int? = 1,
     var defaultIngredients: List<Ingredient>? = listOf(),
     val timePreparation: TimeFormat? = TimeFormat(value = 0.0f, unit = "h"),

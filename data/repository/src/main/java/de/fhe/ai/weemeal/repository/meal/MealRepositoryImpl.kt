@@ -36,7 +36,7 @@ class MealRepositoryImpl(
 
         mealEntityDao.get(mealId)?.let { mealEntity ->
             val meal = mealEntity.toDomain()
-            meal.recipe = recipeRepository.getRecipe(mealEntity.recipeId)
+            meal.recipe = recipeRepository.getRecipe(mealEntity.recipeId)!!
             return meal
         }
         return null
@@ -55,11 +55,11 @@ class MealRepositoryImpl(
     override suspend fun insertOrUpdateMeal(meal: Meal): Meal? {
 
         val mealId: Long = if (mealEntityDao.get(meal.internalId) != null) {
-            meal.recipe = recipeRepository.insertOrUpdateRecipe(meal.recipe!!)
+            meal.recipe = recipeRepository.insertOrUpdateRecipe(meal.recipe)!!
             mealEntityDao.update(meal.fromDomain())
             meal.internalId
         } else {
-            meal.recipe = recipeRepository.insertOrUpdateRecipe(meal.recipe!!)
+            meal.recipe = recipeRepository.insertOrUpdateRecipe(meal.recipe)!!
             mealEntityDao.insert(meal.fromDomain())
         }
 

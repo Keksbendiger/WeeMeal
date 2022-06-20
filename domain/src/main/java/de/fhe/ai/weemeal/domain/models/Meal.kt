@@ -6,7 +6,7 @@ import java.util.Date
 
 data class Meal(
     override var internalId: Long = 0,
-    var recipe: Recipe?,
+    var recipe: Recipe,
     var servings: Int? = 1,
     val cookColor: CookColor? = CookColor.TRANSPARENT,
     val cookingDate: Date,
