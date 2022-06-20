@@ -7,7 +7,7 @@ interface RecipeRepository {
     fun getRecipes(): Flow<List<Recipe>>
     suspend fun getRecipe(recipeId: Long): Recipe?
     suspend fun getAll(): List<Recipe>
-    suspend fun searchRecipeByName(recipeName: String): Flow<List<Recipe>>
+    suspend fun searchRecipeByName(recipeName: String): List<Recipe>
     suspend fun insertOrUpdateRecipe(recipe: Recipe): Recipe?
     suspend fun deleteRecipe(recipe: Recipe): Boolean
     suspend fun deleteAllRecipes(): Boolean

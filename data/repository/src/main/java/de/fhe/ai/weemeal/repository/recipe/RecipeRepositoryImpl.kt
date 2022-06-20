@@ -77,17 +77,13 @@ class RecipeRepositoryImpl(
         return recipeList
     }
 
-    override suspend fun searchRecipeByName(recipeName: String): Flow<List<Recipe>> {
+    override suspend fun searchRecipeByName(recipeName: String): List<Recipe> {
         Timber.i("Search Recipe by Name")
-
-        return recipeEntityDao.search(recipeName).map { recipeList ->
-            val returnValue = mutableListOf<Recipe>()
-
-            recipeList.forEach { recipe ->
-                returnValue.add(getRecipe(recipe.id)!!)
-            }
-            returnValue
+        val returnValue = mutableListOf<Recipe>()
+        recipeEntityDao.search(recipeName).forEach { recipeEntity ->
+            returnValue.add(getRecipe(recipeEntity.id)!!)
         }
+        return returnValue
     }
 
     override suspend fun insertOrUpdateRecipe(recipe: Recipe): Recipe? {

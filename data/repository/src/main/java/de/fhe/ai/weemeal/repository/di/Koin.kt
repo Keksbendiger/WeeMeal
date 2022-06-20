@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.repository
+package de.fhe.ai.weemeal.repository.di
 
 import de.fhe.ai.weemeal.local.WeeMealDatabase
 import de.fhe.ai.weemeal.repository.meal.MealRepository
