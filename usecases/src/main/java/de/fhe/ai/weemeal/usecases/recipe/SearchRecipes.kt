@@ -22,16 +22,13 @@ class SearchRecipes : KoinComponent {
     fun execute(
         query: String,
     ): Flow<DataState<List<Recipe>>> = flow {
-        try {
-            emit(DataState.loading())
-            val recipeList =
-                recipeRepository.searchRecipeByName(
-                    recipeName = query,
-                )
 
-            emit(DataState.data(data = recipeList))
-        } catch (e: Exception) {
-//                        timber(e.toString())
-        }
+        emit(DataState.loading())
+        val recipeList =
+            recipeRepository.searchRecipeByName(
+                recipeName = query,
+            )
+
+        emit(DataState.data(data = recipeList))
     }
 }
