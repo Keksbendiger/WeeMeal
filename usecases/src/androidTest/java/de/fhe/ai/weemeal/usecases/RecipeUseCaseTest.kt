@@ -3,6 +3,7 @@ package de.fhe.ai.weemeal.usecases
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
+import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
