@@ -119,5 +119,4 @@ class MealRepositoryTest : BaseTest() {
         mealRepository.deleteAllMeals()
         assertTrue(mealRepository.getAll().isEmpty())
     }
-
 }
