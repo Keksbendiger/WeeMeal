@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.usecases
+package de.fhe.ai.weemeal.usecases.recipe
 
 import de.fhe.ai.weemeal.common.DataState
 import de.fhe.ai.weemeal.domain.models.Recipe
@@ -14,7 +14,7 @@ class SearchRecipes : KoinComponent {
 
     /**
      *
-     * search all meals with the cooking date from today or ahead
+     * search all recipes by name
      * emits the result in a data object
      *
      * @return DataState
