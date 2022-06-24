@@ -322,6 +322,6 @@ fun DefaultPreview() {
 @Composable
 fun ContentExpandedPreview() {
     WeeMealTheme {
-        RecipeListItemContentExpanded(recipe = RecipeMock.generateRecipe())
+        RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
     }
 }
