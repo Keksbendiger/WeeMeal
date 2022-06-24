@@ -4,6 +4,8 @@ package de.fhe.ai.weemeal.app.ui.screens.core
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -12,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import de.fhe.ai.weemeal.mealDetail.MealDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
+import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +26,9 @@ enum class Screens(val icon: ImageVector) {
     RecipeList(Icons.Filled.Home),
     ShoppingList(Icons.Filled.Home),
     WeekList(Icons.Filled.Home),
-    Settings(Icons.Filled.Settings);
+    Settings(Icons.Filled.Settings),
+    RecipeEdit(Icons.Filled.Edit),
+    Meal(Icons.Filled.Favorite);
 }
 
 @ExperimentalCoroutinesApi
@@ -58,6 +64,15 @@ fun AppNavigationHost(
         composable(Screens.Settings.name) {
             onNavigation(Screens.Recipe.name)
             // Settings() TODO: hier den Settings Screen einfügen
+        }
+
+        composable(Screens.Meal.name) {
+            onNavigation(Screens.Meal.name)
+            MealDetailsScreen()
+        }
+        composable(Screens.RecipeEdit.name) {
+            onNavigation(Screens.RecipeEdit.name)
+            RecipeEditScreen()
         }
     }
 }

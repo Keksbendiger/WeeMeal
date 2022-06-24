@@ -335,7 +335,7 @@ naming:
   NonBooleanPropertyPrefixedWithIs:
     active: false
   ObjectPropertyNaming:
-    active: true
+    active: false
     constantPattern: '[A-Z][A-Za-z0-9]*'
     propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
     privatePropertyPattern: '(_)?[A-Za-z][_A-Za-z0-9]*'
