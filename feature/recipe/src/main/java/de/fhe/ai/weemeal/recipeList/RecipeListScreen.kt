@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,15 +31,18 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -132,7 +136,7 @@ private fun RecipeList(recipes: List<Recipe>) {
 @Composable
 private fun RecipeListItem(recipe: Recipe) {
     Card(
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .fillMaxWidth()
@@ -152,7 +156,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
         modifier = Modifier
 //            .fillMaxWidth()
             .clickable(onClick = { expanded = !expanded })
-            .padding(8.dp)
+            .padding(10.dp)
             .animateContentSize(
                 animationSpec = spring(
                     dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -262,6 +266,47 @@ private fun RecipeListItemContentExpanded(recipe: Recipe) {
             textLeft = "timeOverall",
             textRight = recipe.timeOverall.toString()
         )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+//        TODO: Button with Text+Icon could be reusable Composable
+        IconButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .clip(RoundedCornerShape(20.dp))
+                .background(MaterialTheme.colors.primary)
+                .align(CenterHorizontally)
+
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+            ) {
+                Text(text = "Zu Wochenplan hinzufügen", color = MaterialTheme.colors.onPrimary)
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(Icons.Filled.Add, "", tint = MaterialTheme.colors.onPrimary)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        IconButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .clip(RoundedCornerShape(20.dp))
+                .background(MaterialTheme.colors.primary)
+                .align(CenterHorizontally)
+
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+            ) {
+                Text(text = "Rezept ansehen", color = MaterialTheme.colors.onPrimary)
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(Icons.Filled.Search, "", tint = MaterialTheme.colors.onPrimary)
+            }
+        }
     }
 }
 
@@ -273,10 +318,10 @@ fun DefaultPreview() {
     }
 }
 
-// @Preview
-// @Composable
-// fun ContentExpandedPreview() {
-//    WeeMealTheme {
-//        RecipeListItemContentExpanded(recipe = RecipeMock.generateRecipe())
-//    }
-// }
+@Preview
+@Composable
+fun ContentExpandedPreview() {
+    WeeMealTheme {
+        RecipeListItemContentExpanded(recipe = RecipeMock.generateRecipe())
+    }
+}
