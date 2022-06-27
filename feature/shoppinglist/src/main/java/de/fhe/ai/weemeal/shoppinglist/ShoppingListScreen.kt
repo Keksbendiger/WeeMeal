@@ -12,22 +12,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.FloatingActionButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons.Filled
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -73,13 +60,13 @@ fun ShoppingListScreen(
 
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
-                FloatingActionButton(
+                ExtendedFloatingActionButton(
                     onClick = { },
                     backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
-                ) {
-                    Icon(Filled.Add, "")
-                }
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp),
+                    text =  {  Text(text = "Teilen") },
+                    icon = { Icon(Filled.Share, "")}
+                )
             }
 
         ) { innerPadding ->
@@ -114,7 +101,7 @@ private fun ShoppingList(shoppingList: ShoppingList) {
 @Composable
 fun ShoppingListItem(ingredient: Ingredient) {
     Card(
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = MaterialTheme.colors.onBackground,
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
 
@@ -142,7 +129,18 @@ fun ShoppingListItem(ingredient: Ingredient) {
                         .align(Alignment.CenterVertically)
                         .weight(1f)
                 )
-                ItemQuantity(ingredient = ingredient)
+
+                Text(
+                    text = ingredient.quantity.quantity.toString()+" "+ingredient.quantity.unit,
+                    style = MaterialTheme.typography.h6.copy(
+                        fontWeight = FontWeight.ExtraBold
+
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(vertical = 4.dp, horizontal = 8.dp)
+                )
+
 
             }
         }
@@ -150,26 +148,7 @@ fun ShoppingListItem(ingredient: Ingredient) {
 
 }
 
-@Composable
-fun ItemQuantity(ingredient: Ingredient) {
 
-        Text(
-            text = ingredient.quantity.quantity.toString(),
-            style = MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.ExtraBold
-            ),
-                    modifier = Modifier
-
-        )
-
-        Text(
-            text = ingredient.quantity.unit,
-            style = MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.ExtraBold
-            ),
-            modifier = Modifier
-        )
-    }
 
 
 
