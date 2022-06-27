@@ -40,7 +40,6 @@ import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.RecipeNumberInput
 import de.fhe.ai.weemeal.common.components.RecipeStringInput
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
-import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.recipe.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -51,6 +50,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeEditScreen(
+    recipeEditViewModel: RecipeEditViewModel = RecipeEditViewModel(),
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -65,7 +65,7 @@ fun RecipeEditScreen(
 //            bottomBar = { BottomBar(navController) },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateSingleObject()
+                val recipe = recipeEditViewModel.state.value.recipe
 
                 Column(
                     Modifier
@@ -128,7 +128,9 @@ fun RecipeEditScreen(
                             )
                         }
                         item {
-                            IconButton(onClick = { /*TODO add Tag*/ }) {
+                            IconButton(
+                                onClick = { /*TODO add Tag*/ }
+                            ) {
                                 Icon(Icons.Filled.Add, "Add Tag Button")
                             }
                         }
@@ -161,7 +163,7 @@ fun RecipeEditScreen(
                             onValueChange = {
                                 if (it.toInt() > 0) recipe.defaultServings = it.toInt()
                             },
-                            Modifier.align(Alignment.Bottom)
+                            modifier = Modifier.align(Alignment.Bottom)
                         )
 
                         Text(
@@ -191,8 +193,9 @@ fun RecipeEditScreen(
                                     Icon(Icons.Filled.Delete, "delete ingredient")
                                 }
 
+
                                 RecipeStringInput(
-                                    value = ingredient.name,
+                                    value = it.name,
                                     onValueChange = {
                                         ingredient.name = it
                                     },

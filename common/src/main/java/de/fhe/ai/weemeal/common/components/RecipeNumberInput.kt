@@ -22,7 +22,7 @@ fun RecipeNumberInput(
 ) {
     BasicTextField(
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = { newValue -> onValueChange(newValue) },
         modifier = modifier
             .padding(1.dp)
             .width(50.dp)
