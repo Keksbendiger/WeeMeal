@@ -61,4 +61,6 @@ dependencies {
 
     // Modules
     DOMAIN
+    COMMON
+    MOCKS
 }
