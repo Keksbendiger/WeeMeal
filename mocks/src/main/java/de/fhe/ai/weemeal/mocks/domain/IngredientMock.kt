@@ -4,6 +4,7 @@ import de.fhe.ai.weemeal.common.extentions.measurementUnit
 import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import io.bloco.faker.Faker
+import java.util.Random
 
 object IngredientMock {
     private val faker: Faker = Faker()
@@ -15,6 +16,7 @@ object IngredientMock {
                 quantity = faker.number.between(1, 100).toFloat(),
                 unit = faker.measurementUnit()
             ),
+            internalId = Random().nextLong()
         )
     }
 

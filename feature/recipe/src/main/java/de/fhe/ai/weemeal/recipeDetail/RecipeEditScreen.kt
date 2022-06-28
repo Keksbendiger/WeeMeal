@@ -65,7 +65,7 @@ fun RecipeEditScreen(
 //            bottomBar = { BottomBar(navController) },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = recipeEditViewModel.state.value.recipe
+                val recipe = recipeEditViewModel.state.value
 
                 Column(
                     Modifier
@@ -195,9 +195,10 @@ fun RecipeEditScreen(
 
 
                                 RecipeStringInput(
+                                    //value = it.name,
                                     value = it.name,
                                     onValueChange = {
-                                        ingredient.name = it
+                                        recipeEditViewModel.updateIngredientName(ingredient.internalId, it)
                                     },
                                     wide = true
                                 )
