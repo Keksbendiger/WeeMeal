@@ -160,8 +160,19 @@ fun RecipeEditScreen(
 
                         RecipeNumberInput(
                             value = recipe.defaultServings.toString(),
+
                             onValueChange = {
-                                if (it.toInt() > 0) recipe.defaultServings = it.toInt()
+                                // du darfst nicht das recipe überspeichern. Das ist nicht der state. Den State hält das ViewModel
+                                //if (it.toInt() > 0) recipe.defaultServings = it.toInt()
+
+                                // Das nur zur verdeutlichung des UNterschiedes. Das muss aber in das ViewModel
+                                // recipeEditViewModel.state.value = recipeEditViewModel.state.value.copy(defaultServings = it.toInt())
+
+                                // so kann das dann umgesetzt werden
+                                recipeEditViewModel.OnUpdateNumber(it.toInt())
+
+                                // Da du sehr viele Inputfelder hast, lohnt sich hier (bzw im ViewModel) mit Events und einer on TriggerEvent Methode zu arbeiten.
+                                // Ansonsten müssen wir für jedes Feld was wir reingeben eine eigene Methode als Übergabeparameter haben.
                             },
                             modifier = Modifier.align(Alignment.Bottom)
                         )

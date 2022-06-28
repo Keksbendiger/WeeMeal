@@ -7,10 +7,10 @@ import de.fhe.ai.weemeal.domain.models.Recipe
 
 class RecipeEditViewModel(
 
-) : ViewModel(){
+) : ViewModel() {
     private var _state = mutableStateOf(RecipeEditState())
     val state: MutableState<RecipeEditState>
-    get() = _state
+        get() = _state
 
 
     private fun saveRecipe() {
@@ -21,10 +21,14 @@ class RecipeEditViewModel(
         // TODO implement load from db
     }
 
+    fun OnUpdateNumber (number: Int){
+        _state.value = _state.value.copy(defaultServings = number)
+    }
+
     public fun updateIngredientName(id: Long, newValue: String) {
         val ingredients = state.value.defaultIngredients
-            ingredients?.forEach {
-            if(it.internalId == id) {
+        ingredients?.forEach {
+            if (it.internalId == id) {
                 it.name = newValue
                 // TODO break loop here
             }
