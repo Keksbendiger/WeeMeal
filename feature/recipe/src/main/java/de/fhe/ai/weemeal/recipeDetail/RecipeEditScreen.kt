@@ -162,17 +162,7 @@ fun RecipeEditScreen(
                             value = recipe.defaultServings.toString(),
 
                             onValueChange = {
-                                // du darfst nicht das recipe überspeichern. Das ist nicht der state. Den State hält das ViewModel
-                                //if (it.toInt() > 0) recipe.defaultServings = it.toInt()
-
-                                // Das nur zur verdeutlichung des UNterschiedes. Das muss aber in das ViewModel
-                                // recipeEditViewModel.state.value = recipeEditViewModel.state.value.copy(defaultServings = it.toInt())
-
-                                // so kann das dann umgesetzt werden
-                                recipeEditViewModel.OnUpdateNumber(it.toInt())
-
-                                // Da du sehr viele Inputfelder hast, lohnt sich hier (bzw im ViewModel) mit Events und einer on TriggerEvent Methode zu arbeiten.
-                                // Ansonsten müssen wir für jedes Feld was wir reingeben eine eigene Methode als Übergabeparameter haben.
+                                recipeEditViewModel.OnUpdateDefaultServings(it.toInt())
                             },
                             modifier = Modifier.align(Alignment.Bottom)
                         )
@@ -204,12 +194,13 @@ fun RecipeEditScreen(
                                     Icon(Icons.Filled.Delete, "delete ingredient")
                                 }
 
-
                                 RecipeStringInput(
-                                    //value = it.name,
+                                    // value = it.name,
                                     value = it.name,
                                     onValueChange = {
-                                        recipeEditViewModel.updateIngredientName(ingredient.internalId, it)
+                                        recipeEditViewModel.updateIngredientName(
+                                            ingredient.internalId, it
+                                        )
                                     },
                                     wide = true
                                 )
@@ -218,13 +209,19 @@ fun RecipeEditScreen(
 
                                     RecipeNumberInput(
                                         value = ingredient.quantity.quantity.toString(),
-                                        onValueChange = { ingredient.quantity.quantity }
+                                        onValueChange = {
+                                            recipeEditViewModel.updateIngredientAmount(
+                                                ingredient.internalId, it.toFloat()
+                                            )
+                                        }
                                     )
 
                                     RecipeStringInput(
                                         value = ingredient.quantity.unit,
                                         onValueChange = {
-                                            ingredient.quantity.unit = it
+                                            recipeEditViewModel.updateIngredientUnit(
+                                                ingredient.internalId, it
+                                            )
                                         }
                                     )
                                 }
@@ -277,13 +274,18 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeActiveCooking?.value.toString(),
                                     onValueChange = {
-                                        recipe.timeActiveCooking!!.value = it.toFloat()
+                                        recipeEditViewModel.onUpdateActiveCookingTime(
+                                            it.toFloat(),
+                                            recipe.timeActiveCooking?.unit ?: ""
+                                        )
                                     }
                                 )
                                 RecipeStringInput(
                                     value = recipe.timeActiveCooking?.unit ?: "",
                                     onValueChange = {
-                                        recipe.timeActiveCooking!!.unit = it
+                                        recipeEditViewModel.onUpdateActiveCookingTime(
+                                            recipe.timeActiveCooking?.value ?: 0f, it
+                                        )
                                     }
                                 )
                             }
@@ -303,13 +305,18 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timePreparation?.value.toString(),
                                     onValueChange = {
-                                        recipe.timePreparation!!.value = it.toFloat()
+                                        recipeEditViewModel.onUpdatePreparationTime(
+                                            it.toFloat(),
+                                            recipe.timePreparation?.unit ?: ""
+                                        )
                                     }
                                 )
                                 RecipeStringInput(
                                     value = recipe.timePreparation?.unit ?: "",
                                     onValueChange = {
-                                        recipe.timePreparation!!.unit = it
+                                        recipeEditViewModel.onUpdatePreparationTime(
+                                            recipe.timePreparation?.value ?: 0f, it
+                                        )
                                     }
                                 )
                             }
@@ -329,13 +336,18 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeOverall?.value.toString(),
                                     onValueChange = {
-                                        recipe.timeOverall!!.value = it.toFloat()
+                                        recipeEditViewModel.onUpdateOverallCookingTime(
+                                            it.toFloat(),
+                                            recipe.timeOverall?.unit ?: ""
+                                        )
                                     }
                                 )
                                 RecipeStringInput(
                                     value = recipe.timeOverall?.unit ?: "",
                                     onValueChange = {
-                                        recipe.timeOverall!!.unit = it
+                                        recipeEditViewModel.onUpdateOverallCookingTime(
+                                            recipe.timeOverall?.value ?: 0f, it
+                                        )
                                     }
                                 )
                             }
@@ -357,7 +369,7 @@ fun RecipeEditScreen(
                     )
                     TextField(
                         value = recipe.instructions ?: "",
-                        onValueChange = { recipe.instructions }
+                        onValueChange = { recipeEditViewModel.onUpdateInstructions(it) }
                     )
                 }
             }
