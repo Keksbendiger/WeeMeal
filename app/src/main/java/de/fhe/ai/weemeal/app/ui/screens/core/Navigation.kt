@@ -1,4 +1,5 @@
 @file: Suppress("MatchingDeclarationName")
+
 package de.fhe.ai.weemeal.app.ui.screens.core
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -18,13 +19,14 @@ import de.fhe.ai.weemeal.mealDetail.MealDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
 import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 enum class Screens(val icon: ImageVector) {
     Recipe(Icons.Filled.Home),
     RecipeList(Icons.Filled.Home),
-    ShoppingList(Icons.Filled.Home),
+    ShoppingListSelectScreen(Icons.Filled.Home),
     WeekList(Icons.Filled.Home),
     Settings(Icons.Filled.Settings),
     RecipeEdit(Icons.Filled.Edit),
@@ -53,9 +55,9 @@ fun AppNavigationHost(
             onNavigation(Screens.RecipeList.name)
             RecipeListScreen()
         }
-        composable(Screens.ShoppingList.name) {
-            onNavigation(Screens.ShoppingList.name)
-            // ShoppingList() TODO: hier den ShoppingList Screen einfügen
+        composable(Screens.ShoppingListSelectScreen.name) {
+            onNavigation(Screens.ShoppingListSelectScreen.name)
+            ShoppingListSelectScreen()
         }
         composable(Screens.WeekList.name) {
             onNavigation(Screens.WeekList.name)
