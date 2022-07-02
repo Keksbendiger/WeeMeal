@@ -3,7 +3,6 @@ package de.fhe.ai.weemeal.local.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.fhe.ai.weemeal.domain.enums.CookColor
-import java.time.LocalDate
 import java.util.Date
 
 @Entity

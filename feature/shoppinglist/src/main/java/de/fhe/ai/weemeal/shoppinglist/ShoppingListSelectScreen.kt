@@ -36,9 +36,9 @@ import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Calendar
 import java.util.Date
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
@@ -90,7 +90,7 @@ fun ShoppingListSelectScreen() {
 @Composable
 private fun WeekList(meals: List<Meal>) {
     LazyColumn {
-        items(14) { index->
+        items(14) { index ->
             var day = getDaysAhead(index)
             WeekListDay(meals, day)
         }
@@ -110,11 +110,9 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
             if (meal.cookingDate !== day) MealListItem(meal = meal)
-
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -153,7 +151,6 @@ fun WeekListContent(meal: Meal) {
         )
     }
 }
-
 
 @Preview
 @Composable

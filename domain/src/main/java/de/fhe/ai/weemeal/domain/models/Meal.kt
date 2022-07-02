@@ -2,7 +2,6 @@ package de.fhe.ai.weemeal.domain.models
 
 import de.fhe.ai.weemeal.domain.BaseModel
 import de.fhe.ai.weemeal.domain.enums.CookColor
-import java.time.LocalDate
 import java.util.Date
 
 data class Meal(

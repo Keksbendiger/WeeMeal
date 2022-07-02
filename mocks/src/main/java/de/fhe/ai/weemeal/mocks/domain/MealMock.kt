@@ -31,7 +31,7 @@ object MealMock {
         return internalList
     }
 
-    fun generateWeek(amount: Int? = faker.number.between(7,21)): List<Meal>{
+    fun generateWeek(amount: Int? = faker.number.between(7, 21)): List<Meal> {
 
         val internalList: MutableList<Meal> = mutableListOf()
         for (i in 1..amount!!) {
@@ -57,6 +57,4 @@ object MealMock {
 
         return calendar.time
     }
-
-
 }

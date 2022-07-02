@@ -39,9 +39,8 @@ import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
-import java.time.LocalDate
-import java.util.Calendar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.Calendar
 import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -56,7 +55,7 @@ fun WeeklistScreen() {
 
             floatingActionButtonPosition = FabPosition.End,
 
-            ) { innerPadding ->
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
                     SearchAppBar(
@@ -87,9 +86,9 @@ fun WeeklistScreen() {
 private fun WeekList(meals: List<Meal>) {
 
     LazyColumn {
-        items(14) { index->
-                var day = getDaysAhead(index)
-                WeekListDay(meals, day)
+        items(14) { index ->
+            var day = getDaysAhead(index)
+            WeekListDay(meals, day)
         }
         item { AddDay() }
     }
@@ -118,12 +117,11 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
     }
 }
 
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MealListItem(meal: Meal) {
     Card(
-        onClick = {/*TODO: Redirect to the Receipt*/},
+        onClick = { /*TODO: Redirect to the Receipt*/ },
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
@@ -160,7 +158,7 @@ fun WeekListContent(meal: Meal) {
 @Composable
 private fun AddMeal() {
     Button(
-        onClick = {/*TODO: AddMeal onClick -> create new Meal for the Day*/},
+        onClick = { /*TODO: AddMeal onClick -> create new Meal for the Day*/ },
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
