@@ -39,16 +39,9 @@ import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
-import java.time.Instant.now
 import java.time.LocalDate
+import java.util.Calendar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.time.LocalDate.now
-import java.time.LocalDateTime.now
-import java.time.LocalTime.now
-import java.time.MonthDay.now
-import java.time.OffsetDateTime.now
-import java.time.OffsetTime.now
-import java.time.chrono.ThaiBuddhistDate.now
 import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -75,13 +68,12 @@ fun WeeklistScreen() {
 //                            onTriggerEvent(RecipeListEvents.NewSearch)
                         },
                     )
-                    val meals: List<Meal>? = MealMock.generateList()
+                    val meals: List<Meal>? = MealMock.generateWeek()
 
 //                  Nullcheck -> TODO: More elegant way possible?
                     meals?.let {
                         WeekList(meals)
                     } ?: kotlin.run {
-//                        TODO: String ressource location correct?
                         Text("Keine Einträge")
                     }
                 }
@@ -95,54 +87,43 @@ fun WeeklistScreen() {
 private fun WeekList(meals: List<Meal>) {
 
     LazyColumn {
-        itemsIndexed(items = meals) { index, meal ->
-            var weekListSorted = meals.sortedBy { it.cookingDate }
-            val currentDate = LocalDate.now()
-            val temp: List<Meal> = emptyList()
-            val weekListForDay: List<Meal> = emptyList()
-
-           /*for (meals in weekListSorted) {
-                if (currentDate < meals.cookingDate {
-                    temp.plus(meals)
-                }
-            }*/
-
-            /*if(!temp.isEmpty()){
-                weekListSorted = temp.sortedBy { it.cookingDate }
-            }*/
-
-           for (meals in weekListSorted) {
-                if (weekListSorted[0].cookingDate == meals.cookingDate) {
-                    weekListForDay.plus(meals)
-                    weekListSorted.minus(meals)
-                }
-            }
-
-            WeekListDay(weekListForDay)
+        items(14) { index->
+                var day = getDaysAhead(index)
+                WeekListDay(meals, day)
         }
         item { AddDay() }
     }
 }
 
+fun getDaysAhead(daysAhead: Int): Date {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, daysAhead)
+
+    return calendar.time
+}
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-private fun WeekListDay(meals: List<Meal>) {
+private fun WeekListDay(meals: List<Meal>, day: Date) {
 
-    if(!meals.isEmpty()){
-        Text(text = meals[0].cookingDate.toString())
-    }
-    Text(text = LocalDate.now().toString())
+    Text(text = day.toString())
+
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            MealListItem(meal = meal)
+            if (meal.cookingDate !== day) {
+                MealListItem(meal = meal)
+            }
         }
         item { AddMeal() }
     }
 }
 
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MealListItem(meal: Meal) { // TODO Meals nur an richtigem datum anz4eigen
+fun MealListItem(meal: Meal) {
     Card(
+        onClick = {/*TODO: Redirect to the Receipt*/},
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
@@ -179,8 +160,7 @@ fun WeekListContent(meal: Meal) {
 @Composable
 private fun AddMeal() {
     Button(
-// TODO: AddMeal onClick -> create new Meal for the Day
-        onClick = {},
+        onClick = {/*TODO: AddMeal onClick -> create new Meal for the Day*/},
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
@@ -189,7 +169,6 @@ private fun AddMeal() {
     ) {
         Icon(
             imageVector = Icons.Filled.Add,
-//                        TODO: Extract String Ressource
             contentDescription = "ADD Meal",
             modifier = Modifier
                 .height(150.dp)
@@ -219,10 +198,11 @@ private fun AddDay() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun DefaultPreview() {
     WeeMealTheme {
-        WeekList(meals = MealMock.generateList())
+        WeekList(meals = MealMock.generateWeek())
     }
 }

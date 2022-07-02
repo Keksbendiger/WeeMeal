@@ -1,6 +1,7 @@
 package de.fhe.ai.weemeal.shoppinglist
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +36,8 @@ import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
+import java.util.Calendar
+import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -68,7 +72,7 @@ fun ShoppingListSelectScreen() {
 //                            onTriggerEvent(RecipeListEvents.NewSearch)
                         },
                     )
-                    val meals: List<Meal>? = MealMock.generateList()
+                    val meals: List<Meal>? = MealMock.generateWeek()
 
 //                  Nullcheck -> TODO: More elegant way possible?
                     meals?.let {
@@ -86,31 +90,43 @@ fun ShoppingListSelectScreen() {
 @Composable
 private fun WeekList(meals: List<Meal>) {
     LazyColumn {
-        itemsIndexed(items = meals) { index, meal ->
-            WeekListDay(meals = meals)
+        items(14) { index->
+            var day = getDaysAhead(index)
+            WeekListDay(meals, day)
         }
     }
+}
+fun getDaysAhead(daysAhead: Int): Date {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, daysAhead)
+
+    return calendar.time
 }
 
 @Composable
-private fun WeekListDay(meals: List<Meal>) {
-    Text(text = meals[0].cookingDate.toString())
+private fun WeekListDay(meals: List<Meal>, day: Date) {
+    Text(text = day.toString())
+
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            MealListItem(meal = meal)
+            if (meal.cookingDate !== day) MealListItem(meal = meal)
+
         }
     }
 }
 
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MealListItem(meal: Meal) {
     Card(
-        backgroundColor = MaterialTheme.colors.primary,
+        onClick = {},
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
             .width(150.dp)
     ) {
+        Image(painter = painterResource(id = meal.recipe.image), contentDescription = "Dummy Image")
         WeekListContent(meal = meal)
     }
 }
@@ -138,10 +154,11 @@ fun WeekListContent(meal: Meal) {
     }
 }
 
+
 @Preview
 @Composable
 fun DefaultPreview() {
     WeeMealTheme {
-        WeekList(meals = MealMock.generateList())
+        WeekList(meals = MealMock.generateWeek())
     }
 }
