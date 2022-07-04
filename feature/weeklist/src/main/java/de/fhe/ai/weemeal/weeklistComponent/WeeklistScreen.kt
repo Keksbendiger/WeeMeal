@@ -31,8 +31,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.SearchAppBar
@@ -55,7 +57,7 @@ fun WeeklistScreen() {
 
             floatingActionButtonPosition = FabPosition.End,
 
-        ) { innerPadding ->
+            ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
                     SearchAppBar(
@@ -85,6 +87,7 @@ fun WeeklistScreen() {
 @Composable
 private fun WeekList(meals: List<Meal>) {
 
+    meals.sortedByDescending { it.cookingDate }
     LazyColumn {
         items(14) { index ->
             var day = getDaysAhead(index)
@@ -105,17 +108,93 @@ fun getDaysAhead(daysAhead: Int): Date {
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
 
-    Text(text = day.toString())
+
+    Text(text = dayOfWeekString(day).toString(), style = MaterialTheme.typography.h6)
+    Text(text = day.date.toString() + "." + monthName(day), style = MaterialTheme.typography.h6)
 
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            if (meal.cookingDate !== day) {
+            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
                 MealListItem(meal = meal)
             }
         }
         item { AddMeal() }
     }
 }
+
+fun monthName(day: Date): Any? {
+    var month = day.month
+    var monthName = ""
+
+    if (month == 1) {
+        monthName = "Januar"
+    }
+    if (month == 2) {
+        monthName = "Februar"
+    }
+    if (month == 3) {
+        monthName = "März"
+    }
+    if (month == 4) {
+        monthName = "April"
+    }
+    if (month == 5) {
+        monthName = "Mai"
+    }
+    if (month == 6) {
+        monthName = "Juni"
+    }
+    if (month == 7) {
+        monthName = "Juli"
+    }
+    if (month == 8) {
+        monthName = "August"
+    }
+    if (month == 9) {
+        monthName = "September"
+    }
+    if (month == 10) {
+        monthName = "Oktober"
+    }
+    if (month == 11) {
+        monthName = "November"
+    }
+    if (month == 12) {
+        monthName = "Dezemeber"
+    }
+
+    return monthName
+}
+
+fun dayOfWeekString(day: Date): Any {
+    var dayOfWeek = day.day
+    var dayOfWeekString = ""
+
+    if (dayOfWeek == 0) {
+        dayOfWeekString = "Sonntag"
+    }
+    if (dayOfWeek == 1) {
+        dayOfWeekString = "Montag"
+    }
+    if (dayOfWeek == 2) {
+        dayOfWeekString = "Dienstag"
+    }
+    if (dayOfWeek == 3) {
+        dayOfWeekString = "Mittwoch"
+    }
+    if (dayOfWeek == 4) {
+        dayOfWeekString = "Donnerstag"
+    }
+    if (dayOfWeek == 5) {
+        dayOfWeekString = "Freitag"
+    }
+    if (dayOfWeek == 6) {
+        dayOfWeekString = "Samstag"
+    }
+
+    return dayOfWeekString
+}
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
