@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
-import de.fhe.ai.weemeal.mocks.domain.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Preview
@@ -43,6 +42,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun MealDetailsScreen(
 //    recipeListState: RecipeListState,
+    mealDetailsViewModel: MealDetailsViewModel = MealDetailsViewModel(),
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
 //    onClickOpenRecipe: (Int) -> Unit,
@@ -57,7 +57,7 @@ fun MealDetailsScreen(
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val meal = MealMock.generateSingleObject()
+                val meal = mealDetailsViewModel.state.value
                 val recipe = meal.recipe
 
                 Column(
@@ -119,13 +119,14 @@ fun MealDetailsScreen(
                         IconButton(
                             onClick = {
                                 if (meal.servings!! > 1) {
-                                    meal.servings = meal.servings!! - 1
+                                    mealDetailsViewModel.decreaseServings()
                                 }
                             }
                         ) {
                             Icon(
                                 painterResource(
-                                    id = de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_remove_circle_24,
+                                    id =
+                                    de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_remove_circle_24,
                                 ),
                                 contentDescription = "decrease button"
                             )
@@ -143,12 +144,13 @@ fun MealDetailsScreen(
 
                         IconButton(
                             onClick = {
-                                meal.servings = meal.servings!! + 1
+                                mealDetailsViewModel.increaseServings()
                             }
                         ) {
                             Icon(
                                 painterResource(
-                                    id = de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_add_circle_24,
+                                    id =
+                                    de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_add_circle_24,
                                 ),
                                 contentDescription = "increase button"
                             )
@@ -169,7 +171,11 @@ fun MealDetailsScreen(
                         recipe.defaultIngredients?.forEach {
                             ListComponent(
                                 textLeft = it.name,
-                                textRight = it.quantity.quantity.toString() + "  " + it.quantity.unit
+                                textRight =
+                                (
+                                    (it.quantity.quantity * mealDetailsViewModel.state.value.servingsRatio)
+                                        .toString()
+                                    ) + "  " + it.quantity.unit
                             )
                         }
                     }

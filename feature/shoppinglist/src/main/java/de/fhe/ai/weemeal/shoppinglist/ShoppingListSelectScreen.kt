@@ -1,10 +1,7 @@
-package de.fhe.ai.weemeal.weeklistComponent
+package de.fhe.ai.weemeal.shoppinglist
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,17 +13,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -43,17 +40,25 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Calendar
 import java.util.Date
 
-@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun WeeklistScreen() {
+fun ShoppingListSelectScreen() {
     WeeMealTheme() {
         Scaffold(
 
             floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
+                ) {
+                    Icon(Icons.Filled.Done, "")
+                }
+            }
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
@@ -73,6 +78,7 @@ fun WeeklistScreen() {
                     meals?.let {
                         WeekList(meals)
                     } ?: kotlin.run {
+//                        TODO: String ressource location correct?
                         Text("Keine Einträge")
                     }
                 }
@@ -81,17 +87,13 @@ fun WeeklistScreen() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun WeekList(meals: List<Meal>) {
-
-    meals.sortedByDescending { it.cookingDate }
     LazyColumn {
         items(14) { index ->
             var day = getDaysAhead(index)
             WeekListDay(meals, day)
         }
-        item { AddDay() }
     }
 }
 
@@ -102,22 +104,25 @@ fun getDaysAhead(daysAhead: Int): Date {
     return calendar.time
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
-
-    Text(
-        text = dayOfWeekString(day).toString(),
-        style = MaterialTheme.typography.h6,
-        modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 4.dp)
-    )
-    Text(
-        text = day.date.toString() + "." + monthName(day),
-        style = MaterialTheme.typography.h6,
-        modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 4.dp)
-    )
+    for (meal in meals) {
+        if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+            Text(
+                text = dayOfWeekString(day).toString(),
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier
+                    .padding(vertical = 4.dp, horizontal = 4.dp)
+            )
+            Text(
+                text = day.date.toString() + "." + monthName(day),
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier
+                    .padding(vertical = 4.dp, horizontal = 4.dp)
+            )
+            break
+        }
+    }
 
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
@@ -125,7 +130,6 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
                 MealListItem(meal = meal)
             }
         }
-        item { AddMeal() }
     }
 }
 
@@ -206,11 +210,17 @@ fun dayOfWeekString(day: Date): Any {
 @Composable
 fun MealListItem(meal: Meal) {
     Card(
-        onClick = { /*TODO: Redirect to the Receipt*/ },
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
             .width(150.dp)
+
+        /*.clickable(onClick = { Modifier.border(
+            BorderStroke(
+                2.dp,
+                SolidColor(Color.Black)
+            )
+        ) })*/
     ) {
         Image(painter = painterResource(id = meal.recipe.image), contentDescription = "Dummy Image")
         WeekListContent(meal = meal)
@@ -240,48 +250,6 @@ fun WeekListContent(meal: Meal) {
     }
 }
 
-@Composable
-private fun AddMeal() {
-    Button(
-        onClick = { /*TODO: AddMeal onClick -> create new Meal for the Day*/ },
-        modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
-            .height(150.dp)
-            .width(150.dp)
-
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = "ADD Meal",
-            modifier = Modifier
-                .height(150.dp)
-                .width(150.dp)
-                .background(MaterialTheme.colors.primary)
-        )
-        Text(text = "Neuen Tag hinzufügen")
-    }
-}
-
-@Composable
-private fun AddDay() {
-    Button(
-        onClick = { /*TODO*/ },
-        modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
-            .height(40.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Create,
-            contentDescription = "Add Day",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .background(MaterialTheme.colors.primary)
-        )
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun DefaultPreview() {

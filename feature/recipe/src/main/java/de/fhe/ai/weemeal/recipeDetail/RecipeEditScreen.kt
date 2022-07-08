@@ -40,7 +40,6 @@ import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.RecipeNumberInput
 import de.fhe.ai.weemeal.common.components.RecipeStringInput
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
-import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.recipe.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -51,6 +50,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeEditScreen(
+    recipeEditViewModel: RecipeEditViewModel = RecipeEditViewModel(),
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -65,7 +65,7 @@ fun RecipeEditScreen(
 //            bottomBar = { BottomBar(navController) },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateSingleObject()
+                val recipe = recipeEditViewModel.state.value
 
                 Column(
                     Modifier
@@ -128,7 +128,9 @@ fun RecipeEditScreen(
                             )
                         }
                         item {
-                            IconButton(onClick = { /*TODO add Tag*/ }) {
+                            IconButton(
+                                onClick = { /*TODO add Tag*/ }
+                            ) {
                                 Icon(Icons.Filled.Add, "Add Tag Button")
                             }
                         }
@@ -158,10 +160,11 @@ fun RecipeEditScreen(
 
                         RecipeNumberInput(
                             value = recipe.defaultServings.toString(),
+
                             onValueChange = {
-                                if (it.toInt() > 0) recipe.defaultServings = it.toInt()
+                                recipeEditViewModel.OnUpdateDefaultServings(it.toInt())
                             },
-                            Modifier.align(Alignment.Bottom)
+                            modifier = Modifier.align(Alignment.Bottom)
                         )
 
                         Text(
@@ -192,9 +195,12 @@ fun RecipeEditScreen(
                                 }
 
                                 RecipeStringInput(
-                                    value = ingredient.name,
+                                    // value = it.name,
+                                    value = it.name,
                                     onValueChange = {
-                                        ingredient.name = it
+                                        recipeEditViewModel.updateIngredientName(
+                                            ingredient.internalId, it
+                                        )
                                     },
                                     wide = true
                                 )
@@ -203,13 +209,19 @@ fun RecipeEditScreen(
 
                                     RecipeNumberInput(
                                         value = ingredient.quantity.quantity.toString(),
-                                        onValueChange = { ingredient.quantity.quantity }
+                                        onValueChange = {
+                                            recipeEditViewModel.updateIngredientAmount(
+                                                ingredient.internalId, it.toFloat()
+                                            )
+                                        }
                                     )
 
                                     RecipeStringInput(
                                         value = ingredient.quantity.unit,
                                         onValueChange = {
-                                            ingredient.quantity.unit = it
+                                            recipeEditViewModel.updateIngredientUnit(
+                                                ingredient.internalId, it
+                                            )
                                         }
                                     )
                                 }
@@ -262,13 +274,18 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeActiveCooking?.value.toString(),
                                     onValueChange = {
-                                        recipe.timeActiveCooking!!.value = it.toFloat()
+                                        recipeEditViewModel.onUpdateActiveCookingTime(
+                                            it.toFloat(),
+                                            recipe.timeActiveCooking?.unit ?: ""
+                                        )
                                     }
                                 )
                                 RecipeStringInput(
                                     value = recipe.timeActiveCooking?.unit ?: "",
                                     onValueChange = {
-                                        recipe.timeActiveCooking!!.unit = it
+                                        recipeEditViewModel.onUpdateActiveCookingTime(
+                                            recipe.timeActiveCooking?.value ?: 0f, it
+                                        )
                                     }
                                 )
                             }
@@ -288,13 +305,18 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timePreparation?.value.toString(),
                                     onValueChange = {
-                                        recipe.timePreparation!!.value = it.toFloat()
+                                        recipeEditViewModel.onUpdatePreparationTime(
+                                            it.toFloat(),
+                                            recipe.timePreparation?.unit ?: ""
+                                        )
                                     }
                                 )
                                 RecipeStringInput(
                                     value = recipe.timePreparation?.unit ?: "",
                                     onValueChange = {
-                                        recipe.timePreparation!!.unit = it
+                                        recipeEditViewModel.onUpdatePreparationTime(
+                                            recipe.timePreparation?.value ?: 0f, it
+                                        )
                                     }
                                 )
                             }
@@ -314,13 +336,18 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeOverall?.value.toString(),
                                     onValueChange = {
-                                        recipe.timeOverall!!.value = it.toFloat()
+                                        recipeEditViewModel.onUpdateOverallCookingTime(
+                                            it.toFloat(),
+                                            recipe.timeOverall?.unit ?: ""
+                                        )
                                     }
                                 )
                                 RecipeStringInput(
                                     value = recipe.timeOverall?.unit ?: "",
                                     onValueChange = {
-                                        recipe.timeOverall!!.unit = it
+                                        recipeEditViewModel.onUpdateOverallCookingTime(
+                                            recipe.timeOverall?.value ?: 0f, it
+                                        )
                                     }
                                 )
                             }
@@ -342,7 +369,7 @@ fun RecipeEditScreen(
                     )
                     TextField(
                         value = recipe.instructions ?: "",
-                        onValueChange = { recipe.instructions }
+                        onValueChange = { recipeEditViewModel.onUpdateInstructions(it) }
                     )
                 }
             }

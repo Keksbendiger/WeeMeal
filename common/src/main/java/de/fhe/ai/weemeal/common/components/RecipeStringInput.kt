@@ -25,7 +25,7 @@ fun RecipeStringInput(
 
     BasicTextField(
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = { newValue -> onValueChange(newValue) },
         modifier = modifier
             .padding(1.dp)
             .width(width)
