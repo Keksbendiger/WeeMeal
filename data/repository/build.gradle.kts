@@ -15,7 +15,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,12 +30,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-
     kotlinOptions {
         jvmTarget = Config.jvm_target
     }
 
-    //Compose Config
+    // Compose Config
     buildFeatures {
         compose = true
     }
@@ -54,13 +52,16 @@ android {
 }
 
 dependencies {
-    //Dependencies
+    // Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
-//    addTimberDependencies()
+    addTimberDependencies()
+    addKoinDependencies()
+    addKotlinDependencies()
 
     // Modules
     DOMAIN
     LOCAL
     COMMON
+    MOCKS
 }

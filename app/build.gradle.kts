@@ -60,5 +60,6 @@ dependencies {
     //Features
     FEATURE_RECIPE
     FEATURE_WEEK_LIST
+    FEATURE_MEAL
     FEATURE_SHOPPING_LIST
 }

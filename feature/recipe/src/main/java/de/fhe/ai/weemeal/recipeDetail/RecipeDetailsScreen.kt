@@ -1,6 +1,7 @@
 package de.fhe.ai.weemeal.recipeDetail
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,8 +21,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -57,7 +56,7 @@ fun RecipeDetailsScreen(
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateRecipe()
+                val recipe = RecipeMock.generateSingleObject()
 
                 Column(
                     Modifier
@@ -71,11 +70,10 @@ fun RecipeDetailsScreen(
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Icon(
-                            Icons.Filled.Star,
-                            "",
-                            modifier = Modifier
-                                .size(120.dp),
+                        Image(
+                            painterResource(id = recipe.image),
+                            contentDescription = "Dummy-Image",
+                            modifier = Modifier.size(120.dp)
                         )
                     }
 
@@ -166,7 +164,12 @@ fun RecipeDetailsScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             // TODO different icons, localization
-                            Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.outdoor_grill), contentDescription = "active cooking time")
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.recipe.R.drawable.outdoor_grill
+                                ),
+                                contentDescription = "active cooking time"
+                            )
                             Text("Kochen")
                             Text(recipe.timeActiveCooking.toString())
                         }
@@ -174,7 +177,12 @@ fun RecipeDetailsScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.set_meal), contentDescription = "preparation time")
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.recipe.R.drawable.set_meal
+                                ),
+                                contentDescription = "preparation time"
+                            )
                             Text("Vorbereitung")
                             Text(recipe.timePreparation.toString())
                         }
@@ -182,7 +190,12 @@ fun RecipeDetailsScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Icon(painterResource(id = de.fhe.ai.weemeal.recipe.R.drawable.access_time), contentDescription = "overall time")
+                            Icon(
+                                painterResource(
+                                    id = de.fhe.ai.weemeal.recipe.R.drawable.access_time
+                                ),
+                                contentDescription = "overall time"
+                            )
                             Text("Gesamt")
                             Text(recipe.timeOverall.toString())
                         }

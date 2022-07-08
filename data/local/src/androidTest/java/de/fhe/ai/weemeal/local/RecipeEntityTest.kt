@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
-import de.fhe.ai.weemeal.mocks.RecipeMock
+import de.fhe.ai.weemeal.mocks.local.RecipeEntityMock
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -16,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
+import kotlin.test.assertEquals
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -52,7 +53,7 @@ class RecipeEntityTest {
     fun should_create_a_list_of_recipes() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
 
-        val recipeEntityMockList = RecipeMock.generateEntityList()
+        val recipeEntityMockList = RecipeEntityMock.generateList()
         recipeEntityMockList.forEach {
             recipeEntityDao.insert(it)
         }
@@ -74,7 +75,7 @@ class RecipeEntityTest {
     fun should_get_a_recipe_by_id() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
 
-        val recipeEntityMock = RecipeMock.generateRecipeEntity()
+        val recipeEntityMock = RecipeEntityMock.generateSingleObject()
 
         val loadedEntityId = recipeEntityDao.insert(recipeEntityMock)
 
@@ -90,11 +91,11 @@ class RecipeEntityTest {
     fun should_find_at_least_one_recipe_by_name() = runBlocking {
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
 
-        val recipeEntityMockList = RecipeMock.generateEntityList(amount = 30)
+        val recipeEntityMockList = RecipeEntityMock.generateList(amount = 30)
         recipeEntityMockList.forEach {
             recipeEntityDao.insert(it)
         }
-        recipeEntityDao.insert(RecipeMock.generateRecipeEntity(name = "FrontSubstringBack"))
+        recipeEntityDao.insert(RecipeEntityMock.generateSingleObject(name = "FrontSubstringBack"))
 
         val recipeEntityListResult = recipeEntityDao.search("Substring").first()
 
@@ -108,25 +109,27 @@ class RecipeEntityTest {
     // UPDATE
     // ----------------------------------------------------------------------------------------------
     @Test
-    fun update() = runBlocking {
+    fun should_update_a_recipe() = runBlocking {
 
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
 
-        val recipeEntityMockList = RecipeMock.generateEntityList(amount = 30)
+        val recipeEntityMockList = RecipeEntityMock.generateList(amount = 30)
         recipeEntityMockList.forEach {
             recipeEntityDao.insert(it)
         }
 
-        val updateRecipeEntity = recipeEntityDao.getAll()[recipeEntityMockList.indices.random()]
-        println(updateRecipeEntity)
-        val changedRecipeEntity = RecipeMock.generateRecipeEntity(id = updateRecipeEntity.id)
-        println(changedRecipeEntity)
+        val recipeEntityWhichShouldBeUpdated =
+            recipeEntityDao.getAll()[recipeEntityMockList.indices.random()]
+        println(recipeEntityWhichShouldBeUpdated)
+        val recipeEntityUpdate =
+            RecipeEntityMock.generateSingleObject(id = recipeEntityWhichShouldBeUpdated.id)
+        println(recipeEntityUpdate)
 
-        recipeEntityDao.update(changedRecipeEntity) // TODO change nameing
+        recipeEntityDao.update(recipeEntityUpdate)
 
-        val updatedRecipeEntity = recipeEntityDao.get(updateRecipeEntity.id)
+        val updatedRecipeEntity = recipeEntityDao.get(recipeEntityWhichShouldBeUpdated.id)
         println(updatedRecipeEntity)
-        assert(updatedRecipeEntity!!.name == changedRecipeEntity.name)
+        assertEquals(expected = recipeEntityUpdate, actual = updatedRecipeEntity)
     }
 
     // ----------------------------------------------------------------------------------------------
@@ -137,7 +140,7 @@ class RecipeEntityTest {
 
         assertTrue("DB should start empty", recipeEntityDao.getAll().isEmpty())
 
-        val recipeEntityMockList = RecipeMock.generateEntityList(amount = 30)
+        val recipeEntityMockList = RecipeEntityMock.generateList(amount = 30)
         recipeEntityMockList.forEach {
             recipeEntityDao.insert(it)
         }
