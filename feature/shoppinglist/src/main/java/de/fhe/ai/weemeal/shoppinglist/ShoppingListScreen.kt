@@ -1,11 +1,24 @@
 package de.fhe.ai.weemeal.shoppinglist
 
-
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ExtendedFloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Share
@@ -20,6 +33,7 @@ import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.domain.models.ShoppingList
 import de.fhe.ai.weemeal.mocks.domain.ShoppingListMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import androidx.compose.material.FabPosition.Companion as FabPosition1
 
 // @Preview
 @ExperimentalCoroutinesApi
@@ -40,7 +54,7 @@ fun ShoppingListScreen(
             //            },
             //            bottomBar = { BottomBar(navController) },
 
-            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButtonPosition = FabPosition1.End,
             floatingActionButton = {
                 ExtendedFloatingActionButton(
                     onClick = { },
@@ -55,7 +69,6 @@ fun ShoppingListScreen(
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
                     ShoppingList(ShoppingListMock.generateList())
-
                 }
             }
         }
@@ -71,7 +84,6 @@ private fun ShoppingList(shoppingList: ShoppingList) {
             ShoppingListItem(ingredient)
         }
     }
-
 }
 
 @Composable
@@ -116,24 +128,7 @@ fun ShoppingListItem(ingredient: Ingredient) {
                         .align(Alignment.CenterVertically)
                         .padding(vertical = 4.dp, horizontal = 8.dp)
                 )
-
-
             }
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

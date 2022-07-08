@@ -14,7 +14,7 @@ data class MealDetailsState(
     val cookingDate: Date,
     val shoppingListCreatedAt: Date? = null,
 ) {
-    var servingsRatio: Float = ((servings ?: 1 )/ (recipe.defaultServings ?: 1).toFloat())
+    var servingsRatio: Float = ((servings ?: 1) / (recipe.defaultServings ?: 1).toFloat())
 
     constructor(meal: Meal = MealMock.generateSingleObject()) : this(
         internalId = meal.internalId,

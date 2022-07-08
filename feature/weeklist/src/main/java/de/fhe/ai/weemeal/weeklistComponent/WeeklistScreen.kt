@@ -55,7 +55,7 @@ fun WeeklistScreen() {
 
             floatingActionButtonPosition = FabPosition.End,
 
-            ) { innerPadding ->
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
                     SearchAppBar(
