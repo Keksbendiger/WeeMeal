@@ -31,10 +31,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.SearchAppBar
@@ -57,7 +55,7 @@ fun WeeklistScreen() {
 
             floatingActionButtonPosition = FabPosition.End,
 
-            ) { innerPadding ->
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
                     SearchAppBar(
@@ -107,7 +105,6 @@ fun getDaysAhead(daysAhead: Int): Date {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
-
 
     Text(text = dayOfWeekString(day).toString(), style = MaterialTheme.typography.h6)
     Text(text = day.date.toString() + "." + monthName(day), style = MaterialTheme.typography.h6)
@@ -194,7 +191,6 @@ fun dayOfWeekString(day: Date): Any {
 
     return dayOfWeekString
 }
-
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

@@ -96,6 +96,7 @@ private fun WeekList(meals: List<Meal>) {
         }
     }
 }
+
 fun getDaysAhead(daysAhead: Int): Date {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, daysAhead)
@@ -105,18 +106,25 @@ fun getDaysAhead(daysAhead: Int): Date {
 
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
-    Text(text = dayOfWeekString(day).toString(), style = MaterialTheme.typography.h6)
-    Text(text = day.date.toString() + "." + monthName(day), style = MaterialTheme.typography.h6)
+    for (meal in meals) {
+        if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+            Text(text = dayOfWeekString(day).toString(), style = MaterialTheme.typography.h6)
+            Text(
+                text = day.date.toString() + "." + monthName(day),
+                style = MaterialTheme.typography.h6
+            )
+            break
+        }
+    }
+
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month ){
-
+            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
                 MealListItem(meal = meal)
             }
         }
     }
 }
-
 
 fun monthName(day: Date): Any? {
     var month = day.month
