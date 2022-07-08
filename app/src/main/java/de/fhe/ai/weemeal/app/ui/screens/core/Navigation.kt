@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,9 +20,9 @@ import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
 import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 enum class Screens(val icon: ImageVector) {
     Recipe(Icons.Filled.Home),
@@ -61,7 +60,7 @@ fun AppNavigationHost(
         composable(Screens.ShoppingList.name) {
             onNavigation(Screens.ShoppingList.name)
             ShoppingListScreen()
-            //TODO: hier den ShoppingList Screen einfügen
+            // TODO: hier den ShoppingList Screen einfügen
         }
 
         composable(Screens.ShoppingListSelectScreen.name) {
