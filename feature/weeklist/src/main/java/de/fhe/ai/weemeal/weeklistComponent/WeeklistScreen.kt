@@ -55,7 +55,7 @@ fun WeeklistScreen() {
 
             floatingActionButtonPosition = FabPosition.End,
 
-        ) { innerPadding ->
+            ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
                     SearchAppBar(
@@ -106,8 +106,18 @@ fun getDaysAhead(daysAhead: Int): Date {
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
 
-    Text(text = dayOfWeekString(day).toString(), style = MaterialTheme.typography.h6)
-    Text(text = day.date.toString() + "." + monthName(day), style = MaterialTheme.typography.h6)
+    Text(
+        text = dayOfWeekString(day).toString(),
+        style = MaterialTheme.typography.h6,
+        modifier = Modifier
+            .padding(vertical = 4.dp, horizontal = 4.dp)
+    )
+    Text(
+        text = day.date.toString() + "." + monthName(day),
+        style = MaterialTheme.typography.h6,
+        modifier = Modifier
+            .padding(vertical = 4.dp, horizontal = 4.dp)
+    )
 
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
