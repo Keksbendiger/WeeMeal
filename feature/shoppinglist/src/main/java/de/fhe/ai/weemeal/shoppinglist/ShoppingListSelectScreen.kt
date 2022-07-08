@@ -109,14 +109,13 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
     Text(text = day.date.toString() + "." + monthName(day), style = MaterialTheme.typography.h6)
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month ){
+            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
 
                 MealListItem(meal = meal)
             }
         }
     }
 }
-
 
 fun monthName(day: Date): Any? {
     var month = day.month

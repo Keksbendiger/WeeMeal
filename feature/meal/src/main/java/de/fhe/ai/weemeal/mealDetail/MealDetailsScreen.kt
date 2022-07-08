@@ -172,8 +172,10 @@ fun MealDetailsScreen(
                             ListComponent(
                                 textLeft = it.name,
                                 textRight =
-                                ((it.quantity.quantity * mealDetailsViewModel.state.value.servingsRatio)
-                                    .toString()) + "  " + it.quantity.unit
+                                (
+                                    (it.quantity.quantity * mealDetailsViewModel.state.value.servingsRatio)
+                                        .toString()
+                                    ) + "  " + it.quantity.unit
                             )
                         }
                     }
