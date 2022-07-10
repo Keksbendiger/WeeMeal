@@ -2,7 +2,7 @@
 ### WeeMeal
 Install and register GitLab Runner:
 
-At first start your Docker. On Mac and Windows you can use the DockerDesktop app.
+At first start your Docker. On Mac and Windows, you can use the DockerDesktop app.
 ```shell  
 docker volume create gitlab-runner-config
 ```  
@@ -28,4 +28,4 @@ docker run -d --name gitlab-runner --restart always \-v /var/run/docker.sock:/va
 gitlab/gitlab-runner:latest  
 ```
 
-Now you Runner should be up and running.
+Now your Runner should be up and running.
