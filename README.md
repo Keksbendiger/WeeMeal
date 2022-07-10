@@ -13,7 +13,7 @@ docker run --rm -it \
 gitlab/gitlab-runner:latest register  
 ```  
 You need to type in some information.
-Important are: URL, Token,  and Docker image.
+Important are: URL, Token, Executor and Docker image.
 
 - Registration URL: `https://git.ai.fh-erfurt.de/`
 - Registration token: `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`  
