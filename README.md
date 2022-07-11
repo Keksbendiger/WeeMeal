@@ -43,7 +43,10 @@ sudo curl --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads
 sudo chmod +x /usr/local/bin/gitlab-runner
 ```
 
+```shell  
 gitlab-runner register
+```
+
 You need to type in some information.
 Important are: URL, Token, Executor.
 
