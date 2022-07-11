@@ -25,13 +25,12 @@ import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 enum class Screens(val icon: ImageVector) {
-    Recipe(Icons.Filled.Home),
-    RecipeList(Icons.Filled.Home),
-    ShoppingListSelectScreen(Icons.Filled.Home),
     WeekList(Icons.Filled.Home),
-    Settings(Icons.Filled.Settings),
-    RecipeEdit(Icons.Filled.Edit),
     Meal(Icons.Filled.Favorite),
+    RecipeList(Icons.Filled.Home),
+    Recipe(Icons.Filled.Home),
+    RecipeEdit(Icons.Filled.Edit),
+    ShoppingListSelectScreen(Icons.Filled.Home),
     ShoppingList(Icons.Filled.Home);
 }
 
@@ -49,14 +48,15 @@ fun AppNavigationHost(
         startDestination = Screens.WeekList.name,
         modifier = modifier
     ) {
-        composable(Screens.Recipe.name) {
-            onNavigation(Screens.Recipe.name)
-            RecipeDetailsScreen()
-        }
         composable(Screens.RecipeList.name) {
             onNavigation(Screens.RecipeList.name)
             RecipeListScreen()
         }
+        composable(Screens.Recipe.name) {
+            onNavigation(Screens.Recipe.name)
+            RecipeDetailsScreen()
+        }
+
         composable(Screens.ShoppingList.name) {
             onNavigation(Screens.ShoppingList.name)
             ShoppingListScreen()
@@ -71,10 +71,10 @@ fun AppNavigationHost(
             onNavigation(Screens.WeekList.name)
             WeeklistScreen()
         }
-        composable(Screens.Settings.name) {
-            onNavigation(Screens.Recipe.name)
-            // Settings() TODO: hier den Settings Screen einfügen
-        }
+//        composable(Screens.Settings.name) {
+//            onNavigation(Screens.Recipe.name)
+//            // Settings() TODO: hier den Settings Screen einfügen
+//        }
 
         composable(Screens.Meal.name) {
             onNavigation(Screens.Meal.name)
