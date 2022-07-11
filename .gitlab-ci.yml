@@ -24,8 +24,8 @@ stages:
 detekt:
   stage: build
   script:
-    - ./gradlew
-#    - ./gradlew -Pci --console=plain detekt
+#    - ./gradlew
+    - ./gradlew -Pci --console=plain detekt
   artifacts:
     paths:
       - common/build/reports/detekt/detekt.*
