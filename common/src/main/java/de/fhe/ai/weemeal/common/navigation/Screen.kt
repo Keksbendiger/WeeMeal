@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.app.ui.screens.core
+package de.fhe.ai.weemeal.common.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
@@ -109,6 +109,7 @@ sealed class Screen(
                     type = NavType.LongType
                 }
             )
+            // TODO: Handle "neues Rezept" without given Id...
             override val destination = "RecipeEdit/${value[0]}"
         }
         // TODO: Handle Backstack because this screen can be reached via Meal or Recipe and we

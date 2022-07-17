@@ -1,4 +1,4 @@
-// @file: Suppress("MatchingDeclarationName")
+package de.fhe.ai.weemeal.common.navigation// @file: Suppress("MatchingDeclarationName")
 //
 // package de.fhe.ai.weemeal.app.ui.screens.core
 //

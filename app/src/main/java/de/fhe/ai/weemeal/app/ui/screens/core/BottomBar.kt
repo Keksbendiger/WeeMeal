@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import de.fhe.ai.weemeal.common.navigation.RootScreens
 
 @Composable
 fun BottomBar(navController: NavController) {

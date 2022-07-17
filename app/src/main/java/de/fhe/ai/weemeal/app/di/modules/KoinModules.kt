@@ -1,6 +1,6 @@
 package de.fhe.ai.weemeal.app.di.modules
 
-import de.fhe.ai.weemeal.app.ui.screens.core.NavigationManager
+import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.logger.Logger
 import de.fhe.ai.weemeal.common.logger.LoggerImpl
 import de.fhe.ai.weemeal.local.WeeMealDatabase

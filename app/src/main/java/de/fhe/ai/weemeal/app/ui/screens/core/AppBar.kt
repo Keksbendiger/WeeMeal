@@ -4,6 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import de.fhe.ai.weemeal.common.navigation.Screen
 
 @Composable
 fun AppBar(screen: Screen) {

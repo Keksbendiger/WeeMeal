@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import de.fhe.ai.weemeal.common.navigation.NavigationManager
+import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.mealDetail.MealDetailsScreen
 import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen

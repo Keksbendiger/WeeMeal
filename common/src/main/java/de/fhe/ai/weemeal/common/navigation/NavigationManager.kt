@@ -1,4 +1,4 @@
-package de.fhe.ai.weemeal.app.ui.screens.core
+package de.fhe.ai.weemeal.common.navigation
 
 import androidx.navigation.NamedNavArgument
 import kotlinx.coroutines.flow.MutableStateFlow
