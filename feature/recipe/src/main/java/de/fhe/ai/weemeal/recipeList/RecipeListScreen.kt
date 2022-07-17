@@ -97,15 +97,15 @@ fun RecipeListScreen(
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
-                    SearchAppBar(
-                        query = "", // recipeListState.query,
-                        onQueryChanged = {
-//                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
-                        },
-                        onExecuteSearch = {
-//                            onTriggerEvent(RecipeListEvents.NewSearch)
-                        },
-                    )
+//                    SearchAppBar(
+//                        query = "", // recipeListState.query,
+//                        onQueryChanged = {
+////                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
+//                        },
+//                        onExecuteSearch = {
+////                            onTriggerEvent(RecipeListEvents.NewSearch)
+//                        },
+//                    )
                     var recipes: List<Recipe> =
                         RecipeMock.generateList() // TODO: Get from Viewmodel
 
