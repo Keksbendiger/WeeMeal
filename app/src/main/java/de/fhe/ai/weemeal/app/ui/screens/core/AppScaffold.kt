@@ -46,32 +46,3 @@ fun AppScaffold() {
         }
     }
 }
-
-
-
-val LocalNavCtrl = staticCompositionLocalOf<NavHostController> { error("no nav controller set") }
-val LocalScaffoldState = staticCompositionLocalOf<ScaffoldState> { error("no scaffolded state set") }
-
-
-@Composable
-fun AppScaffold() {
-    val navController = rememberNavController()
-    val scaffoldState = rememberScaffoldState()
-    var title by rememberSaveable { mutableStateOf(Screens.WeekList.name) }
-
-    CompositionLocalProvider(
-        LocalNavCtrl provides navController,
-        LocalScaffoldState provides scaffoldState
-    ) {
-        Scaffold(
-            scaffoldState = scaffoldState,
-            topBar = { AppBar(title) },
-            bottomBar = { BottomBar(navController) }
-        ) { innerPadding ->
-            AppNavigationHost(
-                onNavigation = { title = it },
-                modifier = Modifier.padding(innerPadding)
-            )
-        }
-    }
-}
