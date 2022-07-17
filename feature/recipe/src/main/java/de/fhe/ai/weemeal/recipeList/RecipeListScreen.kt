@@ -65,7 +65,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun RecipeListScreen( vm: RecipeListViewModel
+fun RecipeListScreen(
+    vm: RecipeListViewModel
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -84,7 +85,7 @@ fun RecipeListScreen( vm: RecipeListViewModel
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { },
+                    onClick = { vm.navigateToAddRecipe()},  // TODO: Handle not having an ID...
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {
@@ -106,9 +107,13 @@ fun RecipeListScreen( vm: RecipeListViewModel
 //                    )
                     var recipes: List<Recipe> = vm.recipeList
 
-//                  Nullcheck -> TODO: More elegant way possible? If else lol
                     if (recipes.isNotEmpty()) {
-                        RecipeList(recipes = recipes)
+                        RecipeList(
+                            recipes = recipes,
+                            onClickAddToWeekList = { vm.navigateToAddToWeekList() },
+                            onClickRecipeDetail =  { vm.navigateToRecipeDetail(it)},
+                            onClickRecipeEdit = {vm.navigateToRecipeEdit(it)}
+                        )
                     } else {
                         EmptyListText(text = "Noch keine Rezepte vorhanden...")
                     }
@@ -119,7 +124,12 @@ fun RecipeListScreen( vm: RecipeListViewModel
 }
 
 @Composable
-private fun RecipeList(recipes: List<Recipe>) {
+private fun RecipeList(
+    recipes: List<Recipe>,
+    onClickAddToWeekList: () -> Unit,
+    onClickRecipeDetail: (Long) -> Unit,
+    onClickRecipeEdit: (Long) -> Unit
+) {
 //    TODO: Remember where list was left and move back to that index
 //    val listState = rememberLazyListState()
 
@@ -127,13 +137,21 @@ private fun RecipeList(recipes: List<Recipe>) {
         itemsIndexed(
             items = recipes
         ) { index, recipe ->
-            RecipeListItem(recipe = recipe)
+            RecipeListItem(recipe = recipe,
+                onClickAddToWeekList = { onClickAddToWeekList() },
+                onClickRecipeDetail = { onClickRecipeDetail(it) },
+                onClickRecipeEdit = { onClickRecipeEdit(it) })
         }
     }
 }
 
 @Composable
-private fun RecipeListItem(recipe: Recipe) {
+private fun RecipeListItem(
+    recipe: Recipe,
+    onClickAddToWeekList: () -> Unit,
+    onClickRecipeDetail: (Long) -> Unit,
+    onClickRecipeEdit: (Long) -> Unit
+) {
     Card(
         backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier
@@ -142,12 +160,21 @@ private fun RecipeListItem(recipe: Recipe) {
             .clip(RoundedCornerShape(8.dp))
             .fillMaxWidth()
     ) {
-        RecipeListItemContent(recipe = recipe)
+        RecipeListItemContent(
+            recipe = recipe,
+            onClickAddToWeekList = { onClickAddToWeekList() },
+            onClickRecipeDetail = { onClickRecipeDetail(it) },
+            onClickRecipeEdit = { onClickRecipeEdit(it) })
     }
 }
 
 @Composable
-private fun RecipeListItemContent(recipe: Recipe) {
+private fun RecipeListItemContent(
+    recipe: Recipe,
+    onClickAddToWeekList: () -> Unit,
+    onClickRecipeDetail: (Long) -> Unit,
+    onClickRecipeEdit: (Long) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
 
     val imagesize = 90.dp // also used for Column height of recipe name + expand icon
@@ -194,8 +221,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 }
 
                 IconButton(
-//                    TODO: Navigate to Edit Recipe Screen
-                    onClick = { },
+                    onClick = {onClickRecipeEdit(recipe.internalId) },
                     modifier = Modifier
                         .align(Alignment.Top)
                 ) {
@@ -220,7 +246,10 @@ private fun RecipeListItemContent(recipe: Recipe) {
         }
 
         if (expanded) {
-            RecipeListItemContentExpanded(recipe = recipe)
+            RecipeListItemContentExpanded(
+                recipe = recipe,
+                onClickAddToWeekList = { onClickAddToWeekList() },
+                onClickRecipeDetail = { onClickRecipeDetail(it) })
             Icon(
                 painter = painterResource(id = R.drawable.ic_expand_less),
                 contentDescription = stringResource(R.string.show_less),
@@ -234,8 +263,9 @@ private fun RecipeListItemContent(recipe: Recipe) {
 
 @Composable
 private fun RecipeListItemContentExpanded(
-    recipe: Recipe
-// ,
+    recipe: Recipe,
+    onClickAddToWeekList: () -> Unit,
+    onClickRecipeDetail: (Long) -> Unit
 // TODO: Onclick Methoden (für beide Buttons) aus dem VM weiterreichen
 ) {
     Column(Modifier.fillMaxWidth()) {
@@ -273,26 +303,33 @@ private fun RecipeListItemContentExpanded(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TextAndIconButton("Zu Wochenplan hinzufügen", Icons.Filled.Add)
+        TextAndIconButton(
+            text = "Zu Wochenplan hinzufügen",
+            icon = Icons.Filled.Add,
+            onClick = { onClickAddToWeekList() }
+        )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TextAndIconButton("Rezept ansehen", Icons.Filled.Search)
+        TextAndIconButton(
+            "Rezept ansehen",
+            Icons.Filled.Search,
+            onClick = { onClickRecipeDetail(recipe.internalId) })
     }
 }
 
-@Preview
-@Composable
-fun DefaultPreview() {
-    WeeMealTheme {
-        RecipeList(recipes = RecipeMock.generateList())
-    }
-}
-
-@Preview
-@Composable
-fun ContentExpandedPreview() {
-    WeeMealTheme {
-        RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
-    }
-}
+//@Preview
+//@Composable
+//fun DefaultPreview() {
+//    WeeMealTheme {
+//        RecipeList(recipes = RecipeMock.generateList())
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun ContentExpandedPreview() {
+//    WeeMealTheme {
+//        RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
+//    }
+//}

@@ -20,11 +20,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TextAndIconButton(text: String, icon: ImageVector) {
+fun TextAndIconButton(text: String, icon: ImageVector, onClick: ()-> Unit) {
     Box(modifier = Modifier.fillMaxWidth()) {
         IconButton(
-            onClick = { /*TODO*/
-            },
+            onClick = onClick,
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
                 .background(MaterialTheme.colors.primary)
