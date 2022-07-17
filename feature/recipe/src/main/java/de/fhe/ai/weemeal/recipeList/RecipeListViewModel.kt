@@ -9,13 +9,18 @@ import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
+import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class RecipeListViewModel(
 //    private val getRecipesAsync: GetRecipesAsync,
 //    private val loadRecipesFromNetwork: LoadRecipesFromNetwork,
     private val navigationManager: NavigationManager
-) : ViewModel() {
+) : ViewModel(), KoinComponent {
+
+    private val searchRecipes: SearchRecipes by inject()
 
     // See https://code.luasoftware.com/tutorials/android/jetpack-compose-load-data/
 //    var dbOp by mutableStateOf(AsyncOperation.undefined())
@@ -29,7 +34,13 @@ class RecipeListViewModel(
 
     private fun getRecipesFromDb() {
         viewModelScope.launch {
-            recipeList = RecipeMock.generateList()
+//            recipeList = RecipeMock.generateList()
+
+//            recipeList
+            val loadedRecipeList = searchRecipes.execute("").collect {
+              dataState ->
+//                recipeList = it.
+          }
         }
     }
 //    private fun getRecipesFromDb() {

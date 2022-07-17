@@ -56,6 +56,7 @@ dependencies {
     COMMON
     LOCAL
     REPOSITORY
+    USECASES
 
     //Features
     FEATURE_RECIPE
