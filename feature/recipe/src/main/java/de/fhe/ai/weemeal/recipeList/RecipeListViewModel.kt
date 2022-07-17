@@ -11,8 +11,6 @@ import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -31,22 +29,19 @@ class RecipeListViewModel(
 //    var networkOp by mutableStateOf(AsyncOperation.undefined())
     var recipeList by mutableStateOf(emptyList<Recipe>())
 
-
     init {
-        val mockRecipe = RecipeMock.generateSingleObject(1)
-        saveRecipe.execute(mockRecipe)
-
+        val mockRecipes = RecipeMock.generateList()
+        viewModelScope.launch {
+            for (mockRecipe in mockRecipes) {
+                saveRecipe.execute(mockRecipe)
+            }
+        }
         this.getRecipesFromDb()
     }
 
     private fun getRecipesFromDb() {
         viewModelScope.launch {
-//            val loadedRecipeList = searchRecipes.execute("").map { dataState ->
-//                recipeList = dataState.data!!   // TODO: should be solved without "!!"
-            searchRecipes.execute("").collect { dataState ->
-                recipeList = dataState.data!!
-            }
-//            recipeList = RecipeMock.generateList()
+            recipeList = searchRecipes.execute("")
         }
     }
 
