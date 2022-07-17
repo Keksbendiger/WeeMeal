@@ -18,6 +18,16 @@ val RootScreens = listOf(
     Screen.RecipeList,
     Screen.WeekList,
     Screen.ShoppingListSelect,
+
+//    TODO: Delete uneeded Screens after implementing your Navigation correctly.
+//     Simply uncommenting can lead to app failure because of missing parameters ->
+//     You can remove the "/{yourId}" part of the route and
+//     the content (code) of the implementation {} of your Screen as workaround...
+//     Example: ShoppingList
+    Screen.ShoppingList
+//    Screen.RecipeDetail,
+//    Screen.RecipeEdit,
+//    Screen.MealDetail
 )
 
 sealed class Screen(
@@ -120,18 +130,19 @@ sealed class Screen(
 
     object ShoppingList : Screen(
         title = "Einkaufsliste",
-        route = "ShoppingList/{shoppingListId}"
-    ) {
-        override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
-
-            override val arguments = listOf(
-                navArgument("shoppingListId") {
-                    type = NavType.LongType
-                }
-            )
-            override val destination = "ShoppingList/${value[0]}"
-        }
-    }
+        route = "ShoppingList" // /{shoppingListId}"
+    )
+//  {
+//        override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
+//
+//            override val arguments = listOf(
+//                navArgument("shoppingListId") {
+//                    type = NavType.LongType
+//                }
+//            )
+//            override val destination = "ShoppingList/${value[0]}"
+//        }
+//  }
 
     object Settings : Screen(
         title = "Settings",
