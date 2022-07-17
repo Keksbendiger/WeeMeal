@@ -44,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -139,7 +140,9 @@ private fun RecipeListItem(recipe: Recipe) {
     Card(
         backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
+            .padding(8.dp)
+            .shadow(elevation = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
             .fillMaxWidth()
     ) {
         RecipeListItemContent(recipe = recipe)
