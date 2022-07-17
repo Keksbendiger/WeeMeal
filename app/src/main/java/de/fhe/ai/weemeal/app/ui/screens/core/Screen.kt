@@ -24,7 +24,7 @@ sealed class Screen(
     val title: String = "Title",
     val icon: ImageVector = Icons.Filled.Favorite,
     val route: String = "",
-    val label: String = ""  // Should only be implemented by RootScreens
+    val label: String = "" // Should only be implemented by RootScreens
 ) {
     var appBarActions: @Composable RowScope.() -> Unit = {}
         protected set
@@ -59,7 +59,7 @@ sealed class Screen(
     }
 
     object MealDetail : Screen(
-        title = "Mahlzeit",     // TODO: Use meals name instead e.g. "Spaghetti mit grün soß"
+        title = "Mahlzeit", // TODO: Use meals name instead e.g. "Spaghetti mit grün soß"
         route = "MealDetail/{mealId}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
@@ -74,7 +74,7 @@ sealed class Screen(
     }
 
     object RecipeDetail : Screen(
-        title = "Rezeptdetails",    // TODO: Use recipe name instead e.g. "Spaghetti mit grün soß"
+        title = "Rezeptdetails", // TODO: Use recipe name instead e.g. "Spaghetti mit grün soß"
         route = "RecipeDetail/{recipeId}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
@@ -89,7 +89,7 @@ sealed class Screen(
     }
 
     object RecipeEdit : Screen(
-        title = "Rezept anpassen",     // TODO: Use "Bearbeite " + recipeName. e.g. "Bearbeite Spaghetti mit grün soß"
+        title = "Rezept anpassen", // TODO: Use "Bearbeite " + recipeName. e.g. "Bearbeite Spaghetti mit grün soß"
         route = "RecipeEdit/{recipeId}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
@@ -101,12 +101,13 @@ sealed class Screen(
             )
             override val destination = "RecipeEdit/${value[0]}"
         }
-//        TODO: Handle Backstack because this screen can be reached via Meal or Recipe and we want to be able to go back accordingly...
+        // TODO: Handle Backstack because this screen can be reached via Meal or Recipe and we
+        //         want to be able to go back accordingly...
     }
 
     object RecipeList : Screen(
         title = "Rezepte",
-        icon = Icons.Filled.Star,   // TODO: call drawable menu_book instead
+        icon = Icons.Filled.Star, // TODO: call drawable menu_book instead
         route = "RecipeList"
     )
 

@@ -19,10 +19,9 @@ fun BottomBar(navController: NavController) {
             BottomNavigationItem(
                 icon = { Icon(imageVector = screen.icon, contentDescription = screen.title) },
                 label = {
-                    if (screen.label.isNotEmpty() ) {
+                    if (screen.label.isNotEmpty()) {
                         Text(screen.label)
-                    }
-                    else{
+                    } else {
                         Text(screen.title)
                     }
                 },

@@ -27,7 +27,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -36,7 +35,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
@@ -56,7 +54,7 @@ fun WeeklistScreen() {
 
             floatingActionButtonPosition = FabPosition.End,
 
-            ) { innerPadding ->
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
@@ -101,7 +99,8 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp), horizontalArrangement = Arrangement.SpaceBetween
+            .padding(horizontal = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = dayOfWeekString(day).toString(),
@@ -269,7 +268,8 @@ private fun AddDay() {
             .height(50.dp)
     ) {
         Text(
-            text = "Neuen Tag hinzufügen", style = MaterialTheme.typography.h6.copy(
+            text = "Neuen Tag hinzufügen",
+            style = MaterialTheme.typography.h6.copy(
                 fontWeight = FontWeight.Light
             ),
         )
