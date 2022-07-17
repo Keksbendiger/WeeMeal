@@ -53,7 +53,6 @@ import de.fhe.ai.weemeal.R
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.ListComponent
-import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
@@ -66,13 +65,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun RecipeListScreen(
+fun RecipeListScreen( vm: RecipeListViewModel
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
 //    onClickOpenRecipe: (Int) -> Unit,
 //    onClickAddNewRecipe: () -> Unit
-// TODO: give Viewmodel and use for Navigation
 ) {
     WeeMealTheme(
 //        displayProgressBar = recipeListState.isLoading,
@@ -106,8 +104,7 @@ fun RecipeListScreen(
 ////                            onTriggerEvent(RecipeListEvents.NewSearch)
 //                        },
 //                    )
-                    var recipes: List<Recipe> =
-                        RecipeMock.generateList() // TODO: Get from Viewmodel
+                    var recipes: List<Recipe> = vm.recipeList
 
 //                  Nullcheck -> TODO: More elegant way possible? If else lol
                     if (recipes.isNotEmpty()) {

@@ -17,6 +17,7 @@ import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
+import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
 import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
@@ -94,11 +95,11 @@ fun AppNavigationHost(
         }
 
         composable(Screen.RecipeList.route) {
-//            val vm by viewModel<RecipelistViewModel>()
+            val vm by viewModel<RecipeListViewModel>()
 
             onNavigation(Screen.RecipeList)
 
-            RecipeListScreen() // TODO: add viewmodel here!
+            RecipeListScreen(vm)
         }
 
         composable(Screen.ShoppingListSelect.route) {

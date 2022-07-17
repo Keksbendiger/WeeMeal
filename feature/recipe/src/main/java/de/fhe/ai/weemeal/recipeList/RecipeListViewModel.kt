@@ -1,85 +1,60 @@
-// package de.darthkali.weefood.screens.recipe_list
-//
-// import androidx.compose.runtime.MutableState
-// import androidx.compose.runtime.mutableStateOf
-// import androidx.lifecycle.viewModelScope
-// import de.darthkali.weefood.domain.model.Recipe
-// import de.darthkali.weefood.interactors.recipe.SearchRecipes
-// import de.darthkali.weefood.presentation.recipe_list.RecipeListEvents
-// import de.darthkali.weefood.presentation.recipe_list.RecipeListState
-// import de.darthkali.weefood.screens.BaseViewModel
-// import de.darthkali.weefood.util.Logger
-// import org.koin.core.component.inject
-//
-// class RecipeListViewModel(
-//    query: String = ""
-// ){ //: BaseViewModel() {
-//
-//
-//    private val searchRecipes: SearchRecipes by inject()
-//    private val logger = Logger("RecipeListViewModel")
-//
-//    val state: MutableState<RecipeListState> = mutableStateOf(RecipeListState())
-//
-//    init {
-//        state.value.query = query
-//        loadRecipes()
-//    }
-//
-//    fun onTriggerEvent(event: RecipeListEvents) {
-//        when (event) {
-//            RecipeListEvents.LoadRecipe -> {
-//                loadRecipes()
-//            }
-//            RecipeListEvents.NewSearch -> {
-//                newSearch()
-//            }
-//            RecipeListEvents.NextPage -> {
-//                nextPage()
-//            }
-//            is RecipeListEvents.OnUpdateQuery -> {
-//                state.value = state.value.copy(query = event.query)
-//            }
-//            else -> {
-//                logger.log("Something went wrong.")
+package de.fhe.ai.weemeal.recipeList
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import de.fhe.ai.weemeal.common.navigation.NavigationManager
+import de.fhe.ai.weemeal.common.navigation.Screen
+import de.fhe.ai.weemeal.domain.models.Recipe
+import de.fhe.ai.weemeal.mocks.RecipeMock
+import kotlinx.coroutines.launch
+
+class RecipeListViewModel(
+//    private val getRecipesAsync: GetRecipesAsync,
+//    private val loadRecipesFromNetwork: LoadRecipesFromNetwork,
+    private val navigationManager: NavigationManager
+) : ViewModel() {
+
+    // See https://code.luasoftware.com/tutorials/android/jetpack-compose-load-data/
+//    var dbOp by mutableStateOf(AsyncOperation.undefined())
+//    var networkOp by mutableStateOf(AsyncOperation.undefined())
+    var recipeList by mutableStateOf(emptyList<Recipe>())
+
+
+    init {
+        this.getRecipesFromDb()
+    }
+
+    private fun getRecipesFromDb() {
+        viewModelScope.launch {
+            recipeList = RecipeMock.generateList()
+        }
+    }
+//    private fun getRecipesFromDb() {
+//        viewModelScope.launch {
+//            getRecipesAsync().collect {
+//                dbOp = it
+//                if( it.status == AsyncOperationState.SUCCESS )
+//                    recipeList = it.payload as List<Recipe>
 //            }
 //        }
 //    }
-//
-//    /**
-//     * Get the next page of recipes
-//     */
-//    private fun nextPage() {
-//        state.value = state.value.copy(page = state.value.page + 1)
-//        loadRecipes()
-//    }
-//
-//    /**
-//     * Perform a new search:
-//     * 1. page = 1
-//     * 2. list position needs to be reset
-//     */
-//    private fun newSearch() {
-//        state.value = state.value.copy(page = 1, recipes = listOf())
-//        loadRecipes()
-//    }
-//
-//    private fun loadRecipes() {
-//        searchRecipes.execute(
-//            query = state.value.query,
-//            page = state.value.page,
-//        ).collectCommon(viewModelScope) { dataState ->
-//            state.value = state.value.copy(isLoading = dataState.isLoading)
-//
-//            dataState.data?.let { recipes ->
-//                appendRecipes(recipes)
+
+//    fun getRecipesFromNetwork() {
+//        viewModelScope.launch {
+//            loadRecipesFromNetwork().collect {
+//                networkOp = it
 //            }
 //        }
 //    }
-//
-//    private fun appendRecipes(recipes: List<Recipe>) {
-//        val curr = ArrayList(state.value.recipes)
-//        curr.addAll(recipes)
-//        state.value = state.value.copy(recipes = curr)
+
+//    fun navigateToAddRecipe() {
+//        navigationManager.navigate(Screen.RecipeEdit.navigationCommand())
 //    }
-// }
+//
+//    fun navigateToUser(recipeId: Long) {
+//        navigationManager.navigate(Screen.RecipeDetail.navigationCommand(recipeId))
+//    }
+}
