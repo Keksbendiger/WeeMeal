@@ -29,7 +29,7 @@ fun AppBar(screen: Screen) {
 @Preview()
 @Composable
 fun HomeAppBar() {
-    AppBar(screen = Screen.UserList)
+    AppBar(screen = Screen.WeekList)
 }
 
 @Preview()

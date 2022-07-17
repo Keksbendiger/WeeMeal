@@ -18,7 +18,14 @@ fun BottomBar(navController: NavController) {
         for (screen in RootScreens) {
             BottomNavigationItem(
                 icon = { Icon(imageVector = screen.icon, contentDescription = screen.title) },
-                label = { Text(screen.title) },
+                label = {
+                    if (screen.label.isNotEmpty() ) {
+                        Text(screen.label)
+                    }
+                    else{
+                        Text(screen.title)
+                    }
+                },
                 selected = currentRoute == screen.route,
                 onClick = {
                     navController.navigate(screen.route) {

@@ -29,14 +29,14 @@ fun AppNavigationHost(
 
     NavHost(
         navController = navCtrl,
-        startDestination = Screen.UserList.route,
+        startDestination = Screen.WeekList.route,
         modifier = modifier
     ) {
-        composable(Screen.UserList.route) {
+        composable(Screen.WeekList.route) {
             val vm by viewModel<UserListScreenViewModel>()
 
-            Screen.UserList.prepareAppBarActions(vm)
-            onNavigation(Screen.UserList)
+            Screen.WeekList.prepareAppBarActions(vm)
+            onNavigation(Screen.WeekList)
 
             UserListScreen(vm)
         }
