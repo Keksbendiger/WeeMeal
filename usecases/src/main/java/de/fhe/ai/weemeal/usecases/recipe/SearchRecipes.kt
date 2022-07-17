@@ -19,16 +19,11 @@ class SearchRecipes : KoinComponent {
      *
      * @return DataState
      */
-    fun execute(
+    suspend fun execute(
         query: String,
-    ): Flow<DataState<List<Recipe>>> = flow {
-
-        emit(DataState.loading())
-        val recipeList =
-            recipeRepository.searchRecipeByName(
-                recipeName = query,
-            )
-
-        emit(DataState.data(data = recipeList))
+    ): List<Recipe> {
+        return recipeRepository.searchRecipeByName(
+            recipeName = query,
+        )
     }
 }
