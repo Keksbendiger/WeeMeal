@@ -1,8 +1,8 @@
 package de.fhe.ai.weemeal.app.di.modules
 
-import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.logger.Logger
 import de.fhe.ai.weemeal.common.logger.LoggerImpl
+import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.local.WeeMealDatabase
 import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel

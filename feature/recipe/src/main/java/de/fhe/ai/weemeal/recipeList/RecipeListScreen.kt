@@ -47,7 +47,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.R
 import de.fhe.ai.weemeal.common.components.CustomChip
@@ -56,7 +55,6 @@ import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.RecipeMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 // @Preview
@@ -85,7 +83,7 @@ fun RecipeListScreen(
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { vm.navigateToAddRecipe()},  // TODO: Handle not having an ID...
+                    onClick = { vm.navigateToAddRecipe() }, // TODO: Handle not having an ID...
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {
@@ -99,10 +97,10 @@ fun RecipeListScreen(
 //                    SearchAppBar(
 //                        query = "", // recipeListState.query,
 //                        onQueryChanged = {
-////                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
+// //                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
 //                        },
 //                        onExecuteSearch = {
-////                            onTriggerEvent(RecipeListEvents.NewSearch)
+// //                            onTriggerEvent(RecipeListEvents.NewSearch)
 //                        },
 //                    )
                     var recipes: List<Recipe> = vm.recipeList
@@ -111,8 +109,8 @@ fun RecipeListScreen(
                         RecipeList(
                             recipes = recipes,
                             onClickAddToWeekList = { vm.navigateToAddToWeekList() },
-                            onClickRecipeDetail =  { vm.navigateToRecipeDetail(it)},
-                            onClickRecipeEdit = {vm.navigateToRecipeEdit(it)}
+                            onClickRecipeDetail = { vm.navigateToRecipeDetail(it) },
+                            onClickRecipeEdit = { vm.navigateToRecipeEdit(it) }
                         )
                     } else {
                         EmptyListText(text = "Noch keine Rezepte vorhanden...")
@@ -137,10 +135,12 @@ private fun RecipeList(
         itemsIndexed(
             items = recipes
         ) { index, recipe ->
-            RecipeListItem(recipe = recipe,
+            RecipeListItem(
+                recipe = recipe,
                 onClickAddToWeekList = { onClickAddToWeekList() },
                 onClickRecipeDetail = { onClickRecipeDetail(it) },
-                onClickRecipeEdit = { onClickRecipeEdit(it) })
+                onClickRecipeEdit = { onClickRecipeEdit(it) }
+            )
         }
     }
 }
@@ -164,7 +164,8 @@ private fun RecipeListItem(
             recipe = recipe,
             onClickAddToWeekList = { onClickAddToWeekList() },
             onClickRecipeDetail = { onClickRecipeDetail(it) },
-            onClickRecipeEdit = { onClickRecipeEdit(it) })
+            onClickRecipeEdit = { onClickRecipeEdit(it) }
+        )
     }
 }
 
@@ -221,7 +222,7 @@ private fun RecipeListItemContent(
                 }
 
                 IconButton(
-                    onClick = {onClickRecipeEdit(recipe.internalId) },
+                    onClick = { onClickRecipeEdit(recipe.internalId) },
                     modifier = Modifier
                         .align(Alignment.Top)
                 ) {
@@ -249,7 +250,8 @@ private fun RecipeListItemContent(
             RecipeListItemContentExpanded(
                 recipe = recipe,
                 onClickAddToWeekList = { onClickAddToWeekList() },
-                onClickRecipeDetail = { onClickRecipeDetail(it) })
+                onClickRecipeDetail = { onClickRecipeDetail(it) }
+            )
             Icon(
                 painter = painterResource(id = R.drawable.ic_expand_less),
                 contentDescription = stringResource(R.string.show_less),
@@ -314,22 +316,23 @@ private fun RecipeListItemContentExpanded(
         TextAndIconButton(
             "Rezept ansehen",
             Icons.Filled.Search,
-            onClick = { onClickRecipeDetail(recipe.internalId) })
+            onClick = { onClickRecipeDetail(recipe.internalId) }
+        )
     }
 }
 
-//@Preview
-//@Composable
-//fun DefaultPreview() {
+// @Preview
+// @Composable
+// fun DefaultPreview() {
 //    WeeMealTheme {
 //        RecipeList(recipes = RecipeMock.generateList())
 //    }
-//}
+// }
 //
-//@Preview
-//@Composable
-//fun ContentExpandedPreview() {
+// @Preview
+// @Composable
+// fun ContentExpandedPreview() {
 //    WeeMealTheme {
 //        RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
 //    }
-//}
+// }

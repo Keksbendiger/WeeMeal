@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TextAndIconButton(text: String, icon: ImageVector, onClick: ()-> Unit) {
+fun TextAndIconButton(text: String, icon: ImageVector, onClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxWidth()) {
         IconButton(
             onClick = onClick,
