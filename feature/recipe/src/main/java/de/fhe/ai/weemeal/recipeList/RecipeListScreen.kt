@@ -50,13 +50,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.R
 import de.fhe.ai.weemeal.common.components.CustomChip
+import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.components.SearchAppBar
+import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import de.fhe.ai.weemeal.common.components.TextAndIconButton
 
 // @Preview
 @ExperimentalCoroutinesApi
@@ -104,15 +105,14 @@ fun RecipeListScreen(
 //                            onTriggerEvent(RecipeListEvents.NewSearch)
                         },
                     )
-                    var recipes: List<Recipe>? =
+                    var recipes: List<Recipe> =
                         RecipeMock.generateList() // TODO: Get from Viewmodel
 
 //                  Nullcheck -> TODO: More elegant way possible? If else lol
-                    recipes?.let {
-                        RecipeList(recipes)
-                    } ?: kotlin.run {
-//                        TODO: String ressource location correct?
-                        Text(stringResource(de.fhe.ai.weemeal.recipe.R.string.no_recipes))
+                    if (recipes.isNotEmpty()) {
+                        RecipeList(recipes = recipes)
+                    } else {
+                        EmptyListText(text = "Noch keine Rezepte vorhanden...")
                     }
                 }
             }
@@ -186,8 +186,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 ) {
                     Text(
                         text = recipe.name,
-                        style = MaterialTheme.typography.h6.copy(),
-                        modifier = Modifier
+                        style = MaterialTheme.typography.h6.copy()
                     )
 
                     // Buffer to make recipename not touch the expandicon
@@ -296,5 +295,17 @@ fun DefaultPreview() {
 fun ContentExpandedPreview() {
     WeeMealTheme {
         RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
+    }
+}
+
+@ExperimentalCoroutinesApi
+@ExperimentalMaterialApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@Preview
+@Composable
+fun EmptyListPreview() {
+    WeeMealTheme {
+        EmptyListText(text = "Noch keine Rezepte vorhanden...")
     }
 }
