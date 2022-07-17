@@ -296,15 +296,3 @@ fun ContentExpandedPreview() {
         RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
     }
 }
-
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@Preview
-@Composable
-fun EmptyListPreview() {
-    WeeMealTheme {
-        EmptyListText(text = "Noch keine Rezepte vorhanden...")
-    }
-}
