@@ -7,6 +7,7 @@ import de.fhe.ai.weemeal.local.WeeMealDatabase
 import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
+import de.fhe.ai.weemeal.repository.di.repository
 import de.fhe.ai.weemeal.usecases.di.usecases
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -20,7 +21,8 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
             androidCoreModule,
             databaseModule,
             usecases,
-            viewModelModule
+            viewModelModule,
+            repository
         )
     }
 

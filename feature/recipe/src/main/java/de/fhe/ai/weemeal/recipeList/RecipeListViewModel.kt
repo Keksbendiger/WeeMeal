@@ -11,6 +11,7 @@ import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -32,8 +33,8 @@ class RecipeListViewModel(
 
 
     init {
-//        val mockRecipe = RecipeMock.generateSingleObject(1)
-//        val testRecipe = saveRecipe.execute(mockRecipe)
+        val mockRecipe = RecipeMock.generateSingleObject(1)
+        saveRecipe.execute(mockRecipe)
 
         this.getRecipesFromDb()
     }
@@ -42,7 +43,10 @@ class RecipeListViewModel(
         viewModelScope.launch {
 //            val loadedRecipeList = searchRecipes.execute("").map { dataState ->
 //                recipeList = dataState.data!!   // TODO: should be solved without "!!"
-            recipeList = RecipeMock.generateList()
+            searchRecipes.execute("").collect { dataState ->
+                recipeList = dataState.data!!
+            }
+//            recipeList = RecipeMock.generateList()
         }
     }
 
