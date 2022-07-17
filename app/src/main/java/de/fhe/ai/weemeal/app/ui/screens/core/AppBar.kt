@@ -28,24 +28,18 @@ fun AppBar(screen: Screen) {
 
 @Preview()
 @Composable
-fun HomeAppBar() {
+fun WeekListAppBar() {
     AppBar(screen = Screen.WeekList)
 }
 
 @Preview()
 @Composable
-fun UserDetailAppBar() {
-    AppBar(screen = Screen.UserDetail)
+fun RecipeListAppBar() {
+    AppBar(screen = Screen.RecipeList)
 }
 
 @Preview()
 @Composable
-fun MapAppBar() {
-    AppBar(screen = Screen.Map)
-}
-
-@Preview()
-@Composable
-fun SettingsAppBar() {
-    AppBar(screen = Screen.Settings)
+fun ShoppingListSelectAppBar() {
+    AppBar(screen = Screen.ShoppingListSelect)
 }
