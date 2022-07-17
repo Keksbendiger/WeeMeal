@@ -278,7 +278,6 @@ private fun RecipeListItemContentExpanded(
         Spacer(modifier = Modifier.height(10.dp))
 
         TextAndIconButton("Rezept ansehen", Icons.Filled.Search)
-
     }
 }
 

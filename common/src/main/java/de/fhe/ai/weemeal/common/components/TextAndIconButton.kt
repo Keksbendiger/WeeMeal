@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun TextAndIconButton(text: String, icon: ImageVector) {
     Box(modifier = Modifier.fillMaxWidth()) {
