@@ -5,7 +5,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,7 +41,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,6 +56,7 @@ import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import de.fhe.ai.weemeal.common.components.TextAndIconButton
 
 // @Preview
 @ExperimentalCoroutinesApi
@@ -105,7 +104,8 @@ fun RecipeListScreen(
 //                            onTriggerEvent(RecipeListEvents.NewSearch)
                         },
                     )
-                    var recipes: List<Recipe>? = RecipeMock.generateList() // TODO: Get from Viewmodel
+                    var recipes: List<Recipe>? =
+                        RecipeMock.generateList() // TODO: Get from Viewmodel
 
 //                  Nullcheck -> TODO: More elegant way possible? If else lol
                     recipes?.let {
@@ -274,45 +274,12 @@ private fun RecipeListItemContentExpanded(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-//        TODO: Button with Text+Icon could be reusable Composable
-        IconButton(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .background(MaterialTheme.colors.primary)
-                .align(CenterHorizontally)
-
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(8.dp)
-            ) {
-                Text(text = "Zu Wochenplan hinzufügen", color = MaterialTheme.colors.onPrimary)
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(Icons.Filled.Add, "", tint = MaterialTheme.colors.onPrimary)
-            }
-        }
+        TextAndIconButton("Zu Wochenplan hinzufügen", Icons.Filled.Add)
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        IconButton(
-            onClick = { /*TODO*/
-            },
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .background(MaterialTheme.colors.primary)
-                .align(CenterHorizontally)
+        TextAndIconButton("Rezept ansehen", Icons.Filled.Search)
 
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(8.dp)
-            ) {
-                Text(text = "Rezept ansehen", color = MaterialTheme.colors.onPrimary)
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(Icons.Filled.Search, "", tint = MaterialTheme.colors.onPrimary)
-            }
-        }
     }
 }
 
