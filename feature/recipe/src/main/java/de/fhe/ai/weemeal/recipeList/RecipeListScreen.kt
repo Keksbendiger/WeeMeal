@@ -105,7 +105,7 @@ fun RecipeListScreen(
 //                            onTriggerEvent(RecipeListEvents.NewSearch)
                         },
                     )
-                    var recipes: List<Recipe>? = RecipeMock.generateList()  // TODO: Get from Viewmodel
+                    var recipes: List<Recipe>? = RecipeMock.generateList() // TODO: Get from Viewmodel
 
 //                  Nullcheck -> TODO: More elegant way possible? If else lol
                     recipes?.let {
@@ -234,11 +234,11 @@ private fun RecipeListItemContent(recipe: Recipe) {
 }
 
 @Composable
-private fun RecipeListItemContentExpanded(recipe: Recipe
-//,
-//TODO: Onclick Methoden (für beide Buttons) aus dem VM weiterreichen
-)
-{
+private fun RecipeListItemContentExpanded(
+    recipe: Recipe
+// ,
+// TODO: Onclick Methoden (für beide Buttons) aus dem VM weiterreichen
+) {
     Column(Modifier.fillMaxWidth()) {
 //        Text(text = "Some Recipe Info:")
 
@@ -297,8 +297,7 @@ private fun RecipeListItemContentExpanded(recipe: Recipe
 
         IconButton(
             onClick = { /*TODO*/
-
-                      },
+            },
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
                 .background(MaterialTheme.colors.primary)

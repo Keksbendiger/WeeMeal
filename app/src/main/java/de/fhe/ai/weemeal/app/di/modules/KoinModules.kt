@@ -6,9 +6,9 @@ import de.fhe.ai.weemeal.common.logger.LoggerImpl
 import de.fhe.ai.weemeal.local.WeeMealDatabase
 import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
