@@ -15,8 +15,8 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
 val RootScreens = listOf(
-    Screen.WeekList,
     Screen.RecipeList,
+    Screen.WeekList,
     Screen.ShoppingListSelect,
 )
 

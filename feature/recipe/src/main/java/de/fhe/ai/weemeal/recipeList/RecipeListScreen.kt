@@ -71,6 +71,7 @@ fun RecipeListScreen(
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
 //    onClickOpenRecipe: (Int) -> Unit,
 //    onClickAddNewRecipe: () -> Unit
+// TODO: give Viewmodel and use for Navigation
 ) {
     WeeMealTheme(
 //        displayProgressBar = recipeListState.isLoading,
@@ -104,7 +105,7 @@ fun RecipeListScreen(
 //                            onTriggerEvent(RecipeListEvents.NewSearch)
                         },
                     )
-                    var recipes: List<Recipe>? = RecipeMock.generateList()
+                    var recipes: List<Recipe>? = RecipeMock.generateList()  // TODO: Get from Viewmodel
 
 //                  Nullcheck -> TODO: More elegant way possible? If else lol
                     recipes?.let {
@@ -233,9 +234,13 @@ private fun RecipeListItemContent(recipe: Recipe) {
 }
 
 @Composable
-private fun RecipeListItemContentExpanded(recipe: Recipe) {
+private fun RecipeListItemContentExpanded(recipe: Recipe
+//,
+//TODO: Onclick Methoden (für beide Buttons) aus dem VM weiterreichen
+)
+{
     Column(Modifier.fillMaxWidth()) {
-        Text(text = "Some Recipe Info:")
+//        Text(text = "Some Recipe Info:")
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -291,7 +296,9 @@ private fun RecipeListItemContentExpanded(recipe: Recipe) {
         Spacer(modifier = Modifier.height(10.dp))
 
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = { /*TODO*/
+
+                      },
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
                 .background(MaterialTheme.colors.primary)

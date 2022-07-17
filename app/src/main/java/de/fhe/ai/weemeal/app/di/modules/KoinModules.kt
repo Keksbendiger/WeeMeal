@@ -1,10 +1,14 @@
 package de.fhe.ai.weemeal.app.di.modules
 
+import de.fhe.ai.weemeal.app.ui.screens.core.NavigationManager
 import de.fhe.ai.weemeal.common.logger.Logger
 import de.fhe.ai.weemeal.common.logger.LoggerImpl
 import de.fhe.ai.weemeal.local.WeeMealDatabase
+import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
+import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
@@ -22,6 +26,9 @@ val androidCoreModule = module {
     single<Logger> {
         LoggerImpl()
     }
+    single {
+        NavigationManager()
+    }
 }
 
 val databaseModule = module {
@@ -38,6 +45,8 @@ val databaseModule = module {
 //    factory { GetUsers(get()) }
 // }
 
-// val viewModelModule = module {
-//    viewModel { MainScreenViewModel(get()) }
-// }
+val viewModelModule = module {
+    viewModel { MealDetailsViewModel() }
+    viewModel { RecipeEditViewModel() }
+//    TODO: Add all used viewmodels here
+}
