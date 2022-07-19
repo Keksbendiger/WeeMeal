@@ -38,7 +38,6 @@ import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
-import de.fhe.ai.weemeal.mocks.domain.MealMock
 import java.util.Calendar
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi

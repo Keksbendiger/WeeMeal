@@ -9,23 +9,26 @@ import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
+import de.fhe.ai.weemeal.usecases.weekList.SaveMeal
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 
 class WeekListViewModel(private val navigationManager: NavigationManager) : ViewModel(),
     KoinComponent {
 
+    private val saveMeal: SaveMeal by inject()
 
     var mealList by mutableStateOf(emptyList<Meal>())
 
     init {
-        /*val mockRecipes = RecipeMock.generateList()
+        val mockMeals = MealMock.generateWeek()
         viewModelScope.launch {
-            for (mockRecipe in mockRecipes) {
-                saveRecipe.execute(mockRecipe)
+            for (mockMeal in mockMeals) {
+                saveMeal.execute(mockMeal)
             }
-        }*/
+        }
         this.getMealsFromDb()
     }
 
