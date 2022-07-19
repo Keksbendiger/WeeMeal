@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import de.fhe.ai.weemeal.local.entity.MealEntity
+import java.util.Date
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,6 +19,9 @@ interface MealEntityDao {
 
     @Query("SELECT * FROM MealEntity WHERE id = :id")
     suspend fun get(id: Long): MealEntity?
+
+    @Query("SELECT * FROM MealEntity WHERE cookingDate >= :today")
+    suspend fun getAllMealsWhereDateIsTodayOrLater(today: Date): List<MealEntity>
 
     @Insert
     suspend fun insert(entity: MealEntity): Long

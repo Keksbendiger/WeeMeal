@@ -9,6 +9,7 @@ import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
+import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
 import de.fhe.ai.weemeal.usecases.weekList.SaveMeal
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -19,6 +20,7 @@ class WeekListViewModel(private val navigationManager: NavigationManager) : View
     KoinComponent {
 
     private val saveMeal: SaveMeal by inject()
+    private val getFutureMeals: GetFutureMeals by inject()
 
     var mealList by mutableStateOf(emptyList<Meal>())
 
@@ -34,8 +36,7 @@ class WeekListViewModel(private val navigationManager: NavigationManager) : View
 
     private fun getMealsFromDb() {
         viewModelScope.launch {
-            //mealList = searchRecipes.execute("")
-            mealList = MealMock.generateWeek()
+            mealList = getFutureMeals.execute()
         }
     }
 
