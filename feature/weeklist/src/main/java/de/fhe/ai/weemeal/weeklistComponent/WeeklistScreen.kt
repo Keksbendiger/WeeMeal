@@ -33,14 +33,15 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import de.fhe.ai.weemeal.common.components.EmptyListText
+import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Calendar
 import java.util.Date
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalCoroutinesApi
@@ -48,23 +49,25 @@ import java.util.Date
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun WeeklistScreen() {
+fun WeeklistScreen(vm: WeekListViewModel) {
     WeeMealTheme() {
         Scaffold(
 
             floatingActionButtonPosition = FabPosition.End,
 
-        ) { innerPadding ->
+            ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
-                    val meals: List<Meal>? = MealMock.generateWeek()
+                    val meals: List<Meal> = vm.mealList
 
-//                  Nullcheck -> TODO: More elegant way possible?
-                    meals?.let {
-                        WeekList(meals)
-                    } ?: kotlin.run {
-                        Text("Keine Einträge")
+                    if (meals.isNotEmpty()) {
+                        WeekList(
+                            meals = meals,
+                            onClickAddToWeekList = { vm.navigateToRecipeList() },
+                            onClickNavigateToMeal = { vm.navigateToMealDetail(it) })
+                    } else {
+                        EmptyListText(text = "Noch keine Wochenliste vorhanden")
                     }
                 }
             }
@@ -74,16 +77,43 @@ fun WeeklistScreen() {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-private fun WeekList(meals: List<Meal>) {
+private fun WeekList(
+    meals: List<Meal>,
+    onClickAddToWeekList: () -> Unit,
+    onClickNavigateToMeal: (Long) -> Unit
+) {
 
-    meals.sortedByDescending { it.cookingDate }
-    LazyColumn {
-        items(14) { index ->
-            var day = getDaysAhead(index)
-            WeekListDay(meals, day)
+    var counter = 0
+    first@ for (i in 0..100) {
+        var day = getDaysAhead(i)
+        second@ for (meal in meals) {
+            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+                counter += 1;
+                break@second
+            }
         }
-        item { AddDay() }
     }
+
+    LazyColumn {
+        items(counter) { index ->
+            var day = getDaysAhead(index)
+            WeekListDay(
+                meals,
+                day,
+                onClickAddToWeekList = { onClickAddToWeekList() },
+                onClickNavigateToMeal = { onClickNavigateToMeal(it) })
+        }
+        item {
+            TextAndIconButton(
+                text = "Neuen Tag hinzufügen",
+                icon = Icons.Filled.Add,
+                onClick = { addDayToWeekList() })
+        }
+    }
+}
+
+private fun addDayToWeekList() {
+
 }
 
 fun getDaysAhead(daysAhead: Int): Date {
@@ -95,7 +125,12 @@ fun getDaysAhead(daysAhead: Int): Date {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-private fun WeekListDay(meals: List<Meal>, day: Date) {
+private fun WeekListDay(
+    meals: List<Meal>,
+    day: Date,
+    onClickAddToWeekList: () -> Unit,
+    onClickNavigateToMeal: (Long) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,10 +154,10 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
             if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
-                MealListItem(meal = meal)
+                MealListItem(meal = meal, onClickNavigateToMeal = { onClickNavigateToMeal(it) })
             }
         }
-        item { AddMeal() }
+        item { AddMeal(onClickAddToWeekList = { onClickAddToWeekList() }) }
     }
 }
 
@@ -130,40 +165,40 @@ fun monthName(day: Date): Any? {
     var month = day.month
     var monthName = ""
 
-    if (month == 1) {
+    if (month == 0) {
         monthName = "Januar"
     }
-    if (month == 2) {
+    if (month == 1) {
         monthName = "Februar"
     }
-    if (month == 3) {
+    if (month == 2) {
         monthName = "März"
     }
-    if (month == 4) {
+    if (month == 3) {
         monthName = "April"
     }
-    if (month == 5) {
+    if (month == 4) {
         monthName = "Mai"
     }
-    if (month == 6) {
+    if (month == 5) {
         monthName = "Juni"
     }
-    if (month == 7) {
+    if (month == 6) {
         monthName = "Juli"
     }
-    if (month == 8) {
+    if (month == 7) {
         monthName = "August"
     }
-    if (month == 9) {
+    if (month == 8) {
         monthName = "September"
     }
-    if (month == 10) {
+    if (month == 9) {
         monthName = "Oktober"
     }
-    if (month == 11) {
+    if (month == 10) {
         monthName = "November"
     }
-    if (month == 12) {
+    if (month == 11) {
         monthName = "Dezemeber"
     }
 
@@ -201,27 +236,32 @@ fun dayOfWeekString(day: Date): Any {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MealListItem(meal: Meal) {
+fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
+
     Card(
-        onClick = { /*TODO: Redirect to the Receipt*/ },
+        //onClick = { onClickNavigateToMeal(meal.internalId) },
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
             .width(150.dp)
+
     ) {
-        Image(painter = painterResource(id = meal.recipe.image), contentDescription = "Dummy Image")
-        WeekListContent(meal = meal)
+        Image(
+            modifier = Modifier.clickable(onClick = {onClickNavigateToMeal(meal.internalId)}),
+            painter = painterResource(id = meal.recipe.image),
+            contentDescription = "Dummy Image"
+        )
+        MealName(meal = meal)
     }
 }
 
+
 @Composable
-fun WeekListContent(meal: Meal) {
+fun MealName(meal: Meal) {
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            // Redirect to receiptView
-            .clickable(onClick = { })
             .padding(8.dp)
 
     ) {
@@ -238,9 +278,9 @@ fun WeekListContent(meal: Meal) {
 }
 
 @Composable
-private fun AddMeal() {
+private fun AddMeal(onClickAddToWeekList: () -> Unit) {
     Button(
-        onClick = { /*TODO: AddMeal onClick -> create new Meal for the Day*/ },
+        onClick = { onClickAddToWeekList() },
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
@@ -283,7 +323,7 @@ private fun AddDay() {
         )
     }
 }
-
+/*
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
@@ -291,4 +331,4 @@ fun DefaultPreview() {
     WeeMealTheme {
         WeekList(meals = MealMock.generateWeek())
     }
-}
+}*/
