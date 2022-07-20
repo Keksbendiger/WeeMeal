@@ -1,5 +1,6 @@
 package de.fhe.ai.weemeal.repository.meal
 
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
 import de.fhe.ai.weemeal.local.mapper.fromDomain
