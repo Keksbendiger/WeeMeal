@@ -1,10 +1,13 @@
 package de.fhe.ai.weemeal.weeklistComponent
 
+import android.graphics.Paint
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,19 +29,26 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
+import de.fhe.ai.weemeal.common.functions.dayOfWeekString
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
+import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
-import java.util.Calendar
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -115,13 +125,6 @@ private fun addDayToWeekList() {
 
 }
 
-fun getDaysAhead(daysAhead: Int): Date {
-    val calendar = Calendar.getInstance()
-    calendar.add(Calendar.DAY_OF_YEAR, daysAhead)
-
-    return calendar.time
-}
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun WeekListDay(
@@ -160,80 +163,6 @@ private fun WeekListDay(
     }
 }
 
-fun monthName(day: Date): Any? {
-    var month = day.month
-    var monthName = ""
-
-    if (month == 0) {
-        monthName = "Januar"
-    }
-    if (month == 1) {
-        monthName = "Februar"
-    }
-    if (month == 2) {
-        monthName = "März"
-    }
-    if (month == 3) {
-        monthName = "April"
-    }
-    if (month == 4) {
-        monthName = "Mai"
-    }
-    if (month == 5) {
-        monthName = "Juni"
-    }
-    if (month == 6) {
-        monthName = "Juli"
-    }
-    if (month == 7) {
-        monthName = "August"
-    }
-    if (month == 8) {
-        monthName = "September"
-    }
-    if (month == 9) {
-        monthName = "Oktober"
-    }
-    if (month == 10) {
-        monthName = "November"
-    }
-    if (month == 11) {
-        monthName = "Dezemeber"
-    }
-
-    return monthName
-}
-
-fun dayOfWeekString(day: Date): Any {
-    var dayOfWeek = day.day
-    var dayOfWeekString = ""
-
-    if (dayOfWeek == 0) {
-        dayOfWeekString = "Sonntag"
-    }
-    if (dayOfWeek == 1) {
-        dayOfWeekString = "Montag"
-    }
-    if (dayOfWeek == 2) {
-        dayOfWeekString = "Dienstag"
-    }
-    if (dayOfWeek == 3) {
-        dayOfWeekString = "Mittwoch"
-    }
-    if (dayOfWeek == 4) {
-        dayOfWeekString = "Donnerstag"
-    }
-    if (dayOfWeek == 5) {
-        dayOfWeekString = "Freitag"
-    }
-    if (dayOfWeek == 6) {
-        dayOfWeekString = "Samstag"
-    }
-
-    return dayOfWeekString
-}
-
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
 
@@ -245,15 +174,41 @@ fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
             .width(150.dp)
 
     ) {
+
         Image(
-            modifier = Modifier.clickable(onClick = {onClickNavigateToMeal(meal.internalId)}),
+            modifier = Modifier.clickable(onClick = { onClickNavigateToMeal(meal.internalId) }),
             painter = painterResource(id = meal.recipe.image),
             contentDescription = "Dummy Image"
         )
+        ServingsOfTheMeal(meal = meal)
         MealName(meal = meal)
     }
 }
 
+@Composable
+fun ServingsOfTheMeal(meal: Meal) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Person,
+            contentDescription = "ADD Meal",
+            modifier = Modifier
+                .padding(2.dp)
+        )
+        Text(
+            text = meal.servings.toString(),
+            style = MaterialTheme.typography.h6.copy(
+                fontWeight = FontWeight.Light
+            ),
+            modifier = Modifier
+                .align(Alignment.Top)
+        )
+    }
+
+}
 
 @Composable
 fun MealName(meal: Meal) {
@@ -264,6 +219,7 @@ fun MealName(meal: Meal) {
             .padding(8.dp)
 
     ) {
+
         Text(
             text = meal.recipe.name,
             style = MaterialTheme.typography.h6.copy(
@@ -275,6 +231,7 @@ fun MealName(meal: Meal) {
         )
     }
 }
+
 
 @Composable
 private fun AddMeal(onClickAddToWeekList: () -> Unit) {

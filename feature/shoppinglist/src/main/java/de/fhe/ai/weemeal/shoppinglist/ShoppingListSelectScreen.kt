@@ -33,12 +33,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import de.fhe.ai.weemeal.common.functions.dayOfWeekString
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
+import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.util.Calendar
 import java.util.Date
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
@@ -89,13 +91,6 @@ private fun WeekList(meals: List<Meal>) {
     }
 }
 
-fun getDaysAhead(daysAhead: Int): Date {
-    val calendar = Calendar.getInstance()
-    calendar.add(Calendar.DAY_OF_YEAR, daysAhead)
-
-    return calendar.time
-}
-
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
 
@@ -133,78 +128,6 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
     }
 }
 
-fun monthName(day: Date): Any? {
-    var month = day.month
-    var monthName = ""
-
-    if (month == 1) {
-        monthName = "Januar"
-    }
-    if (month == 2) {
-        monthName = "Februar"
-    }
-    if (month == 3) {
-        monthName = "März"
-    }
-    if (month == 4) {
-        monthName = "April"
-    }
-    if (month == 5) {
-        monthName = "Mai"
-    }
-    if (month == 6) {
-        monthName = "Juni"
-    }
-    if (month == 7) {
-        monthName = "Juli"
-    }
-    if (month == 8) {
-        monthName = "August"
-    }
-    if (month == 9) {
-        monthName = "September"
-    }
-    if (month == 10) {
-        monthName = "Oktober"
-    }
-    if (month == 11) {
-        monthName = "November"
-    }
-    if (month == 12) {
-        monthName = "Dezemeber"
-    }
-
-    return monthName
-}
-
-fun dayOfWeekString(day: Date): Any {
-    var dayOfWeek = day.day
-    var dayOfWeekString = ""
-
-    if (dayOfWeek == 0) {
-        dayOfWeekString = "Sonntag"
-    }
-    if (dayOfWeek == 1) {
-        dayOfWeekString = "Montag"
-    }
-    if (dayOfWeek == 2) {
-        dayOfWeekString = "Dienstag"
-    }
-    if (dayOfWeek == 3) {
-        dayOfWeekString = "Mittwoch"
-    }
-    if (dayOfWeek == 4) {
-        dayOfWeekString = "Donnerstag"
-    }
-    if (dayOfWeek == 5) {
-        dayOfWeekString = "Freitag"
-    }
-    if (dayOfWeek == 6) {
-        dayOfWeekString = "Samstag"
-    }
-
-    return dayOfWeekString
-}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
