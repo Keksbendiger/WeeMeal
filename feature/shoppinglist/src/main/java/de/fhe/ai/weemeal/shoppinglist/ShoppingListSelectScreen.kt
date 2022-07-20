@@ -3,6 +3,7 @@ package de.fhe.ai.weemeal.shoppinglist
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,7 +33,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import de.fhe.ai.weemeal.common.components.SearchAppBar
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
@@ -63,15 +63,7 @@ fun ShoppingListSelectScreen() {
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
-                    SearchAppBar(
-                        query = "", // recipeListState.query,
-                        onQueryChanged = {
-//                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
-                        },
-                        onExecuteSearch = {
-//                            onTriggerEvent(RecipeListEvents.NewSearch)
-                        },
-                    )
+
                     val meals: List<Meal>? = MealMock.generateWeek()
 
 //                  Nullcheck -> TODO: More elegant way possible?
@@ -106,20 +98,28 @@ fun getDaysAhead(daysAhead: Int): Date {
 
 @Composable
 private fun WeekListDay(meals: List<Meal>, day: Date) {
+
     for (meal in meals) {
         if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
-            Text(
-                text = dayOfWeekString(day).toString(),
-                style = MaterialTheme.typography.h6,
+            Row(
                 modifier = Modifier
-                    .padding(vertical = 4.dp, horizontal = 4.dp)
-            )
-            Text(
-                text = day.date.toString() + "." + monthName(day),
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier
-                    .padding(vertical = 4.dp, horizontal = 4.dp)
-            )
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = dayOfWeekString(day).toString(),
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier
+                        .padding(vertical = 4.dp, horizontal = 4.dp)
+                )
+                Text(
+                    text = day.date.toString() + ". " + monthName(day),
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier
+                        .padding(vertical = 4.dp, horizontal = 4.dp)
+                )
+            }
             break
         }
     }

@@ -46,6 +46,7 @@ abstract class WeeMealDatabase : RoomDatabase() {
             if (db == null) {
                 db = Room.databaseBuilder(app, WeeMealDatabase::class.java, "weemeal-database")
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
             }
 

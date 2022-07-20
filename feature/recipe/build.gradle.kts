@@ -57,10 +57,12 @@ dependencies {
     //Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
+    addKoinDependencies()
 //    addTimberDependencies()
 
     // Modules
     MOCKS
     DOMAIN
     COMMON
+    USECASES
 }

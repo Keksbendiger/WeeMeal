@@ -10,16 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import de.fhe.ai.weemeal.common.navigation.Screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-val LocalNavCtrl = staticCompositionLocalOf<NavHostController> { error("no nav controller set") }
 val LocalScaffoldState = staticCompositionLocalOf<ScaffoldState> { error("no scaffolded state set") }
 
 @ExperimentalCoroutinesApi
@@ -30,19 +29,19 @@ val LocalScaffoldState = staticCompositionLocalOf<ScaffoldState> { error("no sca
 fun AppScaffold() {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
-    var title by rememberSaveable { mutableStateOf(Screens.WeekList.name) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Undefined) }
 
-    CompositionLocalProvider(
-        LocalNavCtrl provides navController,
-        LocalScaffoldState provides scaffoldState
-    ) {
+    CompositionLocalProvider(LocalScaffoldState provides scaffoldState) {
         Scaffold(
             scaffoldState = scaffoldState,
-            topBar = { AppBar(title) },
+            topBar = { AppBar(currentScreen) },
             bottomBar = { BottomBar(navController) }
         ) { innerPadding ->
             AppNavigationHost(
-                onNavigation = { title = it },
+                navController,
+                onNavigation = {
+                    currentScreen = it
+                },
                 modifier = Modifier.padding(innerPadding)
             )
         }

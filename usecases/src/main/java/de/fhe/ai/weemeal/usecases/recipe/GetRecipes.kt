@@ -5,22 +5,17 @@ import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class SearchRecipes : KoinComponent {
+class GetRecipes : KoinComponent {
 
     private val recipeRepository: RecipeRepository by inject()
 
     /**
-     *
-     * search all recipes by name
-     * emits the result in a data object
+     * TODO
      *
      * @return DataState
      */
-    suspend fun execute(
-        query: String,
-    ): List<Recipe> {
-        return recipeRepository.searchRecipeByName(
-            recipeName = query,
-        )
+    suspend fun execute(): List<Recipe> {
+
+        return recipeRepository.getAll()
     }
 }
