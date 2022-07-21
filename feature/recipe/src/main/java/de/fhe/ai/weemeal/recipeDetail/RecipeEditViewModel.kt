@@ -2,16 +2,35 @@ package de.fhe.ai.weemeal.recipeDetail
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Ingredient
+import de.fhe.ai.weemeal.usecases.recipe.GetRecipeById
+import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
+import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class RecipeEditViewModel : ViewModel() {
+class RecipeEditViewModel(
+    private val recipeId: Long,
+    private val navigationManager: NavigationManager
+) : ViewModel(), KoinComponent {
     var state = mutableStateOf(RecipeEditState())
 
-//    private fun saveRecipe() {
-//        // TODO implement save to db
-//    }
-//
+    private val saveRecipe: SaveRecipe by inject()
+    private val getRecipeById: GetRecipeById by inject()
+
+    init {
+        loadRecipe(recipeId)
+    }
+
+    private fun loadRecipe(recipeId: Long) {
+        viewModelScope.launch {
+            state = mutableStateOf(RecipeEditState(getRecipeById.execute(recipeId)!!))
+        }
+    }
+
 //    private fun loadRecipe(id: Int) {
 //        // TODO implement load from db
 //    }
@@ -38,7 +57,7 @@ class RecipeEditViewModel : ViewModel() {
 
     fun updateIngredientName(id: Long, newValue: String) {
         val ingredients: MutableList<Ingredient> = state.value.defaultIngredients!!
-        ingredients?.forEach {
+        ingredients.forEach {
             if (it.internalId == id) {
                 it.name = newValue
                 // TODO break loop here
@@ -50,7 +69,7 @@ class RecipeEditViewModel : ViewModel() {
 
     fun updateIngredientAmount(id: Long, newValue: Float) {
         val ingredients: MutableList<Ingredient> = state.value.defaultIngredients!!
-        ingredients?.forEach {
+        ingredients.forEach {
             if (it.internalId == id) {
                 it.quantity.quantity = newValue
                 // TODO break loop here
@@ -62,7 +81,7 @@ class RecipeEditViewModel : ViewModel() {
 
     fun updateIngredientUnit(id: Long, newValue: String) {
         val ingredients: MutableList<Ingredient> = state.value.defaultIngredients!!
-        ingredients?.forEach {
+        ingredients.forEach {
             if (it.internalId == id) {
                 it.quantity.unit = newValue
                 // TODO break loop here
@@ -81,5 +100,12 @@ class RecipeEditViewModel : ViewModel() {
         }
         state.value =
             state.value.copy(defaultIngredients = ingredients, counter = state.value.counter + 1)
+    }
+
+    fun saveRecipe() {
+        // TODO redirect to former page
+        viewModelScope.launch {
+            saveRecipe.execute(state.value.convertToRecipe())
+        }
     }
 }

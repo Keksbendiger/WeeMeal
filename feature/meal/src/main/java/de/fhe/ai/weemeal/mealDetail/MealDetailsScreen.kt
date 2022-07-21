@@ -17,49 +17,63 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@Preview
+// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
 fun MealDetailsScreen(
-//    recipeListState: RecipeListState,
-    mealDetailsViewModel: MealDetailsViewModel = MealDetailsViewModel(),
+    mealDetailsViewModel: MealDetailsViewModel,
+    mealId: Long?,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
 //    onClickOpenRecipe: (Int) -> Unit,
 //    onClickAddNewRecipe: () -> Unit
 ) {
     WeeMealTheme {
+        val meal = mealDetailsViewModel.state.value
+        val recipe = meal.recipe
+
         Scaffold(
 //            topBar = {
 //                AppBar(title = "Rezeptansicht")
 //            },
 //            bottomBar = { BottomBar(navController) },
-
+            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { mealDetailsViewModel.navigateToRecipeDetails(recipe.internalId) },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
+                ) {
+                    Icon(Icons.Filled.Search, "")
+                }
+            }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val meal = mealDetailsViewModel.state.value
-                val recipe = meal.recipe
-
                 Column(
                     Modifier
                         .fillMaxWidth()

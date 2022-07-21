@@ -32,4 +32,18 @@ data class RecipeEditState(
         image = recipe.image,
         tags = recipe.tags?.toMutableList()
     )
+
+    fun convertToRecipe(): Recipe {
+        return Recipe(
+            internalId,
+            name,
+            defaultServings,
+            defaultIngredients,
+            timePreparation,
+            timeActiveCooking,
+            timeOverall,
+            instructions,
+            image,
+            tags)
+    }
 }
