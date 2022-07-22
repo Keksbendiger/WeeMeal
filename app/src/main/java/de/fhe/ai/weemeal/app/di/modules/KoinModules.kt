@@ -10,6 +10,7 @@ import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.repository.di.repository
 import de.fhe.ai.weemeal.usecases.di.usecases
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
@@ -55,6 +56,7 @@ val viewModelModule = module {
     viewModel { RecipeEditViewModel() }
     viewModel { RecipeListViewModel(get()) }
     viewModel { WeekListViewModel(get()) }
+    viewModel { ShoppingListSelectScreenViewModel(get()) }
 
 //    TODO: Add all used viewmodels here
 }

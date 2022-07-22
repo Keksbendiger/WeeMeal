@@ -25,6 +25,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.inject
 import org.koin.androidx.compose.viewModel
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 
 @ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
@@ -57,7 +58,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.WeekList)
 
-            WeeklistScreen(vm) // TODO: add viewmodel here!
+            WeeklistScreen(vm)
         }
 
         composable(
@@ -104,12 +105,12 @@ fun AppNavigationHost(
             RecipeListScreen(vm)
         }
 
-        composable(Screen.ShoppingListSelect.route) {
-//            val vm by viewModel<ShoppingListSelectViewModel>()
+        composable(Screen.ShoppingListSelectScreen.route) {
+            val vm by viewModel<ShoppingListSelectViewModel>()
 
-            onNavigation(Screen.ShoppingListSelect)
+            onNavigation(Screen.ShoppingListSelectScreen)
 
-            ShoppingListSelectScreen() // TODO: add viewmodel here!
+            ShoppingListSelectScreen(vm)
         }
 
         composable(

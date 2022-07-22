@@ -194,7 +194,7 @@ fun ServingsOfTheMeal(meal: Meal) {
     ) {
         Icon(
             imageVector = Icons.Filled.Person,
-            contentDescription = "ADD Meal",
+            contentDescription = "Servings of The Meal",
             modifier = Modifier
                 .padding(2.dp)
         )
@@ -207,7 +207,6 @@ fun ServingsOfTheMeal(meal: Meal) {
                 .align(Alignment.Top)
         )
     }
-
 }
 
 @Composable

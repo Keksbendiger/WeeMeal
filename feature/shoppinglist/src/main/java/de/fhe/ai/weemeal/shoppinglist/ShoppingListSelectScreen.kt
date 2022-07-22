@@ -25,6 +25,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -137,16 +138,34 @@ fun MealListItem(meal: Meal) {
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)
             .width(150.dp)
-
-        /*.clickable(onClick = { Modifier.border(
-            BorderStroke(
-                2.dp,
-                SolidColor(Color.Black)
-            )
-        ) })*/
     ) {
         Image(painter = painterResource(id = meal.recipe.image), contentDescription = "Dummy Image")
+        ServingsOfTheMeal(meal = meal)
         WeekListContent(meal = meal)
+    }
+}
+
+@Composable
+fun ServingsOfTheMeal(meal: Meal) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Person,
+            contentDescription = "Servings of The Meal",
+            modifier = Modifier
+                .padding(2.dp)
+        )
+        Text(
+            text = meal.servings.toString(),
+            style = MaterialTheme.typography.h6.copy(
+                fontWeight = FontWeight.Light
+            ),
+            modifier = Modifier
+                .align(Alignment.Top)
+        )
     }
 }
 
