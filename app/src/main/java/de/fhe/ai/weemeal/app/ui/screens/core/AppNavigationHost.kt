@@ -14,6 +14,7 @@ import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.mealDetail.MealDetailsScreen
 import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
+import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
@@ -26,6 +27,7 @@ import org.koin.androidx.compose.inject
 import org.koin.androidx.compose.viewModel
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
+import org.koin.core.parameter.parametersOf
 
 @ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
@@ -64,37 +66,37 @@ fun AppNavigationHost(
         composable(
             Screen.MealDetail.route,
             Screen.MealDetail.navigationCommand(0).arguments
-        ) { // entry ->
-//            val mealId = entry.arguments?.getLong("mealId")
-            val vm by viewModel<MealDetailsViewModel>()
+        ) { entry ->
+            val mealId = entry.arguments?.getLong("mealId")
+            val vm by viewModel<MealDetailsViewModel>(parameters = { parametersOf(mealId)})
 
             onNavigation(Screen.MealDetail)
 
-            MealDetailsScreen(vm)
+            MealDetailsScreen(vm, mealId)
         }
 
         composable(
             Screen.RecipeDetail.route,
             Screen.RecipeDetail.navigationCommand(0).arguments
-        ) { // entry ->
-//            val recipeId = entry.arguments?.getLong("recipeId")
-//            val vm by viewModel<RecipeDetailViewModel>(parameters = { parametersOf(recipeId) })
+        ) { entry ->
+            val recipeId = entry.arguments?.getLong("recipeId")
+            val vm by viewModel<RecipeDetailsViewModel>(parameters = { parametersOf(recipeId)})
 
             onNavigation(Screen.RecipeDetail)
 
-            RecipeDetailsScreen() // TODO: add viewmodel here!
+            RecipeDetailsScreen(vm, recipeId)
         }
 
         composable(
             Screen.RecipeEdit.route,
             Screen.RecipeEdit.navigationCommand(0).arguments
-        ) { // entry ->
-//            val recipeId = entry.arguments?.getLong("recipeId")
-            val vm by viewModel<RecipeEditViewModel>()
+        ) { entry ->
+            val recipeId = entry.arguments?.getLong("recipeId")
+            val vm by viewModel<RecipeEditViewModel>(parameters = { parametersOf(recipeId)})
 
             onNavigation(Screen.RecipeEdit)
 
-            RecipeEditScreen(vm)
+            RecipeEditScreen(vm, recipeId)
         }
 
         composable(Screen.RecipeList.route) {

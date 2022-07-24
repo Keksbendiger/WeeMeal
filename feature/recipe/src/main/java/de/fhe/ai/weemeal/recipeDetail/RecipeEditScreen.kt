@@ -19,6 +19,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -28,6 +31,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,14 +47,15 @@ import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.recipe.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@Preview
+// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeEditScreen(
-    recipeEditViewModel: RecipeEditViewModel = RecipeEditViewModel(),
+    vm: RecipeEditViewModel,
+    recipeId: Long?,
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -63,9 +68,19 @@ fun RecipeEditScreen(
 //                AppBar(title = "Rezeptansicht")
 //            },
 //            bottomBar = { BottomBar(navController) },
+            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { vm.saveRecipe() },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
+                ) {
+                    Icon(Icons.Filled.Done, "")
+                }
+            }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = recipeEditViewModel.state.value
+                val recipe = vm.state.value
 
                 Column(
                     Modifier
@@ -162,7 +177,7 @@ fun RecipeEditScreen(
                             value = recipe.defaultServings.toString(),
 
                             onValueChange = {
-                                recipeEditViewModel.OnUpdateDefaultServings(it.toInt())
+                                vm.OnUpdateDefaultServings(it.toInt())
                             },
                             modifier = Modifier.align(Alignment.Bottom)
                         )
@@ -198,7 +213,7 @@ fun RecipeEditScreen(
                                     // value = it.name,
                                     value = it.name,
                                     onValueChange = {
-                                        recipeEditViewModel.updateIngredientName(
+                                        vm.updateIngredientName(
                                             ingredient.internalId, it
                                         )
                                     },
@@ -210,7 +225,7 @@ fun RecipeEditScreen(
                                     RecipeNumberInput(
                                         value = ingredient.quantity.quantity.toString(),
                                         onValueChange = {
-                                            recipeEditViewModel.updateIngredientAmount(
+                                            vm.updateIngredientAmount(
                                                 ingredient.internalId, it.toFloat()
                                             )
                                         }
@@ -219,7 +234,7 @@ fun RecipeEditScreen(
                                     RecipeStringInput(
                                         value = ingredient.quantity.unit,
                                         onValueChange = {
-                                            recipeEditViewModel.updateIngredientUnit(
+                                            vm.updateIngredientUnit(
                                                 ingredient.internalId, it
                                             )
                                         }
@@ -274,7 +289,7 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeActiveCooking?.value.toString(),
                                     onValueChange = {
-                                        recipeEditViewModel.onUpdateActiveCookingTime(
+                                        vm.onUpdateActiveCookingTime(
                                             it.toFloat(),
                                             recipe.timeActiveCooking?.unit ?: ""
                                         )
@@ -283,7 +298,7 @@ fun RecipeEditScreen(
                                 RecipeStringInput(
                                     value = recipe.timeActiveCooking?.unit ?: "",
                                     onValueChange = {
-                                        recipeEditViewModel.onUpdateActiveCookingTime(
+                                        vm.onUpdateActiveCookingTime(
                                             recipe.timeActiveCooking?.value ?: 0f, it
                                         )
                                     }
@@ -305,7 +320,7 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timePreparation?.value.toString(),
                                     onValueChange = {
-                                        recipeEditViewModel.onUpdatePreparationTime(
+                                        vm.onUpdatePreparationTime(
                                             it.toFloat(),
                                             recipe.timePreparation?.unit ?: ""
                                         )
@@ -314,7 +329,7 @@ fun RecipeEditScreen(
                                 RecipeStringInput(
                                     value = recipe.timePreparation?.unit ?: "",
                                     onValueChange = {
-                                        recipeEditViewModel.onUpdatePreparationTime(
+                                        vm.onUpdatePreparationTime(
                                             recipe.timePreparation?.value ?: 0f, it
                                         )
                                     }
@@ -336,7 +351,7 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeOverall?.value.toString(),
                                     onValueChange = {
-                                        recipeEditViewModel.onUpdateOverallCookingTime(
+                                        vm.onUpdateOverallCookingTime(
                                             it.toFloat(),
                                             recipe.timeOverall?.unit ?: ""
                                         )
@@ -345,7 +360,7 @@ fun RecipeEditScreen(
                                 RecipeStringInput(
                                     value = recipe.timeOverall?.unit ?: "",
                                     onValueChange = {
-                                        recipeEditViewModel.onUpdateOverallCookingTime(
+                                        vm.onUpdateOverallCookingTime(
                                             recipe.timeOverall?.value ?: 0f, it
                                         )
                                     }
@@ -369,7 +384,7 @@ fun RecipeEditScreen(
                     )
                     TextField(
                         value = recipe.instructions ?: "",
-                        onValueChange = { recipeEditViewModel.onUpdateInstructions(it) }
+                        onValueChange = { vm.onUpdateInstructions(it) }
                     )
                 }
             }

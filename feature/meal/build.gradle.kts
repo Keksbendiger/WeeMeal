@@ -54,9 +54,11 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":usecases")))
     //Dependencies
     addAndroidXDependencies()
     addComposeDependencies()
+    addKoinDependencies()
 //    addTimberDependencies()
 
     // Modules

@@ -17,10 +17,16 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -34,13 +40,15 @@ import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@Preview
+// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeDetailsScreen(
+    vm: RecipeDetailsViewModel,
+    recipeId: Long?
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -48,15 +56,25 @@ fun RecipeDetailsScreen(
 //    onClickAddNewRecipe: () -> Unit
 ) {
     WeeMealTheme {
+        val recipe = vm.state.value
         Scaffold(
 //            topBar = {
 //                AppBar(title = "Rezeptansicht")
 //            },
 //            bottomBar = { BottomBar(navController) },
+            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { vm.navigateToEditRecipe(recipeId!!) },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
+                ) {
+                    Icon(Icons.Filled.Edit, "")
+                }
+            }
 
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = RecipeMock.generateSingleObject()
 
                 Column(
                     Modifier
