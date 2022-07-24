@@ -7,23 +7,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
+import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.RecipeMock
-import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
+import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
 import java.util.Date
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class RecipeListViewModel(
+class AddRecipeToWeekListViewModel(
 //    private val getRecipesAsync: GetRecipesAsync,
 //    private val loadRecipesFromNetwork: LoadRecipesFromNetwork,
+    private val cookingDate: String,
     private val navigationManager: NavigationManager
 ) : ViewModel(), KoinComponent {
 
     private val searchRecipes: SearchRecipes by inject()
-    private val saveRecipe: SaveRecipe by inject()
+    private val saveMeal: SaveMeal by inject()
 
     // See https://code.luasoftware.com/tutorials/android/jetpack-compose-load-data/
 //    var dbOp by mutableStateOf(AsyncOperation.undefined())
@@ -31,12 +32,6 @@ class RecipeListViewModel(
     var recipeList by mutableStateOf(emptyList<Recipe>())
 
     init {
-        val mockRecipes = RecipeMock.generateList()
-        viewModelScope.launch {
-            for (mockRecipe in mockRecipes) {
-                saveRecipe.execute(mockRecipe)
-            }
-        }
         this.getRecipesFromDb()
     }
 
@@ -64,20 +59,16 @@ class RecipeListViewModel(
 //        }
 //    }
 
-    fun navigateToAddRecipe() {
-        navigationManager.navigate(Screen.RecipeEdit.navigationCommand(0))
+
+    fun saveMealToCookingDate(recipe: Recipe){
+        val meal = Meal(recipe = recipe, cookingDate = Date(this.cookingDate))
+        viewModelScope.launch {
+            saveMeal.execute(meal)
+        }
+        navigateToAddToWeekList()
     }
 
-    fun navigateToAddToWeekList() {
-        // TODO: Give recipeId and add it to Today
+    private fun navigateToAddToWeekList() {
         navigationManager.navigate(Screen.WeekList.navigationCommand())
-    }
-
-    fun navigateToRecipeDetail(recipeId: Long) {
-        navigationManager.navigate(Screen.RecipeDetail.navigationCommand(recipeId))
-    }
-
-    fun navigateToRecipeEdit(recipeId: Long) {
-        navigationManager.navigate(Screen.RecipeEdit.navigationCommand(recipeId))
     }
 }

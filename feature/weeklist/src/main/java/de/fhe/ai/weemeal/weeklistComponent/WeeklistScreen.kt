@@ -71,7 +71,7 @@ fun WeeklistScreen(vm: WeekListViewModel) {
                     if (meals.isNotEmpty()) {
                         WeekList(
                             meals = meals,
-                            onClickAddToWeekList = { vm.navigateToRecipeList() },
+                            onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
                             onClickNavigateToMeal = { vm.navigateToMealDetail(it) }
                         )
                     } else {
@@ -87,7 +87,7 @@ fun WeeklistScreen(vm: WeekListViewModel) {
 @Composable
 private fun WeekList(
     meals: List<Meal>,
-    onClickAddToWeekList: () -> Unit,
+    onClickAddToWeekList: (String) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit
 ) {
 
@@ -108,7 +108,7 @@ private fun WeekList(
             WeekListDay(
                 meals,
                 day,
-                onClickAddToWeekList = { onClickAddToWeekList() },
+                onClickAddToWeekList = { onClickAddToWeekList(it) },
                 onClickNavigateToMeal = { onClickNavigateToMeal(it) }
             )
         }
@@ -130,7 +130,7 @@ private fun addDayToWeekList() {
 private fun WeekListDay(
     meals: List<Meal>,
     day: Date,
-    onClickAddToWeekList: () -> Unit,
+    onClickAddToWeekList: (String) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit
 ) {
     Row(
@@ -159,7 +159,7 @@ private fun WeekListDay(
                 MealListItem(meal = meal, onClickNavigateToMeal = { onClickNavigateToMeal(it) })
             }
         }
-        item { AddMeal(onClickAddToWeekList = { onClickAddToWeekList() }) }
+        item { AddMeal(onClickAddToWeekList = { onClickAddToWeekList(day.toString()) }) }
     }
 }
 

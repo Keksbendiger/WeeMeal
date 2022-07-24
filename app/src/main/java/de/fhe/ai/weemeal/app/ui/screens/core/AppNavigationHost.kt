@@ -17,6 +17,8 @@ import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
+import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListScreen
+import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
@@ -94,7 +96,9 @@ fun AppNavigationHost(
             Screen.RecipeEdit.navigationCommand(0).arguments
         ) { entry ->
             val recipeId = entry.arguments?.getLong("recipeId")
-            val vm by viewModel<RecipeEditViewModel>(parameters = { parametersOf(recipeId) })
+            val vm by viewModel<RecipeEditViewModel>(parameters = {
+                parametersOf(recipeId)
+            })
 
             onNavigation(Screen.RecipeEdit)
 
@@ -107,6 +111,20 @@ fun AppNavigationHost(
             onNavigation(Screen.RecipeList)
 
             RecipeListScreen(vm)
+        }
+
+        composable(
+            Screen.AddRecipeToWeekList.route,
+            Screen.AddRecipeToWeekList.navigationCommand(0).arguments
+        ) { entry ->
+            val cookingDate = entry.arguments?.getString("cookingDate")
+            val vm by viewModel<AddRecipeToWeekListViewModel>(parameters = {
+                parametersOf(cookingDate)
+            })
+
+            onNavigation(Screen.AddRecipeToWeekList)
+
+            AddRecipeToWeekListScreen(vm)
         }
 
         composable(Screen.ShoppingListSelect.route) {

@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import java.util.Date
 
 val RootScreens = listOf(
     Screen.RecipeList,
@@ -109,6 +110,7 @@ sealed class Screen(
                     type = NavType.LongType
                 }
             )
+
             // TODO: Handle "neues Rezept" without given Id...
             override val destination = "RecipeEdit/${value[0]}"
         }
@@ -121,6 +123,21 @@ sealed class Screen(
         icon = Icons.Filled.Star, // TODO: call drawable menu_book instead
         route = "RecipeList"
     )
+
+    object AddRecipeToWeekList : Screen(
+        title = "Zu Wochenplan hinzufügen",
+        route = "AddRecipeToWeekList/{cookingDate}"
+    ) {
+        override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
+
+            override val arguments = listOf(
+                navArgument("cookingDate") {
+                    type = NavType.StringType
+                }
+            )
+            override val destination = "AddRecipeToWeekList/${value[0]}"
+        }
+    }
 
     object ShoppingListSelect : Screen(
         title = "Mahlzeiten für die Einkaufsliste wählen",
