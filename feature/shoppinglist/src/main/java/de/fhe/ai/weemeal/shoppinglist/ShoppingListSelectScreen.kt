@@ -48,7 +48,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun ShoppingListSelectScreen() {
+fun ShoppingListSelectScreen(vm: ShoppingListSelectScreenViewModel) {
     WeeMealTheme() {
         Scaffold(
 
@@ -67,7 +67,7 @@ fun ShoppingListSelectScreen() {
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
-                    val meals: List<Meal>? = MealMock.generateWeek()
+                    val meals: List<Meal>? = vm.mealList
 
 //                  Nullcheck -> TODO: More elegant way possible?
                     meals?.let {

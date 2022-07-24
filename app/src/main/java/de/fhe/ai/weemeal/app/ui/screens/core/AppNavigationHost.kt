@@ -105,10 +105,10 @@ fun AppNavigationHost(
             RecipeListScreen(vm)
         }
 
-        composable(Screen.ShoppingListSelectScreen.route) {
-            val vm by viewModel<ShoppingListSelectViewModel>()
+        composable(Screen.ShoppingListSelect.route) {
+            val vm by viewModel<ShoppingListSelectScreenViewModel>()
 
-            onNavigation(Screen.ShoppingListSelectScreen)
+            onNavigation(Screen.ShoppingListSelect)
 
             ShoppingListSelectScreen(vm)
         }
