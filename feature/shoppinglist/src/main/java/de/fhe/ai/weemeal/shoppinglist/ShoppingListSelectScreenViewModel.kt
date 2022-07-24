@@ -9,8 +9,8 @@ import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
+import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
-import de.fhe.ai.weemeal.usecases.weekList.SaveMeal
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
