@@ -7,17 +7,20 @@ import de.fhe.ai.weemeal.usecases.recipe.GetRecipes
 import de.fhe.ai.weemeal.usecases.recipe.GetRecipeById
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
+import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
+import de.fhe.ai.weemeal.usecases.weekList.SaveMeal
 import org.koin.dsl.module
 
 val usecases = module {
     single { SearchRecipes() }
     single { SaveRecipe() }
     single { GetRecipes() }
+    single { SaveMeal() }
+    single { GetFutureMeals() }
 
     single { GetRecipeByMeal() }
     single { GetRecipeById() }
 
     single { SaveMeal() }
     single { GetMealById() }
-
 }

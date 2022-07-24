@@ -25,6 +25,8 @@ import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.inject
 import org.koin.androidx.compose.viewModel
+import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import org.koin.core.parameter.parametersOf
 
 @ExperimentalCoroutinesApi
@@ -52,12 +54,13 @@ fun AppNavigationHost(
         startDestination = Screen.WeekList.route, // Home Screen
         modifier = modifier
     ) {
-        composable(Screen.WeekList.route) {
-//            val vm by viewModel<WeeklistViewModel>()
+        composable(Screen.WeekList.route,
+            Screen.WeekList.navigationCommand(0).arguments) {
+            val vm by viewModel<WeekListViewModel>()
 
             onNavigation(Screen.WeekList)
 
-            WeeklistScreen() // TODO: add viewmodel here!
+            WeeklistScreen(vm)
         }
 
         composable(
@@ -105,11 +108,11 @@ fun AppNavigationHost(
         }
 
         composable(Screen.ShoppingListSelect.route) {
-//            val vm by viewModel<ShoppingListSelectViewModel>()
+            val vm by viewModel<ShoppingListSelectScreenViewModel>()
 
             onNavigation(Screen.ShoppingListSelect)
 
-            ShoppingListSelectScreen() // TODO: add viewmodel here!
+            ShoppingListSelectScreen(vm)
         }
 
         composable(
