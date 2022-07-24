@@ -65,7 +65,7 @@ fun AppNavigationHost(
             Screen.MealDetail.navigationCommand(0).arguments
         ) { entry ->
             val mealId = entry.arguments?.getLong("mealId")
-            val vm by viewModel<MealDetailsViewModel>(parameters = { parametersOf(mealId)})
+            val vm by viewModel<MealDetailsViewModel>(parameters = { parametersOf(mealId) })
 
             onNavigation(Screen.MealDetail)
 
@@ -77,7 +77,7 @@ fun AppNavigationHost(
             Screen.RecipeDetail.navigationCommand(0).arguments
         ) { entry ->
             val recipeId = entry.arguments?.getLong("recipeId")
-            val vm by viewModel<RecipeDetailsViewModel>(parameters = { parametersOf(recipeId)})
+            val vm by viewModel<RecipeDetailsViewModel>(parameters = { parametersOf(recipeId) })
 
             onNavigation(Screen.RecipeDetail)
 
@@ -89,7 +89,7 @@ fun AppNavigationHost(
             Screen.RecipeEdit.navigationCommand(0).arguments
         ) { entry ->
             val recipeId = entry.arguments?.getLong("recipeId")
-            val vm by viewModel<RecipeEditViewModel>(parameters = { parametersOf(recipeId)})
+            val vm by viewModel<RecipeEditViewModel>(parameters = { parametersOf(recipeId) })
 
             onNavigation(Screen.RecipeEdit)
 
