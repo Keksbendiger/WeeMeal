@@ -9,9 +9,9 @@ import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.repository.di.repository
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import de.fhe.ai.weemeal.usecases.di.usecases
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
-import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration

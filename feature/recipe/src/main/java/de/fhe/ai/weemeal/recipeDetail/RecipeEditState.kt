@@ -44,6 +44,7 @@ data class RecipeEditState(
             timeOverall,
             instructions,
             image,
-            tags)
+            tags
+        )
     }
 }

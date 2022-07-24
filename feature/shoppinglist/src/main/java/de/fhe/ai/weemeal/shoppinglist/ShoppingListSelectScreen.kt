@@ -40,8 +40,8 @@ import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
-import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.Date
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
@@ -128,7 +128,6 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

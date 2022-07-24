@@ -78,13 +78,11 @@ class MealRepositoryImpl(
     override suspend fun getAllMealsWhereDateIsTodayOrLater(): List<Meal> {
         val mealList = mutableListOf<Meal>()
 
-
         val day = getDaysAhead(0)
 
         mealEntityDao.getAllMealsWhereDateIsTodayOrLater(day).forEach {
             getMeal(it.id)?.let { meal -> mealList.add(meal) }
-        };
-
+        }
 
         return mealList
     }

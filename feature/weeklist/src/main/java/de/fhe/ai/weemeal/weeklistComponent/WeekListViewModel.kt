@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-
-class WeekListViewModel(private val navigationManager: NavigationManager) : ViewModel(),
+class WeekListViewModel(private val navigationManager: NavigationManager) :
+    ViewModel(),
     KoinComponent {
 
     private val saveMeal: SaveMeal by inject()
@@ -40,7 +40,6 @@ class WeekListViewModel(private val navigationManager: NavigationManager) : View
         }
     }
 
-
     fun navigateToRecipeList() {
         navigationManager.navigate(Screen.RecipeList.navigationCommand())
     }
@@ -48,5 +47,4 @@ class WeekListViewModel(private val navigationManager: NavigationManager) : View
     fun navigateToMealDetail(mealId: Long) {
         navigationManager.navigate(Screen.MealDetail.navigationCommand(mealId))
     }
-
 }

@@ -15,7 +15,7 @@ class MealDetailsViewModel(
     private val mealId: Long,
     private val navigationManager: NavigationManager
 ) : ViewModel(), KoinComponent {
-    private val getMeal : GetMealById by inject()
+    private val getMeal: GetMealById by inject()
 
     lateinit var meal: Meal
 

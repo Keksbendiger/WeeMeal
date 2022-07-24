@@ -6,8 +6,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import de.fhe.ai.weemeal.local.entity.MealEntity
-import java.util.Date
 import kotlinx.coroutines.flow.Flow
+import java.util.Date
 
 @Dao
 interface MealEntityDao {
