@@ -19,10 +19,6 @@ class RecipeDetailsViewModel(
     var state = mutableStateOf(RecipeEditState())
 
     init {
-        loadRecipe(recipeId)
-    }
-
-    private fun loadRecipe(recipeId: Long) {
         viewModelScope.launch {
             state = mutableStateOf(RecipeEditState(getRecipeById.execute(recipeId)!!))
         }
