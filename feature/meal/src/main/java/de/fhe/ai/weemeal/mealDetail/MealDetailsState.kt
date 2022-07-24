@@ -10,7 +10,7 @@ data class MealDetailsState(
     val internalId: Long = 0,
     val recipe: Recipe,
     var servings: Int? = 1,
-    var cookColor: CookColor? = CookColor.TRANSPARENT,
+    var cookColor: CookColor = CookColor.TRANSPARENT,
     val cookingDate: Date,
     val shoppingListCreatedAt: Date? = null,
 ) {
@@ -20,7 +20,7 @@ data class MealDetailsState(
         internalId = meal.internalId,
         recipe = meal.recipe,
         servings = meal.servings,
-        cookColor = meal.cookColor,
+        cookColor = meal.cookColor ?: CookColor.TRANSPARENT,
         cookingDate = meal.cookingDate,
         shoppingListCreatedAt = meal.shoppingListCreatedAt
     )

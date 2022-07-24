@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
+import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.usecases.meal.GetMealById
 import kotlinx.coroutines.launch
@@ -31,6 +32,14 @@ class MealDetailsViewModel(
 
     fun decreaseServings() {
         state.value = state.value.copy(servings = state.value.servings?.minus(1))
+    }
+
+    fun increaseColor() {
+        state.value = state.value.copy(cookColor = CookColor.getNext(state.value.cookColor))
+    }
+
+    fun decreaseColor() {
+        state.value = state.value.copy(cookColor = CookColor.getPrevious(state.value.cookColor))
     }
 
     fun navigateToRecipeDetails(recipeId: Long) {

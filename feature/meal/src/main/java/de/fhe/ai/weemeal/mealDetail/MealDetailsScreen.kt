@@ -1,7 +1,6 @@
 package de.fhe.ai.weemeal.mealDetail
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,8 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
@@ -26,27 +23,30 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
+import de.fhe.ai.weemeal.domain.enums.CookColor
+import de.fhe.ai.weemeal.mocks.domain.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
 fun MealDetailsScreen(
-    mealDetailsViewModel: MealDetailsViewModel,
+    vm: MealDetailsViewModel,
     mealId: Long?,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
@@ -54,7 +54,7 @@ fun MealDetailsScreen(
 //    onClickAddNewRecipe: () -> Unit
 ) {
     WeeMealTheme {
-        val meal = mealDetailsViewModel.state.value
+        val meal = vm.state.value
         val recipe = meal.recipe
 
         Scaffold(
@@ -65,7 +65,7 @@ fun MealDetailsScreen(
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { mealDetailsViewModel.navigateToRecipeDetails(recipe.internalId) },
+                    onClick = { vm.navigateToRecipeDetails(recipe.internalId) },
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {
@@ -117,6 +117,9 @@ fun MealDetailsScreen(
                         }
                     }
 
+                    // Cook Color
+                    CookColorRow(vm)
+
                     // Ingredients
                     Row {
                         Text(
@@ -133,7 +136,7 @@ fun MealDetailsScreen(
                         IconButton(
                             onClick = {
                                 if (meal.servings!! > 1) {
-                                    mealDetailsViewModel.decreaseServings()
+                                    vm.decreaseServings()
                                 }
                             }
                         ) {
@@ -158,7 +161,7 @@ fun MealDetailsScreen(
 
                         IconButton(
                             onClick = {
-                                mealDetailsViewModel.increaseServings()
+                                vm.increaseServings()
                             }
                         ) {
                             Icon(
@@ -187,7 +190,7 @@ fun MealDetailsScreen(
                                 textLeft = it.name,
                                 textRight =
                                 (
-                                    (it.quantity.quantity * mealDetailsViewModel.state.value.servingsRatio)
+                                    (it.quantity.quantity * vm.state.value.servingsRatio)
                                         .toString()
                                     ) + "  " + it.quantity.unit
                             )
@@ -271,6 +274,53 @@ fun MealDetailsScreen(
                     Text(text = recipe.instructions ?: "")
                 }
             }
+        }
+    }
+}
+
+//@Preview
+@Composable
+fun CookColorRow(vm: MealDetailsViewModel) {
+    var meal = vm.state.value
+    //var meal = MealMock.generateSingleObject()
+
+    Row {
+        IconButton(
+            onClick = {
+                vm.decreaseColor()
+            }
+        ) {
+            Icon(
+                painterResource(
+                    id =
+                    de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_remove_circle_24,
+                ),
+                contentDescription = "color left button"
+            )
+        }
+
+        Text(
+            text = meal.cookColor.name,
+            modifier = Modifier
+                .padding(
+                    top = 8.dp,
+                    bottom = 2.dp,
+                ).border(2.dp, Color(meal.cookColor.color), RectangleShape),
+            style = MaterialTheme.typography.h1,
+        )
+
+        IconButton(
+            onClick = {
+                vm.increaseColor()
+            }
+        ) {
+            Icon(
+                painterResource(
+                    id =
+                    de.fhe.ai.weemeal.meal.R.drawable.ic_baseline_add_circle_24,
+                ),
+                contentDescription = "color right button"
+            )
         }
     }
 }
