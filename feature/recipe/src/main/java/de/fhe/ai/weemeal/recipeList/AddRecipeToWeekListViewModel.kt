@@ -11,10 +11,10 @@ import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
-import java.util.Date
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.util.Date
 
 class AddRecipeToWeekListViewModel(
 //    private val getRecipesAsync: GetRecipesAsync,
@@ -59,8 +59,7 @@ class AddRecipeToWeekListViewModel(
 //        }
 //    }
 
-
-    fun saveMealToCookingDate(recipe: Recipe){
+    fun saveMealToCookingDate(recipe: Recipe) {
         val meal = Meal(recipe = recipe, cookingDate = Date(this.cookingDate))
         viewModelScope.launch {
             saveMeal.execute(meal)

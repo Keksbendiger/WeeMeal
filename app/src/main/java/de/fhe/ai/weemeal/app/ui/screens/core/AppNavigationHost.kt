@@ -96,9 +96,11 @@ fun AppNavigationHost(
             Screen.RecipeEdit.navigationCommand(0).arguments
         ) { entry ->
             val recipeId = entry.arguments?.getLong("recipeId")
-            val vm by viewModel<RecipeEditViewModel>(parameters = {
-                parametersOf(recipeId)
-            })
+            val vm by viewModel<RecipeEditViewModel>(
+                parameters = {
+                    parametersOf(recipeId)
+                }
+            )
 
             onNavigation(Screen.RecipeEdit)
 
@@ -118,9 +120,11 @@ fun AppNavigationHost(
             Screen.AddRecipeToWeekList.navigationCommand(0).arguments
         ) { entry ->
             val cookingDate = entry.arguments?.getString("cookingDate")
-            val vm by viewModel<AddRecipeToWeekListViewModel>(parameters = {
-                parametersOf(cookingDate)
-            })
+            val vm by viewModel<AddRecipeToWeekListViewModel>(
+                parameters = {
+                    parametersOf(cookingDate)
+                }
+            )
 
             onNavigation(Screen.AddRecipeToWeekList)
 

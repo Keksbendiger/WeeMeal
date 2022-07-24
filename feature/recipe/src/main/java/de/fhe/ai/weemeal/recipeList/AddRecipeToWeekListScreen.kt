@@ -40,10 +40,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun AddRecipeToWeekListScreen(
     vm: AddRecipeToWeekListViewModel
 ) {
-    WeeMealTheme(
-    ) {
-        Scaffold()
-        { innerPadding ->
+    WeeMealTheme() {
+        Scaffold() { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 //                    SearchAppBar(
