@@ -18,11 +18,11 @@ class MealDetailsViewModel(
 ) : ViewModel(), KoinComponent {
     private val getMeal: GetMealById by inject()
 
-    lateinit var meal: Meal
+    var state = mutableStateOf(MealDetailsState())
 
     init {
         viewModelScope.launch {
-            meal = getMeal.execute(mealId)!!
+            state = mutableStateOf(MealDetailsState(getMeal.execute(mealId)!!))
         }
     }
 
@@ -42,9 +42,10 @@ class MealDetailsViewModel(
         state.value = state.value.copy(cookColor = CookColor.getPrevious(state.value.cookColor))
     }
 
-    fun navigateToRecipeDetails(recipeId: Long) {
-        navigationManager.navigate(Screen.RecipeDetail.navigationCommand(recipeId))
+    fun navigateToRecipeDetails() {
+        val recipeId = state.value.recipe.internalId
+        if (recipeId != 0L) {
+            navigationManager.navigate(Screen.RecipeDetail.navigationCommand(recipeId))
+        }
     }
-
-    var state = mutableStateOf(MealDetailsState())
 }

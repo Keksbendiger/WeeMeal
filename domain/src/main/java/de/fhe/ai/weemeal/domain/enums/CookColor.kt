@@ -16,7 +16,7 @@ enum class CookColor(val color: String) {
         }
 
         fun getNext(old: CookColor): CookColor {
-            return when(old) {
+            return when (old) {
                 TRANSPARENT -> YELLOW
                 YELLOW -> GREEN
                 GREEN -> RED
@@ -26,7 +26,7 @@ enum class CookColor(val color: String) {
         }
 
         fun getPrevious(old: CookColor): CookColor {
-            return when(old) {
+            return when (old) {
                 BLUE -> RED
                 RED -> GREEN
                 GREEN -> YELLOW

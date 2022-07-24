@@ -54,19 +54,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun RecipeEditScreen(
     vm: RecipeEditViewModel,
-    recipeId: Long?,
-//    recipeListState: RecipeListState,
-//    navHostController: NavHostController,
-//    onTriggerEvent: (RecipeListEvents) -> Unit,
-//    onClickOpenRecipe: (Int) -> Unit,
-//    onClickAddNewRecipe: () -> Unit
 ) {
     WeeMealTheme {
         Scaffold(
-//            topBar = {
-//                AppBar(title = "Rezeptansicht")
-//            },
-//            bottomBar = { BottomBar(navController) },
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(

@@ -3,6 +3,7 @@ package de.fhe.ai.weemeal.recipeDetail
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.fhe.ai.weemeal.common.navigation.GoBackDestination
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import de.fhe.ai.weemeal.domain.models.Ingredient
@@ -13,7 +14,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class RecipeEditViewModel(
-    private val recipeId: Long,
+    recipeId: Long,
     private val navigationManager: NavigationManager
 ) : ViewModel(), KoinComponent {
     var state = mutableStateOf(RecipeEditState())
@@ -32,10 +33,6 @@ class RecipeEditViewModel(
             }
         }
     }
-
-//    private fun loadRecipe(id: Int) {
-//        // TODO implement load from db
-//    }
 
     fun OnUpdateDefaultServings(number: Int) {
         state.value = state.value.copy(defaultServings = number)
@@ -93,6 +90,10 @@ class RecipeEditViewModel(
             state.value.copy(defaultIngredients = ingredients, counter = state.value.counter + 1)
     }
 
+    fun addIngredient() {
+
+    }
+
     fun deleteIngredient(id: Long) {
         val ingredients = state.value.defaultIngredients
         ingredients?.forEach {
@@ -105,9 +106,9 @@ class RecipeEditViewModel(
     }
 
     fun saveRecipe() {
-        // TODO redirect to former page
         viewModelScope.launch {
             saveRecipe.execute(state.value.convertToRecipe())
         }
+        navigationManager.navigate(GoBackDestination)
     }
 }

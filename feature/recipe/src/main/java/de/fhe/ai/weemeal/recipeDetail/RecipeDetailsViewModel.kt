@@ -28,7 +28,7 @@ class RecipeDetailsViewModel(
         }
     }
 
-    fun navigateToEditRecipe(recipeId: Long) {
+    fun navigateToEditRecipe() {
         navigationManager.navigate(Screen.RecipeEdit.navigationCommand(recipeId))
     }
 }

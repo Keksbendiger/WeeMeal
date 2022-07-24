@@ -20,7 +20,7 @@ data class RecipeEditState(
     var tags: MutableList<Tag>? = Tag.generateDefaultTagList().toMutableList(),
     var counter: Int = 0
 ) {
-    constructor(recipe: Recipe = RecipeMock.generateSingleObject()) : this(
+    constructor(recipe: Recipe /*= RecipeMock.generateSingleObject()*/) : this(
         internalId = recipe.internalId,
         name = recipe.name,
         defaultServings = recipe.defaultServings,
