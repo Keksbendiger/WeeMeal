@@ -26,11 +26,11 @@ class RecipeEditViewModel(
     }
 
     private fun loadRecipe(recipeId: Long) {
-        if(recipeId != 0L) {
-                viewModelScope.launch {
-                    state = mutableStateOf(RecipeEditState(getRecipeById.execute(recipeId)!!))
-                }
+        if (recipeId != 0L) {
+            viewModelScope.launch {
+                state = mutableStateOf(RecipeEditState(getRecipeById.execute(recipeId)!!))
             }
+        }
     }
 
 //    private fun loadRecipe(id: Int) {

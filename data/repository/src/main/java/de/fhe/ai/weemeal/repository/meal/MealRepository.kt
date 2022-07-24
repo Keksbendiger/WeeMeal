@@ -10,4 +10,5 @@ interface MealRepository {
     suspend fun insertOrUpdateMeal(meal: Meal): Meal?
     suspend fun deleteMeal(meal: Meal)
     suspend fun deleteAllMeals()
+    suspend fun getAllMealsWhereDateIsTodayOrLater(): List<Meal>
 }

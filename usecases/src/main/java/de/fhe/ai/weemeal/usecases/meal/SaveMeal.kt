@@ -12,5 +12,4 @@ class SaveMeal : KoinComponent {
     suspend fun execute(meal: Meal) {
         mealRepository.insertOrUpdateMeal(meal)
     }
-
 }

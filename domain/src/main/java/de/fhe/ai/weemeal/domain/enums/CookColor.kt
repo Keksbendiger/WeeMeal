@@ -1,20 +1,14 @@
 package de.fhe.ai.weemeal.domain.enums
 
-import android.graphics.Color
 import java.security.SecureRandom
 
-enum class CookColor(/*val color: String*/ val color: Int) {
+enum class CookColor(val color: String) {
 
-    //TRANSPARENT("0x00000000"),
-    TRANSPARENT(Color.TRANSPARENT),
-    //YELLOW("0xFFFFFF00"),
-    YELLOW(Color.YELLOW),
-    //GREEN("0xFF00FF00"),
-    GREEN(Color.GREEN),
-    //RED("0xFFFF0000"),
-    RED(Color.RED),
-    //BLUE("0xFF0000FF");
-    BLUE(Color.BLUE);
+    TRANSPARENT("#00000000"),
+    YELLOW("#FFFFFF00"),
+    GREEN("#FF00FF00"),
+    RED("#FFFF0000"),
+    BLUE("#FF0000FF");
 
     companion object {
         fun getRandom(): CookColor {
@@ -41,5 +35,4 @@ enum class CookColor(/*val color: String*/ val color: Int) {
             }
         }
     }
-
 }
