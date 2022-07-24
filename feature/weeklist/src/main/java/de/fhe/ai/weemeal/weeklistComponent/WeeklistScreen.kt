@@ -1,11 +1,13 @@
 package de.fhe.ai.weemeal.weeklistComponent
 
 
+import android.graphics.Color.parseColor
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,10 +16,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -33,9 +37,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
 import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
@@ -163,10 +171,12 @@ fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
     Card(
         //onClick = { onClickNavigateToMeal(meal.internalId) },
         modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
+            .padding(8.dp)
+            .shadow(elevation = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
             .height(150.dp)
             .width(150.dp)
-
+            .border(width = 2.dp, color = Color(meal.cookColor.color.toColorInt()), shape = RoundedCornerShape(8.dp))
     ) {
 
         Image(
@@ -174,8 +184,12 @@ fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
             painter = painterResource(id = meal.recipe.image),
             contentDescription = "Dummy Image"
         )
-        ServingsOfTheMeal(meal = meal)
-        MealName(meal = meal)
+        Column(
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            ServingsOfTheMeal(meal = meal)
+            MealName(meal = meal)
+        }
     }
 }
 
@@ -184,7 +198,8 @@ fun ServingsOfTheMeal(meal: Meal) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.End
     ) {
         Icon(
             imageVector = Icons.Filled.Person,
@@ -196,9 +211,7 @@ fun ServingsOfTheMeal(meal: Meal) {
             text = meal.servings.toString(),
             style = MaterialTheme.typography.h6.copy(
                 fontWeight = FontWeight.Light
-            ),
-            modifier = Modifier
-                .align(Alignment.Top)
+            )
         )
     }
 }
@@ -209,18 +222,20 @@ fun MealName(meal: Meal) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-
+            .background(MaterialTheme.colors.surface)
+            .height(30.dp)
     ) {
 
         Text(
             text = meal.recipe.name,
             style = MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.Medium
             ),
             modifier = Modifier
-                .align(Alignment.Bottom)
-
+                .height(26.dp)
+                .padding(horizontal = 4.dp),
+//            modifier = Modifier
+//                .align(Alignment.Bottom)
         )
     }
 }
