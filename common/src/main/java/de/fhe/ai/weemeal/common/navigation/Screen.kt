@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -69,7 +69,7 @@ sealed class Screen(
     }
 
     object MealDetail : Screen(
-        title = "Mahlzeit", // TODO: Use meals name instead e.g. "Spaghetti mit grün soß"
+        title = "Mahlzeit",
         route = "MealDetail/{mealId}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
@@ -84,7 +84,7 @@ sealed class Screen(
     }
 
     object RecipeDetail : Screen(
-        title = "Rezeptdetails", // TODO: Use recipe name instead e.g. "Spaghetti mit grün soß"
+        title = "Rezeptdetails",
         route = "RecipeDetail/{recipeId}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
@@ -99,7 +99,7 @@ sealed class Screen(
     }
 
     object RecipeEdit : Screen(
-        title = "Rezept anpassen", // TODO: Use "Bearbeite " + recipeName. e.g. "Bearbeite Spaghetti mit grün soß"
+        title = "Rezept anpassen",
         route = "RecipeEdit/{recipeId}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
@@ -109,8 +109,6 @@ sealed class Screen(
                     type = NavType.LongType
                 }
             )
-
-            // TODO: Handle "neues Rezept" without given Id...
             override val destination = "RecipeEdit/${value[0]}"
         }
         // TODO: Handle Backstack because this screen can be reached via Meal or Recipe and we
@@ -119,7 +117,7 @@ sealed class Screen(
 
     object RecipeList : Screen(
         title = "Rezepte",
-        icon = Icons.Filled.Star, // TODO: call drawable menu_book instead
+        icon = Icons.Filled.List,
         route = "RecipeList"
     )
 
