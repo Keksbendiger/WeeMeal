@@ -13,6 +13,17 @@ data class MealDetailsState(
     val cookingDate: Date = Date(),
     val shoppingListCreatedAt: Date? = null,
 ) {
+    fun convertToMeal(): Meal {
+        return Meal(
+            internalId,
+            recipe,
+            servings,
+            cookColor,
+            cookingDate,
+            shoppingListCreatedAt
+        )
+    }
+
     var servingsRatio: Float = ((servings ?: 1) / (recipe.defaultServings ?: 1).toFloat())
 
     constructor(meal: Meal /*= MealMock.generateSingleObject()*/) : this(

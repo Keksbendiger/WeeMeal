@@ -189,15 +189,20 @@ fun RecipeEditScreen(
                     }
 
                     Column {
+                        // used to differentiate between multiple newly created ingredients
+                        // that all have id = 0
+                        var counter = 0
                         recipe.defaultIngredients?.forEach {
+                            val ingredient = it
+                            val counterPosition = counter
+
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                var ingredient = it
 
                                 IconButton(
-                                    onClick = { vm.deleteIngredient(it.internalId) },
+                                    onClick = { vm.deleteIngredient(it.internalId, counterPosition) },
                                     modifier = Modifier
                                         .size(20.dp)
                                         .align(Alignment.CenterVertically)
@@ -210,7 +215,7 @@ fun RecipeEditScreen(
                                     value = it.name,
                                     onValueChange = {
                                         vm.updateIngredientName(
-                                            ingredient.internalId, it
+                                            ingredient.internalId, it, counterPosition
                                         )
                                     },
                                     wide = true
@@ -225,7 +230,7 @@ fun RecipeEditScreen(
                                                 try {
                                                     val num = it.toFloat()
                                                     vm.updateIngredientAmount(
-                                                        ingredient.internalId, num
+                                                        ingredient.internalId, num, counterPosition
                                                     )
                                                 } catch (e: NumberFormatException) {
                                                 }
@@ -236,11 +241,14 @@ fun RecipeEditScreen(
                                         value = ingredient.quantity.unit,
                                         onValueChange = {
                                             vm.updateIngredientUnit(
-                                                ingredient.internalId, it
+                                                ingredient.internalId, it, counterPosition
                                             )
                                         }
                                     )
                                 }
+                            }
+                            if(it.internalId == 0L) {
+                                counter++
                             }
                         }
                         Row() {
