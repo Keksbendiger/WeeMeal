@@ -17,10 +17,14 @@ import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditScreen
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
+import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListScreen
+import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
+import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
 import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.inject
@@ -52,12 +56,15 @@ fun AppNavigationHost(
         startDestination = Screen.WeekList.route, // Home Screen
         modifier = modifier
     ) {
-        composable(Screen.WeekList.route) {
-//            val vm by viewModel<WeeklistViewModel>()
+        composable(
+            Screen.WeekList.route,
+            Screen.WeekList.navigationCommand(0).arguments
+        ) {
+            val vm by viewModel<WeekListViewModel>()
 
             onNavigation(Screen.WeekList)
 
-            WeeklistScreen() // TODO: add viewmodel here!
+            WeeklistScreen(vm)
         }
 
         composable(
@@ -89,7 +96,11 @@ fun AppNavigationHost(
             Screen.RecipeEdit.navigationCommand(0).arguments
         ) { entry ->
             val recipeId = entry.arguments?.getLong("recipeId")
-            val vm by viewModel<RecipeEditViewModel>(parameters = { parametersOf(recipeId) })
+            val vm by viewModel<RecipeEditViewModel>(
+                parameters = {
+                    parametersOf(recipeId)
+                }
+            )
 
             onNavigation(Screen.RecipeEdit)
 
@@ -104,12 +115,28 @@ fun AppNavigationHost(
             RecipeListScreen(vm)
         }
 
+        composable(
+            Screen.AddRecipeToWeekList.route,
+            Screen.AddRecipeToWeekList.navigationCommand(0).arguments
+        ) { entry ->
+            val cookingDate = entry.arguments?.getString("cookingDate")
+            val vm by viewModel<AddRecipeToWeekListViewModel>(
+                parameters = {
+                    parametersOf(cookingDate)
+                }
+            )
+
+            onNavigation(Screen.AddRecipeToWeekList)
+
+            AddRecipeToWeekListScreen(vm)
+        }
+
         composable(Screen.ShoppingListSelect.route) {
-//            val vm by viewModel<ShoppingListSelectViewModel>()
+            val vm by viewModel<ShoppingListSelectScreenViewModel>()
 
             onNavigation(Screen.ShoppingListSelect)
 
-            ShoppingListSelectScreen() // TODO: add viewmodel here!
+            ShoppingListSelectScreen(vm)
         }
 
         composable(

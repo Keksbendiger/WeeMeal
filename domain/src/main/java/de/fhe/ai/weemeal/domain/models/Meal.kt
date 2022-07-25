@@ -8,7 +8,7 @@ data class Meal(
     override var internalId: Long = 0,
     var recipe: Recipe,
     var servings: Int? = 1,
-    val cookColor: CookColor? = CookColor.TRANSPARENT,
+    val cookColor: CookColor = CookColor.TRANSPARENT,
     val cookingDate: Date,
     val shoppingListCreatedAt: Date? = null,
 ) : BaseModel {
