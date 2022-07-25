@@ -68,7 +68,6 @@ class RecipeListViewModel(
     }
 
     fun navigateToAddToWeekList() {
-        // TODO: Give recipeId and add it to Today
         navigationManager.navigate(Screen.WeekList.navigationCommand())
     }
 
