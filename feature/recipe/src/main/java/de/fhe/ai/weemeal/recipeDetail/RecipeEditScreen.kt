@@ -37,6 +37,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
@@ -55,12 +56,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun RecipeEditScreen(
     vm: RecipeEditViewModel,
 ) {
+    val context = LocalContext.current
     WeeMealTheme {
         Scaffold(
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { vm.saveRecipe() },
+                    onClick = { vm.saveRecipe(context) },
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {
@@ -195,7 +197,7 @@ fun RecipeEditScreen(
                                 var ingredient = it
 
                                 IconButton(
-                                    onClick = { /*TODO*/ },
+                                    onClick = { vm.deleteIngredient(it.internalId) },
                                     modifier = Modifier
                                         .size(20.dp)
                                         .align(Alignment.CenterVertically)
@@ -243,7 +245,7 @@ fun RecipeEditScreen(
                         }
                         Row() {
                             IconButton(
-                                onClick = { /*TODO*/ },
+                                onClick = { vm.onAddIngredient(context) },
                                 modifier = Modifier
                                     .size(20.dp)
                             ) {
