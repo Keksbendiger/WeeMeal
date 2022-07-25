@@ -44,25 +44,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeDetailsScreen(
-    vm: RecipeDetailsViewModel,
-    recipeId: Long?
-//    recipeListState: RecipeListState,
-//    navHostController: NavHostController,
-//    onTriggerEvent: (RecipeListEvents) -> Unit,
-//    onClickOpenRecipe: (Int) -> Unit,
-//    onClickAddNewRecipe: () -> Unit
+    vm: RecipeDetailsViewModel
 ) {
     WeeMealTheme {
         val recipe = vm.state.value
         Scaffold(
-//            topBar = {
-//                AppBar(title = "Rezeptansicht")
-//            },
-//            bottomBar = { BottomBar(navController) },
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { vm.navigateToEditRecipe(recipeId!!) },
+                    onClick = { vm.navigateToEditRecipe() },
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {

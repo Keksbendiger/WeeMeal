@@ -103,7 +103,7 @@ class RecipeRepositoryImpl(
                 recipeTagEntityDao.insert(
                     RecipeTagEntity(
                         tagId = tagId,
-                        recipeId = recipe.internalId
+                        recipeId = recipeId
                     )
                 )
             }
@@ -117,7 +117,7 @@ class RecipeRepositoryImpl(
                 recipeIngredientEntityDao.insert(
                     RecipeIngredientEntity(
                         ingredientId = ingredientId,
-                        recipeId = recipe.internalId
+                        recipeId = recipeId
                     )
                 )
             }
