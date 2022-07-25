@@ -40,8 +40,8 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
         }
     }
 
-    fun navigateToRecipeList() {
-        navigationManager.navigate(Screen.RecipeList.navigationCommand())
+    fun navigateToAddRecipeToWeekList(cookingDate: String) {
+        navigationManager.navigate(Screen.AddRecipeToWeekList.navigationCommand(cookingDate))
     }
 
     fun navigateToMealDetail(mealId: Long) {

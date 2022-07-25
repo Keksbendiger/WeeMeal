@@ -1,5 +1,7 @@
 package de.fhe.ai.weemeal.recipeDetail
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -98,24 +100,48 @@ class RecipeEditViewModel(
             state.value.copy(defaultIngredients = ingredients, counter = state.value.counter + 1)
     }
 
-    fun addIngredient() {
-    }
-
     fun deleteIngredient(id: Long) {
         val ingredients = state.value.defaultIngredients
-        ingredients?.forEach {
-            if (it.internalId == id) {
-                ingredients.remove(it)
+        val ingredientsIterator = ingredients?.iterator()
+        while (ingredientsIterator!!.hasNext()) {
+            val ingredient = ingredientsIterator.next()
+            if (ingredient.internalId == id) {
+                ingredientsIterator.remove()
             }
         }
+
         state.value =
             state.value.copy(defaultIngredients = ingredients, counter = state.value.counter + 1)
     }
 
-    fun saveRecipe() {
-        viewModelScope.launch {
-            saveRecipe.execute(state.value.convertToRecipe())
+    fun saveRecipe(context: Context) {
+        if (checkIngredientsForEmptyName(context)) {
+            viewModelScope.launch {
+                saveRecipe.execute(state.value.convertToRecipe())
+            }
+            navigationManager.navigate(GoBackDestination)
         }
-        navigationManager.navigate(GoBackDestination)
+    }
+
+    fun onAddIngredient(context: Context) {
+        if (checkIngredientsForEmptyName(context)) {
+            val ingredients: MutableList<Ingredient> = state.value.defaultIngredients!!
+            ingredients.add(Ingredient(name = ""))
+
+            state.value = state.value.copy(defaultIngredients = ingredients, counter = state.value.counter + 1)
+        }
+    }
+
+    // @returns TRUE if NO EMPTY NAME   and     FALSE if an empty name WAS FOUND
+    private fun checkIngredientsForEmptyName(context: Context): Boolean {
+        val ingredients: MutableList<Ingredient> = state.value.defaultIngredients!!
+        ingredients.forEach {
+            if (it.name.isBlank()) {
+                val toast = Toast.makeText(context, "Zutat ohne Namen", Toast.LENGTH_LONG)
+                toast.show()
+                return false
+            }
+        }
+        return true
     }
 }
