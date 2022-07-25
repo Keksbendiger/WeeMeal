@@ -83,7 +83,7 @@ fun RecipeListScreen(
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { vm.navigateToAddRecipe() }, // TODO: Handle not having an ID...
+                    onClick = { vm.navigateToAddRecipe() },
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {
@@ -268,7 +268,6 @@ private fun RecipeListItemContentExpanded(
     recipe: Recipe,
     onClickAddToWeekList: () -> Unit,
     onClickRecipeDetail: (Long) -> Unit
-// TODO: Onclick Methoden (für beide Buttons) aus dem VM weiterreichen
 ) {
     Column(Modifier.fillMaxWidth()) {
 //        Text(text = "Some Recipe Info:")

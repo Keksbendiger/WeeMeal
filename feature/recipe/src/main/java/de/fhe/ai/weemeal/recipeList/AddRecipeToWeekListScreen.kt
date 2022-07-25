@@ -16,9 +16,15 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -41,7 +47,18 @@ fun AddRecipeToWeekListScreen(
     vm: AddRecipeToWeekListViewModel
 ) {
     WeeMealTheme() {
-        Scaffold() { innerPadding ->
+        Scaffold(
+            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { vm.navigateToAddRecipe() },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
+                ) {
+                    Icon(Icons.Filled.Add, "")
+                }
+            }
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 //                    SearchAppBar(
