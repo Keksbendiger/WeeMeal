@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.fhe.ai.weemeal.common.navigation.GoBackDestination
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
@@ -71,7 +70,7 @@ class RecipeEditViewModel(
         var countZeroIDs = 0
         ingredients.forEach {
             if (it.internalId == id) {
-                if(it.internalId == 0L && counter == countZeroIDs++) {
+                if (it.internalId == 0L && counter == countZeroIDs++) {
                     it.name = newValue
                     // TODO break loop here
                 }
@@ -87,7 +86,7 @@ class RecipeEditViewModel(
         var countZeroIDs = 0
         ingredients.forEach {
             if (it.internalId == id) {
-                if(it.internalId == 0L && counter == countZeroIDs++) {
+                if (it.internalId == 0L && counter == countZeroIDs++) {
                     it.quantity.quantity = newValue
                     // TODO break loop here
                 }
@@ -103,7 +102,7 @@ class RecipeEditViewModel(
         var countZeroIDs = 0
         ingredients.forEach {
             if (it.internalId == id) {
-                if(it.internalId == 0L && counter == countZeroIDs++) {
+                if (it.internalId == 0L && counter == countZeroIDs++) {
                     it.quantity.unit = newValue
                     // TODO break loop here
                 }
@@ -121,7 +120,7 @@ class RecipeEditViewModel(
         while (ingredientsIterator!!.hasNext()) {
             val ingredient = ingredientsIterator.next()
             if (ingredient.internalId == id) {
-                if(ingredient.internalId == 0L && counter == countZeroIDs++) {
+                if (ingredient.internalId == 0L && counter == countZeroIDs++) {
                     ingredientsIterator.remove()
                 }
             }
@@ -136,7 +135,7 @@ class RecipeEditViewModel(
             viewModelScope.launch {
                 saveRecipe.execute(state.value.convertToRecipe())
             }
-            //navigationManager.navigate(GoBackDestination)
+            // navigationManager.navigate(GoBackDestination)
             navigationManager.navigate(Screen.WeekList.navigationCommand())
         }
     }

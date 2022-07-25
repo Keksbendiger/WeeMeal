@@ -247,7 +247,7 @@ fun RecipeEditScreen(
                                     )
                                 }
                             }
-                            if(it.internalId == 0L) {
+                            if (it.internalId == 0L) {
                                 counter++
                             }
                         }
