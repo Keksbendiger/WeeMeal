@@ -39,7 +39,6 @@ fun AppScaffold() {
     // State of bottomBar, set state to false, if current page route is not in RootScreens
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
 
-
     CompositionLocalProvider(LocalScaffoldState provides scaffoldState) {
         Scaffold(
             scaffoldState = scaffoldState,
@@ -69,7 +68,6 @@ fun AppScaffold() {
         }
     }
 }
-
 
 /*
 BottomBarAnimationTheme {
