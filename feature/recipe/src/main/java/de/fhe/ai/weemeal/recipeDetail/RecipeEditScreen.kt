@@ -166,7 +166,12 @@ fun RecipeEditScreen(
                             value = recipe.defaultServings.toString(),
 
                             onValueChange = {
-                                vm.OnUpdateDefaultServings(it.toInt())
+                                if (it.isNotBlank())
+                                    try {
+                                        val num = it.toInt()
+                                        vm.OnUpdateDefaultServings(num)
+                                    } catch (e: NumberFormatException) {
+                                    }
                             },
                             modifier = Modifier.align(Alignment.Bottom)
                         )
@@ -214,9 +219,14 @@ fun RecipeEditScreen(
                                     RecipeNumberInput(
                                         value = ingredient.quantity.quantity.toString(),
                                         onValueChange = {
-                                            vm.updateIngredientAmount(
-                                                ingredient.internalId, it.toFloat()
-                                            )
+                                            if (it.isNotBlank())
+                                                try {
+                                                    val num = it.toFloat()
+                                                    vm.updateIngredientAmount(
+                                                        ingredient.internalId, num
+                                                    )
+                                                } catch (e: NumberFormatException) {
+                                                }
                                         }
                                     )
 
@@ -278,10 +288,14 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeActiveCooking?.value.toString(),
                                     onValueChange = {
-                                        vm.onUpdateActiveCookingTime(
-                                            it.toFloat(),
-                                            recipe.timeActiveCooking?.unit ?: ""
-                                        )
+                                        if (it.isNotBlank())
+                                            try {
+                                                val num = it.toFloat()
+                                                vm.onUpdateActiveCookingTime(
+                                                    num, recipe.timeActiveCooking?.unit ?: ""
+                                                )
+                                            } catch (e: NumberFormatException) {
+                                            }
                                     }
                                 )
                                 RecipeStringInput(
@@ -309,10 +323,14 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timePreparation?.value.toString(),
                                     onValueChange = {
-                                        vm.onUpdatePreparationTime(
-                                            it.toFloat(),
-                                            recipe.timePreparation?.unit ?: ""
-                                        )
+                                        if (it.isNotBlank())
+                                            try {
+                                                val num = it.toFloat()
+                                                vm.onUpdatePreparationTime(
+                                                    num, recipe.timePreparation?.unit ?: ""
+                                                )
+                                            } catch (e: NumberFormatException) {
+                                            }
                                     }
                                 )
                                 RecipeStringInput(
@@ -340,10 +358,14 @@ fun RecipeEditScreen(
                                 RecipeNumberInput(
                                     value = recipe.timeOverall?.value.toString(),
                                     onValueChange = {
-                                        vm.onUpdateOverallCookingTime(
-                                            it.toFloat(),
-                                            recipe.timeOverall?.unit ?: ""
-                                        )
+                                        if (it.isNotBlank())
+                                            try {
+                                                val num = it.toFloat()
+                                                vm.onUpdateOverallCookingTime(
+                                                    num, recipe.timeOverall?.unit ?: ""
+                                                )
+                                            } catch (e: NumberFormatException) {
+                                            }
                                     }
                                 )
                                 RecipeStringInput(

@@ -8,7 +8,7 @@ import de.fhe.ai.weemeal.domain.models.Tag
 import de.fhe.ai.weemeal.mocks.RecipeMock
 
 data class RecipeEditState(
-    val internalId: Long = 0,
+    var internalId: Long = 0,
     var name: String = "",
     var defaultServings: Int? = 1,
     var defaultIngredients: MutableList<Ingredient>? = mutableListOf(),
@@ -46,5 +46,18 @@ data class RecipeEditState(
             image,
             tags
         )
+    }
+
+    fun loadRecipe(recipe: Recipe) {
+        internalId = recipe.internalId
+        name = recipe.name
+        defaultServings = recipe.defaultServings
+        defaultIngredients = recipe.defaultIngredients?.toMutableList()
+        timePreparation = recipe.timePreparation
+        timeActiveCooking = recipe.timeActiveCooking
+        timeOverall = recipe.timeOverall
+        instructions = recipe.instructions
+        image = recipe.image
+        tags = recipe.tags?.toMutableList()
     }
 }

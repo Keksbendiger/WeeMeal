@@ -23,13 +23,21 @@ class RecipeEditViewModel(
     private val getRecipeById: GetRecipeById by inject()
 
     init {
-        loadRecipe(recipeId)
-    }
-
-    private fun loadRecipe(recipeId: Long) {
         if (recipeId != 0L) {
             viewModelScope.launch {
-                state = mutableStateOf(RecipeEditState(getRecipeById.execute(recipeId)!!))
+                val recipe = getRecipeById.execute(recipeId)!!
+                state.value = state.value.copy(
+                    internalId = recipe.internalId,
+                    name = recipe.name,
+                    defaultServings = recipe.defaultServings,
+                    defaultIngredients = recipe.defaultIngredients?.toMutableList(),
+                    timePreparation = recipe.timePreparation,
+                    timeActiveCooking = recipe.timeActiveCooking,
+                    timeOverall = recipe.timeOverall,
+                    instructions = recipe.instructions,
+                    image = recipe.image,
+                    tags = recipe.tags?.toMutableList()
+                )
             }
         }
     }
