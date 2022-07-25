@@ -99,7 +99,6 @@ class RecipeEditViewModel(
     }
 
     fun addIngredient() {
-
     }
 
     fun deleteIngredient(id: Long) {

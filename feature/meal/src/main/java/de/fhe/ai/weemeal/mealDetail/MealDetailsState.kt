@@ -3,8 +3,6 @@ package de.fhe.ai.weemeal.mealDetail
 import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.domain.MealMock
-import java.time.Instant
 import java.util.Date
 
 data class MealDetailsState(

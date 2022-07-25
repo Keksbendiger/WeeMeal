@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.enums.CookColor
-import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.usecases.meal.GetMealById
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent

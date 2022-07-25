@@ -32,7 +32,7 @@ class RecipeDetailsViewModel(
                 instructions = recipe.instructions,
                 image = recipe.image,
                 tags = recipe.tags?.toMutableList()
-                )
+            )
         }
     }
 
