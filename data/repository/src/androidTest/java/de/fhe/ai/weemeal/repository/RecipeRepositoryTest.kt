@@ -3,8 +3,6 @@ package de.fhe.ai.weemeal.repository
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
-import kotlinx.coroutines.flow.first
-import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -12,6 +10,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.koin.test.inject
 
 class RecipeRepositoryTest : BaseTest() {
 
@@ -87,7 +86,7 @@ class RecipeRepositoryTest : BaseTest() {
 
         assertTrue(recipeMock.equalsWithoutId(insertedRecipe))
 
-        val loadedRecipeList = recipeRepository.searchRecipeByName(insertedRecipe.name).first()
+        val loadedRecipeList = recipeRepository.searchRecipeByName(insertedRecipe.name)
         assertTrue(loadedRecipeList.isNotEmpty())
         loadedRecipeList.forEach() {
             println(it)
@@ -106,15 +105,46 @@ class RecipeRepositoryTest : BaseTest() {
         recipeMockList.forEach {
             insertedRecipeList.add(recipeRepository.insertOrUpdateRecipe(it)!!)
         }
+        insertedRecipeList.forEach() {
+            println("RecipeName: ${it.name}")
+            it.defaultIngredients?.forEach {
+                println("IngredientName: ${it.name}")
+            }
+
+        }
+
 
         val index: Int = insertedRecipeList.size / 2
         val insertedRecipe = insertedRecipeList[index]
+        println("insertedRecipe: ${insertedRecipe}")
 
         assertNotNull(recipeRepository.getRecipe(insertedRecipe.internalId))
 
         val updatedRecipe = RecipeMock.generateSingleObject(internalId = insertedRecipe.internalId)
+
+
         recipeRepository.insertOrUpdateRecipe(updatedRecipe)
         assertNotNull(recipeRepository.getRecipe(insertedRecipe.internalId))
+
+        println(updatedRecipe.toString())
+        println(recipeRepository.getRecipe(insertedRecipe.internalId).toString())
+        val uptodaterecipe = recipeRepository.getRecipe(insertedRecipe.internalId)!!
+        val beforupadte = recipeRepository.getRecipe(insertedRecipe.internalId)!!
+
+        println("------------------------------------------------------")
+        println("-----------------------| updatedRecipe   | uptodaterecipe")
+        println("Id                     |"  + updatedRecipe.internalId +     "| " + uptodaterecipe.internalId +    "|")
+        println("Name                   |"  + updatedRecipe.name +           "| " + uptodaterecipe.name +          "|")
+        println("First Ingredient Name  |"  + (updatedRecipe.defaultIngredients?.size ) +           "| " + (beforupadte.defaultIngredients?.size) +          "|")
+        println("------------------------------------------------------")
+
+
+
+        assertEquals(updatedRecipe.defaultIngredients, beforupadte.defaultIngredients)
+
+
+
+
 
         assertTrue(updatedRecipe.equalsWithoutId(recipeRepository.getRecipe(insertedRecipe.internalId)))
     }
