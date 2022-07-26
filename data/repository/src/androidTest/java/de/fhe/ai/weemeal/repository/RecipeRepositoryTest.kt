@@ -1,6 +1,7 @@
 package de.fhe.ai.weemeal.repository
 
 import de.fhe.ai.weemeal.domain.models.Recipe
+import de.fhe.ai.weemeal.domain.models.Recipe.Companion.print
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
 import kotlin.test.AfterTest
@@ -105,48 +106,32 @@ class RecipeRepositoryTest : BaseTest() {
         recipeMockList.forEach {
             insertedRecipeList.add(recipeRepository.insertOrUpdateRecipe(it)!!)
         }
-        insertedRecipeList.forEach() {
-            println("RecipeName: ${it.name}")
-            it.defaultIngredients?.forEach {
-                println("IngredientName: ${it.name}")
-            }
-
-        }
 
 
         val index: Int = insertedRecipeList.size / 2
-        val insertedRecipe = insertedRecipeList[index]
-        println("insertedRecipe: ${insertedRecipe}")
+        val oldRecipe = insertedRecipeList[index] // das wollen wir updaten
 
-        assertNotNull(recipeRepository.getRecipe(insertedRecipe.internalId))
+        assertNotNull(recipeRepository.getRecipe(oldRecipe.internalId))
 
-        val updatedRecipe = RecipeMock.generateSingleObject(internalId = insertedRecipe.internalId)
-
-
-        recipeRepository.insertOrUpdateRecipe(updatedRecipe)
-        assertNotNull(recipeRepository.getRecipe(insertedRecipe.internalId))
-
-        println(updatedRecipe.toString())
-        println(recipeRepository.getRecipe(insertedRecipe.internalId).toString())
-        val uptodaterecipe = recipeRepository.getRecipe(insertedRecipe.internalId)!!
-        val beforupadte = recipeRepository.getRecipe(insertedRecipe.internalId)!!
-
-        println("------------------------------------------------------")
-        println("-----------------------| updatedRecipe   | uptodaterecipe")
-        println("Id                     |"  + updatedRecipe.internalId +     "| " + uptodaterecipe.internalId +    "|")
-        println("Name                   |"  + updatedRecipe.name +           "| " + uptodaterecipe.name +          "|")
-        println("First Ingredient Name  |"  + (updatedRecipe.defaultIngredients?.size ) +           "| " + (beforupadte.defaultIngredients?.size) +          "|")
-        println("------------------------------------------------------")
+        val newRecipeData = RecipeMock.generateSingleObject(internalId = oldRecipe.internalId) // das ist das update
 
 
+        recipeRepository.insertOrUpdateRecipe(newRecipeData) // hier wird geupdated
+        assertNotNull(recipeRepository.getRecipe(oldRecipe.internalId))
 
-        assertEquals(updatedRecipe.defaultIngredients, beforupadte.defaultIngredients)
+        val updatedRecipe = recipeRepository.getRecipe(oldRecipe.internalId)!!
 
+        println("----------------------------------oldRecipe------------------------------------------------")
+        oldRecipe.print()
 
+        println("----------------------------------newRecipeData------------------------------------------------")
+        newRecipeData.print()
 
+        println("----------------------------------updatedRecipe------------------------------------------------")
+        updatedRecipe.print()
 
-
-        assertTrue(updatedRecipe.equalsWithoutId(recipeRepository.getRecipe(insertedRecipe.internalId)))
+        assertEquals(newRecipeData.defaultIngredients, recipeRepository.getRecipe(oldRecipe.internalId)!!.defaultIngredients)
+        assertTrue(newRecipeData.equalsWithoutId(recipeRepository.getRecipe(oldRecipe.internalId)))
     }
 
     // ----------------------------------------------------------------------------------------------

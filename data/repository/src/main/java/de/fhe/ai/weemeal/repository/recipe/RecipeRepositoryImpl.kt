@@ -100,19 +100,33 @@ class RecipeRepositoryImpl(
             recipeEntityDao.insert(recipe.fromDomain())
         }
 
-        recipe.tags?.forEach { tag ->
-            if (tagEntityDao.get(tag.internalId) != null) {
-                tagEntityDao.update(tag.fromDomain())
-            } else {
-                val tagId = tagEntityDao.insert(tag.fromDomain())
-                recipeTagEntityDao.insert(
-                    RecipeTagEntity(
-                        tagId = tagId,
-                        recipeId = recipeId
-                    )
-                )
-            }
-        }
+
+//        recipeTagEntityDao.getAllByRecipeId(recipeId).forEach { recipeTag ->
+//            recipeTagEntityDao.delete(
+//                RecipeTagEntity(
+//                    id = recipeTag.id,
+//                    recipeId = recipeTag.recipeId,
+//                    tagId = recipeTag.tagId
+//                )
+//            )
+//        }
+//
+//        recipe.tags?.forEach { tag ->
+//            val tagId: Long  = if(recipeTagEntityDao.get(tag.internalId) == null) {
+//                tagEntityDao.insert(tag.fromDomain())
+//            }else{
+//                tagEntityDao.update(tag.fromDomain())
+//                tag.internalId
+//            }
+//            recipeTagEntityDao.insert(
+//                RecipeTagEntity(
+//                    tagId = tagId,
+//                    recipeId = recipeId
+//                )
+//            )
+//
+//        }
+
 
         recipeIngredientEntityDao.getAllByRecipeId(recipeId).forEach { recipeIngredient ->
             recipeIngredientEntityDao.delete(
@@ -125,20 +139,30 @@ class RecipeRepositoryImpl(
         }
 
         recipe.defaultIngredients?.forEach { ingredient ->
-            val insertedId = recipeIngredientEntityDao.insert(
-                RecipeIngredientEntity(
-                    ingredientId = ingredient.internalId,
-                    recipeId = recipeId
-                )
-            )
-            if(ingredientEntityDao.get(ingredient.internalId) == null) {
+
+            val ingredientId: Long = if(ingredientEntityDao.get(ingredient.internalId) == null) {
                 ingredientEntityDao.insert(ingredient.fromDomain())
             }else{
                 ingredientEntityDao.update(ingredient.fromDomain())
+                ingredient.internalId
             }
+
+            recipeIngredientEntityDao.insert(
+                RecipeIngredientEntity(
+                    ingredientId = ingredientId,
+                    recipeId = recipeId
+                )
+            )
+
         }
+
+
+
         return getRecipe(recipeId)
     }
+
+
+
 
     override suspend fun deleteRecipe(recipe: Recipe): Boolean {
 
