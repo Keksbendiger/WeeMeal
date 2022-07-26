@@ -101,31 +101,31 @@ class RecipeRepositoryImpl(
         }
 
 
-//        recipeTagEntityDao.getAllByRecipeId(recipeId).forEach { recipeTag ->
-//            recipeTagEntityDao.delete(
-//                RecipeTagEntity(
-//                    id = recipeTag.id,
-//                    recipeId = recipeTag.recipeId,
-//                    tagId = recipeTag.tagId
-//                )
-//            )
-//        }
-//
-//        recipe.tags?.forEach { tag ->
-//            val tagId: Long  = if(recipeTagEntityDao.get(tag.internalId) == null) {
-//                tagEntityDao.insert(tag.fromDomain())
-//            }else{
-//                tagEntityDao.update(tag.fromDomain())
-//                tag.internalId
-//            }
-//            recipeTagEntityDao.insert(
-//                RecipeTagEntity(
-//                    tagId = tagId,
-//                    recipeId = recipeId
-//                )
-//            )
-//
-//        }
+        recipeTagEntityDao.getAllByRecipeId(recipeId).forEach { recipeTag ->
+            recipeTagEntityDao.delete(
+                RecipeTagEntity(
+                    id = recipeTag.id,
+                    recipeId = recipeTag.recipeId,
+                    tagId = recipeTag.tagId
+                )
+            )
+        }
+
+        recipe.tags?.forEach { tag ->
+            val tagId: Long  = if(recipeTagEntityDao.get(tag.internalId) == null) {
+                tagEntityDao.insert(tag.fromDomain())
+            }else{
+                tagEntityDao.update(tag.fromDomain())
+                tag.internalId
+            }
+            recipeTagEntityDao.insert(
+                RecipeTagEntity(
+                    tagId = tagId,
+                    recipeId = recipeId
+                )
+            )
+
+        }
 
 
         recipeIngredientEntityDao.getAllByRecipeId(recipeId).forEach { recipeIngredient ->
