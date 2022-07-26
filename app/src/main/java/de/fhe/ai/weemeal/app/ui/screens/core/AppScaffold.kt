@@ -35,7 +35,7 @@ fun AppScaffold() {
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { AppBar(currentScreen) },
-            bottomBar = { BottomBar(navController) }
+            bottomBar = { if(currentScreen.hasBottomBar) { BottomBar(navController) } },
         ) { innerPadding ->
             AppNavigationHost(
                 navController,

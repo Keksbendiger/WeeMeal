@@ -34,7 +34,8 @@ sealed class Screen(
     val title: String = "Title",
     val icon: ImageVector = Icons.Filled.Favorite,
     val route: String = "",
-    val label: String = "" // Should only be implemented by RootScreens
+    val label: String = "", // Should only be implemented by RootScreens
+    val hasBottomBar: Boolean = false
 ) {
     var appBarActions: @Composable RowScope.() -> Unit = {}
         protected set
@@ -56,6 +57,7 @@ sealed class Screen(
         title = "Wochenplan",
         icon = Icons.Filled.Home,
         route = "WeekList",
+        hasBottomBar = true
     ) {
 //        override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
 //
@@ -120,7 +122,8 @@ sealed class Screen(
     object RecipeList : Screen(
         title = "Rezepte",
         icon = Icons.Filled.Star, // TODO: call drawable menu_book instead
-        route = "RecipeList"
+        route = "RecipeList",
+        hasBottomBar = true
     )
 
     object AddRecipeToWeekList : Screen(
@@ -142,7 +145,8 @@ sealed class Screen(
         title = "Mahlzeiten für die Einkaufsliste wählen",
         icon = Icons.Filled.ShoppingCart,
         route = "ShoppingListSelect",
-        label = "Einkaufsliste"
+        label = "Einkaufsliste",
+        hasBottomBar = true
     )
 
     object ShoppingList : Screen(
