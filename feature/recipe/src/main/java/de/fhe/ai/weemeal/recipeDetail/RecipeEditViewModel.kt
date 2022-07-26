@@ -44,7 +44,11 @@ class RecipeEditViewModel(
         }
     }
 
-    fun OnUpdateDefaultServings(number: Int) {
+    fun onUpdateRecipeName(name: String) {
+        state.value = state.value.copy(name = name)
+    }
+
+    fun onUpdateDefaultServings(number: Int) {
         state.value = state.value.copy(defaultServings = number)
     }
 
@@ -67,12 +71,15 @@ class RecipeEditViewModel(
     fun updateIngredientName(id: Long, newValue: String, counter: Int) {
         val ingredients: MutableList<Ingredient> = state.value.defaultIngredients!!
 
+
         var countZeroIDs = 0
         ingredients.forEach {
             if (it.internalId == id) {
                 if (it.internalId == 0L && counter == countZeroIDs++) {
                     it.name = newValue
                     // TODO break loop here
+                } else if(it.internalId != 0L) {
+                    it.name = newValue
                 }
             }
         }
@@ -89,6 +96,8 @@ class RecipeEditViewModel(
                 if (it.internalId == 0L && counter == countZeroIDs++) {
                     it.quantity.quantity = newValue
                     // TODO break loop here
+                } else if(it.internalId != 0L) {
+                    it.quantity.quantity = newValue
                 }
             }
         }
@@ -105,6 +114,8 @@ class RecipeEditViewModel(
                 if (it.internalId == 0L && counter == countZeroIDs++) {
                     it.quantity.unit = newValue
                     // TODO break loop here
+                } else if(it.internalId != 0L) {
+                    it.quantity.unit = newValue
                 }
             }
         }
@@ -121,6 +132,8 @@ class RecipeEditViewModel(
             val ingredient = ingredientsIterator.next()
             if (ingredient.internalId == id) {
                 if (ingredient.internalId == 0L && counter == countZeroIDs++) {
+                    ingredientsIterator.remove()
+                } else if(ingredient.internalId != 0L) {
                     ingredientsIterator.remove()
                 }
             }

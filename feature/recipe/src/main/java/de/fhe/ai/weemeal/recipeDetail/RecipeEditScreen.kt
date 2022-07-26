@@ -111,17 +111,25 @@ fun RecipeEditScreen(
                     }
 
                     // Recipe Name
-                    Text(
-                        text = recipe.name,
-                        modifier = Modifier
-                            .fillMaxWidth(0.85f)
-                            .wrapContentWidth(Alignment.Start)
-                            .padding(
-                                top = 8.dp,
-                                bottom = 8.dp,
-                            ),
-                        style = MaterialTheme.typography.h3
+                    RecipeStringInput(
+                        value = recipe.name,
+                        onValueChange = {
+                            vm.onUpdateRecipeName(it)
+                        },
+                        wide = true
                     )
+
+//                    Text(
+//                        text = recipe.name,
+//                        modifier = Modifier
+//                            .fillMaxWidth(0.85f)
+//                            .wrapContentWidth(Alignment.Start)
+//                            .padding(
+//                                top = 8.dp,
+//                                bottom = 8.dp,
+//                            ),
+//                        style = MaterialTheme.typography.h3
+//                    )
 
                     // Tags
                     LazyRow {
@@ -171,7 +179,7 @@ fun RecipeEditScreen(
                                 if (it.isNotBlank())
                                     try {
                                         val num = it.toInt()
-                                        vm.OnUpdateDefaultServings(num)
+                                        vm.onUpdateDefaultServings(num)
                                     } catch (e: NumberFormatException) {
                                     }
                             },
