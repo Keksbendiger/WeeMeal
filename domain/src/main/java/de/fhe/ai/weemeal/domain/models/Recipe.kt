@@ -60,6 +60,7 @@ data class Recipe(
             .toString()
     }
 
+
     companion object {
         fun List<Recipe>.areRecipeListsEqualWithoutId(other: List<Recipe>?): Boolean {
             this.forEachIndexed { index, thisItem ->
@@ -68,6 +69,31 @@ data class Recipe(
                 }
             }
             return true
+        }
+        fun Recipe.print() {
+            println("-------------------------------------------------")
+            println("------------------ $internalId: $name -------------------------------")
+            println("-------------------------------------------------")
+
+            println("Name: $name")
+            println("DefaultServings: $defaultServings")
+            println("DefaultIngredients:")
+            defaultIngredients?.forEach {
+                println("Id: ${it.internalId} | Name: ${it.name} | Image: ${it.image} | Quantity: ${it.quantity}")
+            }
+            println("TimePreparation: $timePreparation")
+            println("TimeActiveCooking: $timeActiveCooking")
+            println("TimeOverall: $timeOverall")
+            println("Instructions: $instructions")
+            println("Image: $image")
+            tags?.forEach {
+                println("Id: ${it.internalId} | Name: ${it.name} | IsDefault: ${it.isDefaultValue}")
+            }
+            println("-------------------------------------------------")
+
+
+
+
         }
     }
 }
