@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.viewmodel.compose.viewModel
 import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
@@ -56,27 +57,27 @@ import java.util.Date
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun WeeklistScreen(vm: WeekListViewModel) {
+fun WeekListScreen(vm: WeekListViewModel) {
     WeeMealTheme() {
         Scaffold(
 
             floatingActionButtonPosition = FabPosition.End,
 
-        ) { innerPadding ->
+            ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
                     val meals: List<Meal> = vm.mealList
+                    val counter = vm.state.value
 
-                    if (meals.isNotEmpty()) {
-                        WeekList(
-                            meals = meals,
-                            onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
-                            onClickNavigateToMeal = { vm.navigateToMealDetail(it) }
-                        )
-                    } else {
-                        EmptyListText(text = "Noch keine Wochenliste vorhanden")
-                    }
+                    WeekList(
+                        meals = meals,
+                        onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
+                        onClickNavigateToMeal = { vm.navigateToMealDetail(it) },
+                        onClickUpdateDaysInWeekList = { vm.addDayToWeekList(it) },
+                        counter
+                    )
+
                 }
             }
         }
@@ -88,23 +89,27 @@ fun WeeklistScreen(vm: WeekListViewModel) {
 private fun WeekList(
     meals: List<Meal>,
     onClickAddToWeekList: (String) -> Unit,
-    onClickNavigateToMeal: (Long) -> Unit
+    onClickNavigateToMeal: (Long) -> Unit,
+    onClickUpdateDaysInWeekList: (Int) -> Unit,
+    counter: WeekListState
 ) {
 
-    var counter = 0
+
     first@ for (i in 0..100) {
         var day = getDaysAhead(i)
         second@ for (meal in meals) {
             if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
-                counter += 1
+                onClickUpdateDaysInWeekList(counter.counter)
                 break@second
             }
         }
     }
-
+    if (counter.counter == 0) {
+        onClickUpdateDaysInWeekList(counter.counter)
+    }
     LazyColumn {
-        items(counter) { index ->
-            var day = getDaysAhead(index)
+        items(counter.counter) { index ->
+            val day = getDaysAhead(index)
             WeekListDay(
                 meals,
                 day,
@@ -116,14 +121,12 @@ private fun WeekList(
             TextAndIconButton(
                 text = "Neuen Tag hinzufügen",
                 icon = Icons.Filled.Add,
-                onClick = { addDayToWeekList() }
+                onClick = { onClickUpdateDaysInWeekList(counter.counter) }
             )
         }
     }
 }
 
-private fun addDayToWeekList() {
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -167,14 +170,17 @@ private fun WeekListDay(
 fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
 
     Card(
-        // onClick = { onClickNavigateToMeal(meal.internalId) },
         modifier = Modifier
             .padding(8.dp)
             .shadow(elevation = 8.dp)
             .clip(RoundedCornerShape(8.dp))
             .height(150.dp)
             .width(150.dp)
-            .border(width = 2.dp, color = Color(meal.cookColor.color.toColorInt()), shape = RoundedCornerShape(8.dp))
+            .border(
+                width = 2.dp,
+                color = Color(meal.cookColor.color.toColorInt()),
+                shape = RoundedCornerShape(8.dp)
+            )
     ) {
 
         Image(
