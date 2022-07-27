@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
-import de.fhe.ai.weemeal.mocks.domain.MealMock
 import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
 import kotlinx.coroutines.launch

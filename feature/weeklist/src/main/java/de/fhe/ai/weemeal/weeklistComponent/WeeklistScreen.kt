@@ -40,8 +40,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import androidx.lifecycle.viewmodel.compose.viewModel
-import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
@@ -63,7 +61,7 @@ fun WeekListScreen(vm: WeekListViewModel) {
 
             floatingActionButtonPosition = FabPosition.End,
 
-            ) { innerPadding ->
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
@@ -77,7 +75,6 @@ fun WeekListScreen(vm: WeekListViewModel) {
                         onClickUpdateDaysInWeekList = { vm.addDayToWeekList(it) },
                         counter
                     )
-
                 }
             }
         }
@@ -93,7 +90,6 @@ private fun WeekList(
     onClickUpdateDaysInWeekList: (Int) -> Unit,
     counter: WeekListState
 ) {
-
 
     first@ for (i in 0..100) {
         var day = getDaysAhead(i)
@@ -126,7 +122,6 @@ private fun WeekList(
         }
     }
 }
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

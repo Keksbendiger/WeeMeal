@@ -24,8 +24,8 @@ import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
-import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
 import de.fhe.ai.weemeal.weeklistComponent.WeekListScreen
+import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.inject
 import org.koin.androidx.compose.viewModel

@@ -3,12 +3,8 @@ package de.fhe.ai.weemeal.weeklistComponent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
@@ -30,13 +26,11 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
 
     var state = MutableStateFlow(WeekListState())
 
-
     var mealList by mutableStateOf(emptyList<Meal>())
 
-
     init {
-        //viewModelScope.launch {
-        //prepareHCIUsabilityTest.execute()}
+        // viewModelScope.launch {
+        // prepareHCIUsabilityTest.execute()}
         this.getMealsFromDb()
     }
 
@@ -55,7 +49,7 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     }
 
     fun addDayToWeekList(number: Int) {
-        val temp = number +1
+        val temp = number + 1
         state.value = state.value.copy(counter = temp)
     }
 }
