@@ -67,10 +67,6 @@ class RecipeListViewModel(
         navigationManager.navigate(Screen.RecipeEdit.navigationCommand(0))
     }
 
-    fun navigateToAddToWeekList() {
-        navigationManager.navigate(Screen.WeekList.navigationCommand())
-    }
-
     fun navigateToRecipeDetail(recipeId: Long) {
         navigationManager.navigate(Screen.RecipeDetail.navigationCommand(recipeId))
     }
