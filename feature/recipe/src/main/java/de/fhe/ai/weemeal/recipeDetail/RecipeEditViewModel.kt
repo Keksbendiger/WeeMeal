@@ -144,12 +144,12 @@ class RecipeEditViewModel(
     }
 
     fun saveRecipe(context: Context) {
-        if (checkIngredientsForEmptyName(context)) {
+        if (checkIngredientsForEmptyName(context) && checkRecipeNameNotEmpty(context)) {
             viewModelScope.launch {
                 saveRecipe.execute(state.value.convertToRecipe())
             }
             // navigationManager.navigate(GoBackDestination)
-            navigationManager.navigate(Screen.WeekList.navigationCommand())
+            navigationManager.navigate(Screen.RecipeList.navigationCommand())
         }
     }
 
@@ -173,5 +173,14 @@ class RecipeEditViewModel(
             }
         }
         return true
+    }
+
+    private fun checkRecipeNameNotEmpty(context: Context): Boolean {
+        if(state.value.name.isBlank()) {
+            val toast = Toast.makeText(context, "Rezept hat keinen Namen", Toast.LENGTH_LONG)
+            toast.show()
+            return false
+        }
+        return true;
     }
 }
