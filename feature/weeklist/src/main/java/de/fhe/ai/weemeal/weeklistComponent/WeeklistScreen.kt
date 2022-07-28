@@ -60,7 +60,7 @@ fun WeekListScreen(vm: WeekListViewModel) {
 
             floatingActionButtonPosition = FabPosition.End,
 
-        ) { innerPadding ->
+            ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
@@ -87,11 +87,11 @@ private fun WeekList(
     onClickUpdateDaysInWeekList: () -> Unit
 ) {
     LazyColumn {
-        for (meals in meals) {
+        for (meal in meals) {
             item {
                 WeekListDay(
-                    meals.meals,
-                    meals.day,
+                    meal.meals,
+                    meal.day,
                     onClickAddToWeekList = { onClickAddToWeekList(it) },
                     onClickNavigateToMeal = { onClickNavigateToMeal(it) }
                 )
@@ -239,6 +239,5 @@ private fun AddMeal(onClickAddToWeekList: () -> Unit) {
                 .width(150.dp)
                 .background(MaterialTheme.colors.primary)
         )
-        Text(text = "Neuen Tag hinzufügen")
     }
 }

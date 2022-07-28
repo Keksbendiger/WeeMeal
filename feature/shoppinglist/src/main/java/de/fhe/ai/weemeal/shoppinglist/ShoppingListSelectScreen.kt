@@ -76,11 +76,10 @@ fun ShoppingListSelectScreen(vm: ShoppingListSelectScreenViewModel) {
 
                     val meals: List<Meal>? = vm.mealList
 
-//                  Nullcheck -> TODO: More elegant way possible?
+
                     meals?.let {
                         WeekList(meals)
                     } ?: kotlin.run {
-//                        TODO: String ressource location correct?
                         Text("Keine Einträge")
                     }
                 }
@@ -194,7 +193,8 @@ fun ServingsOfTheMeal(meal: Meal) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.End
     ) {
         Icon(
             imageVector = Icons.Filled.Person,
@@ -206,9 +206,7 @@ fun ServingsOfTheMeal(meal: Meal) {
             text = meal.servings.toString(),
             style = MaterialTheme.typography.h6.copy(
                 fontWeight = FontWeight.Light
-            ),
-            modifier = Modifier
-                .align(Alignment.Top)
+            )
         )
     }
 }
