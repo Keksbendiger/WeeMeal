@@ -60,7 +60,6 @@ package de.fhe.ai.weemeal.common.navigation // @file: Suppress("MatchingDeclarat
 //        composable(Screens.ShoppingList.name) {
 //            onNavigation(Screens.ShoppingList.name)
 //            ShoppingListScreen()
-//            // TODO: hier den ShoppingList Screen einfügen
 //        }
 //
 //        composable(Screens.ShoppingListSelectScreen.name) {
@@ -73,7 +72,7 @@ package de.fhe.ai.weemeal.common.navigation // @file: Suppress("MatchingDeclarat
 //        }
 // //        composable(Screens.Settings.name) {
 // //            onNavigation(Screens.Recipe.name)
-// //            // Settings() TODO: hier den Settings Screen einfügen
+// //            // Settings()
 // //        }
 //
 //        composable(Screens.Meal.name) {

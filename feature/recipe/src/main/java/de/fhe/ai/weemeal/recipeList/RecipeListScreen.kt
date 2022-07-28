@@ -75,15 +75,10 @@ fun RecipeListScreen(
 //        displayProgressBar = recipeListState.isLoading,
     ) {
         Scaffold(
-//            topBar = {
-//                AppBar(title = "Rezeptliste")
-//            },
-//            bottomBar = { BottomBar(navController) },
-
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { vm.navigateToAddRecipe() }, // TODO: Handle not having an ID...
+                    onClick = { vm.navigateToAddRecipe() },
                     backgroundColor = MaterialTheme.colors.primary,
                     elevation = FloatingActionButtonDefaults.elevation(6.dp)
                 ) {
@@ -108,7 +103,6 @@ fun RecipeListScreen(
                     if (recipes.isNotEmpty()) {
                         RecipeList(
                             recipes = recipes,
-                            onClickAddToWeekList = { vm.navigateToAddToWeekList() },
                             onClickRecipeDetail = { vm.navigateToRecipeDetail(it) },
                             onClickRecipeEdit = { vm.navigateToRecipeEdit(it) }
                         )
@@ -124,7 +118,6 @@ fun RecipeListScreen(
 @Composable
 private fun RecipeList(
     recipes: List<Recipe>,
-    onClickAddToWeekList: () -> Unit,
     onClickRecipeDetail: (Long) -> Unit,
     onClickRecipeEdit: (Long) -> Unit
 ) {
@@ -137,7 +130,6 @@ private fun RecipeList(
         ) { index, recipe ->
             RecipeListItem(
                 recipe = recipe,
-                onClickAddToWeekList = { onClickAddToWeekList() },
                 onClickRecipeDetail = { onClickRecipeDetail(it) },
                 onClickRecipeEdit = { onClickRecipeEdit(it) }
             )
@@ -148,7 +140,6 @@ private fun RecipeList(
 @Composable
 private fun RecipeListItem(
     recipe: Recipe,
-    onClickAddToWeekList: () -> Unit,
     onClickRecipeDetail: (Long) -> Unit,
     onClickRecipeEdit: (Long) -> Unit
 ) {
@@ -162,7 +153,6 @@ private fun RecipeListItem(
     ) {
         RecipeListItemContent(
             recipe = recipe,
-            onClickAddToWeekList = { onClickAddToWeekList() },
             onClickRecipeDetail = { onClickRecipeDetail(it) },
             onClickRecipeEdit = { onClickRecipeEdit(it) }
         )
@@ -172,7 +162,6 @@ private fun RecipeListItem(
 @Composable
 private fun RecipeListItemContent(
     recipe: Recipe,
-    onClickAddToWeekList: () -> Unit,
     onClickRecipeDetail: (Long) -> Unit,
     onClickRecipeEdit: (Long) -> Unit
 ) {
@@ -249,7 +238,6 @@ private fun RecipeListItemContent(
         if (expanded) {
             RecipeListItemContentExpanded(
                 recipe = recipe,
-                onClickAddToWeekList = { onClickAddToWeekList() },
                 onClickRecipeDetail = { onClickRecipeDetail(it) }
             )
             Icon(
@@ -266,9 +254,7 @@ private fun RecipeListItemContent(
 @Composable
 private fun RecipeListItemContentExpanded(
     recipe: Recipe,
-    onClickAddToWeekList: () -> Unit,
     onClickRecipeDetail: (Long) -> Unit
-// TODO: Onclick Methoden (für beide Buttons) aus dem VM weiterreichen
 ) {
     Column(Modifier.fillMaxWidth()) {
 //        Text(text = "Some Recipe Info:")
@@ -301,14 +287,6 @@ private fun RecipeListItemContentExpanded(
         ListComponent(
             textLeft = "timeOverall",
             textRight = recipe.timeOverall.toString()
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        TextAndIconButton(
-            text = "Zu Wochenplan hinzufügen",
-            icon = Icons.Filled.Add,
-            onClick = { onClickAddToWeekList() }
         )
 
         Spacer(modifier = Modifier.height(10.dp))
