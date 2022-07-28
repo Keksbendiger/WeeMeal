@@ -79,6 +79,9 @@ class MealRepositoryImpl(
         val mealList = mutableListOf<Meal>()
 
         val day = getDaysAhead(0)
+        day.hours = 0
+        day.minutes = 0
+        day.seconds = 0
 
         mealEntityDao.getAllMealsWhereDateIsTodayOrLater(day).forEach {
             getMeal(it.id)?.let { meal -> mealList.add(meal) }

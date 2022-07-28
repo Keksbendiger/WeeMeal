@@ -42,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
-import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
@@ -65,15 +64,13 @@ fun WeekListScreen(vm: WeekListViewModel) {
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
-                    val meals: List<Meal> = vm.mealList
-                    val counter = vm.state.value
+                    val meals: List<WeekDay> = vm.state.value.weekdays
 
                     WeekList(
                         meals = meals,
                         onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
                         onClickNavigateToMeal = { vm.navigateToMealDetail(it) },
-                        onClickUpdateDaysInWeekList = { vm.addDayToWeekList(it) },
-                        counter
+                        onClickUpdateDaysInWeekList = { vm.addDayToWeekList() }
                     )
                 }
             }
@@ -84,40 +81,27 @@ fun WeekListScreen(vm: WeekListViewModel) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun WeekList(
-    meals: List<Meal>,
+    meals: List<WeekDay>,
     onClickAddToWeekList: (String) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit,
-    onClickUpdateDaysInWeekList: (Int) -> Unit,
-    counter: WeekListState
+    onClickUpdateDaysInWeekList: () -> Unit
 ) {
-
-    first@ for (i in 0..100) {
-        var day = getDaysAhead(i)
-        second@ for (meal in meals) {
-            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
-                onClickUpdateDaysInWeekList(counter.counter)
-                break@second
-            }
-        }
-    }
-    if (counter.counter == 0) {
-        onClickUpdateDaysInWeekList(counter.counter)
-    }
     LazyColumn {
-        items(counter.counter) { index ->
-            val day = getDaysAhead(index)
-            WeekListDay(
-                meals,
-                day,
-                onClickAddToWeekList = { onClickAddToWeekList(it) },
-                onClickNavigateToMeal = { onClickNavigateToMeal(it) }
-            )
+        for (meals in meals) {
+            item {
+                WeekListDay(
+                    meals.meals,
+                    meals.day,
+                    onClickAddToWeekList = { onClickAddToWeekList(it) },
+                    onClickNavigateToMeal = { onClickNavigateToMeal(it) }
+                )
+            }
         }
         item {
             TextAndIconButton(
                 text = "Neuen Tag hinzufügen",
                 icon = Icons.Filled.Add,
-                onClick = { onClickUpdateDaysInWeekList(counter.counter) }
+                onClick = { onClickUpdateDaysInWeekList() }
             )
         }
     }
@@ -233,8 +217,6 @@ fun MealName(meal: Meal) {
             modifier = Modifier
                 .height(26.dp)
                 .padding(horizontal = 4.dp),
-//            modifier = Modifier
-//                .align(Alignment.Bottom)
         )
     }
 }
@@ -260,37 +242,3 @@ private fun AddMeal(onClickAddToWeekList: () -> Unit) {
         Text(text = "Neuen Tag hinzufügen")
     }
 }
-
-@Composable
-private fun AddDay() {
-    Button(
-        onClick = { /*TODO*/ },
-        modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
-            .height(50.dp)
-    ) {
-        Text(
-            text = "Neuen Tag hinzufügen",
-            style = MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.Light
-            ),
-        )
-        Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = "Add Day",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .background(MaterialTheme.colors.primary)
-        )
-    }
-}
-/*
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-fun DefaultPreview() {
-    WeeMealTheme {
-        WeekList(meals = MealMock.generateWeek())
-    }
-}*/

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
@@ -25,7 +26,6 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     private val prepareHCIUsabilityTest: PrepareHCIUsabilityTest by inject()
 
     var state = MutableStateFlow(WeekListState())
-
     var mealList by mutableStateOf(emptyList<Meal>())
 
     init {
@@ -35,9 +35,37 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     }
 
     private fun getMealsFromDb() {
+        val weekDays = mutableListOf<WeekDay>()
         viewModelScope.launch {
+
+            val internalMealList = getFutureMeals.execute()
+
+            first@ for (i in 0..100) {
+                var day = getDaysAhead(i)
+                second@ for (meal in internalMealList) {
+                    if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+                        var tempCounter = state.value.amountOfDaysAhead
+                        tempCounter += 1
+                        state.value = state.value.copy(amountOfDaysAhead = tempCounter)
+                        break@second
+                    }
+                }
+            }
+            for (daysAhead in 0..state.value.amountOfDaysAhead) {
+                val internalMealDayList = mutableListOf<Meal>()
+
+                val day = getDaysAhead(daysAhead)
+
+                internalMealList.forEach { meal ->
+                    if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+                        internalMealDayList.add(meal)
+                    }
+                }
+                weekDays.add(WeekDay(day, internalMealDayList))
+            }
             mealList = getFutureMeals.execute()
         }
+        state.value.weekdays = weekDays
     }
 
     fun navigateToAddRecipeToWeekList(cookingDate: String) {
@@ -48,8 +76,11 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
         navigationManager.navigate(Screen.MealDetail.navigationCommand(mealId))
     }
 
-    fun addDayToWeekList(number: Int) {
-        val temp = number + 1
-        state.value = state.value.copy(counter = temp)
+    fun addDayToWeekList() {
+        var temp = state.value.amountOfDaysAhead
+        temp += 1
+        var temp2 = state.value.weekdays
+        state.value = state.value.copy(amountOfDaysAhead = temp, weekdays = temp2)
+        navigationManager.navigate(Screen.WeekList.navigationCommand())
     }
 }
