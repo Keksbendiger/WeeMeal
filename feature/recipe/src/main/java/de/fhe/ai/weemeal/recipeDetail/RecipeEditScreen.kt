@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.RecipeNumberInput
 import de.fhe.ai.weemeal.common.components.RecipeStringInput
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.recipe.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -417,4 +416,3 @@ fun RecipeEditScreen(
         }
     }
 }
-

@@ -34,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -222,4 +221,3 @@ fun RecipeDetailsScreen(
         }
     }
 }
-

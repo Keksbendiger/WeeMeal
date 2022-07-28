@@ -35,7 +35,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.EmptyListText
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -48,20 +47,20 @@ fun AddRecipeToWeekListScreen(
     vm: AddRecipeToWeekListViewModel
 ) {
 
-        Scaffold(
-            floatingActionButtonPosition = FabPosition.End,
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { vm.navigateToAddRecipe() },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
-                ) {
-                    Icon(Icons.Filled.Add, "")
-                }
+    Scaffold(
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { vm.navigateToAddRecipe() },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp)
+            ) {
+                Icon(Icons.Filled.Add, "")
             }
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 //                    SearchAppBar(
 //                        query = "", // recipeListState.query,
 //                        onQueryChanged = {
@@ -85,7 +84,6 @@ fun AddRecipeToWeekListScreen(
         }
     }
 }
-
 
 @Composable
 private fun RecipeList(

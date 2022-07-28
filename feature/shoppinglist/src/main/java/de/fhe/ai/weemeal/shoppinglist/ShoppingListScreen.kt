@@ -28,7 +28,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.domain.models.ShoppingList
 import de.fhe.ai.weemeal.mocks.domain.ShoppingListMock
@@ -71,7 +70,6 @@ fun ShoppingListScreen(
         }
     }
 }
-
 
 @Composable
 private fun ShoppingList(shoppingList: ShoppingList) {

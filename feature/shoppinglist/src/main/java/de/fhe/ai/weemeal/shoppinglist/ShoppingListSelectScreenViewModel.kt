@@ -16,7 +16,8 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class ShoppingListSelectScreenViewModel(
-    private val navigationManager: NavigationManager) :
+    private val navigationManager: NavigationManager
+) :
     ViewModel(),
     KoinComponent {
 

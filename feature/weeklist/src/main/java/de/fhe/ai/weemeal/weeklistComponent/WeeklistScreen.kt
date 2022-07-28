@@ -47,7 +47,6 @@ import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Date
@@ -67,7 +66,7 @@ fun WeeklistScreen(
         floatingActionButtonPosition = FabPosition.End,
         bottomBar = { BottomBar(navController) },
 
-        ) { innerPadding ->
+    ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
 
@@ -86,7 +85,6 @@ fun WeeklistScreen(
         }
     }
 }
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

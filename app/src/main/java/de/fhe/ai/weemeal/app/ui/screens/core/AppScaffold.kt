@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import de.fhe.ai.weemeal.common.navigation.Screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +31,6 @@ fun AppScaffold() {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Undefined) }
-
 
     CompositionLocalProvider(LocalScaffoldState provides scaffoldState) {
         Scaffold(

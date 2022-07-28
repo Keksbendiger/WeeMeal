@@ -49,14 +49,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import de.fhe.ai.weemeal.R
 import de.fhe.ai.weemeal.app.ui.screens.core.BottomBar
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.ListComponent
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -74,22 +72,22 @@ fun RecipeListScreen(
 //    onClickOpenRecipe: (Int) -> Unit,
 //    onClickAddNewRecipe: () -> Unit
 ) {
-        Scaffold(
-            bottomBar = { BottomBar(navController) },
-            floatingActionButtonPosition = FabPosition.End,
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { vm.navigateToAddRecipe() },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
-                ) {
-                    Icon(Filled.Add, "")
-                }
+    Scaffold(
+        bottomBar = { BottomBar(navController) },
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { vm.navigateToAddRecipe() },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp)
+            ) {
+                Icon(Filled.Add, "")
             }
+        }
 
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 //                    SearchAppBar(
 //                        query = "", // recipeListState.query,
 //                        onQueryChanged = {
@@ -99,23 +97,21 @@ fun RecipeListScreen(
 // //                            onTriggerEvent(RecipeListEvents.NewSearch)
 //                        },
 //                    )
-                    var recipes: List<Recipe> = vm.recipeList
+                var recipes: List<Recipe> = vm.recipeList
 
-                    if (recipes.isNotEmpty()) {
-                        RecipeList(
-                            recipes = recipes,
-                            onClickRecipeDetail = { vm.navigateToRecipeDetail(it) },
-                            onClickRecipeEdit = { vm.navigateToRecipeEdit(it) }
-                        )
-                    } else {
-                        EmptyListText(text = "Noch keine Rezepte vorhanden...")
-                    }
+                if (recipes.isNotEmpty()) {
+                    RecipeList(
+                        recipes = recipes,
+                        onClickRecipeDetail = { vm.navigateToRecipeDetail(it) },
+                        onClickRecipeEdit = { vm.navigateToRecipeEdit(it) }
+                    )
+                } else {
+                    EmptyListText(text = "Noch keine Rezepte vorhanden...")
                 }
             }
         }
     }
 }
-
 
 @Composable
 private fun RecipeList(

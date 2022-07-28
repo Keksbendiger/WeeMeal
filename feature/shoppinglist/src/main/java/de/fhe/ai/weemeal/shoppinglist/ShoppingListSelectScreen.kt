@@ -85,7 +85,6 @@ fun ShoppingListSelectScreen(
     }
 }
 
-
 @Composable
 private fun WeekList(meals: List<Meal>) {
     LazyColumn {
