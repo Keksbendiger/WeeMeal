@@ -28,14 +28,12 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.domain.models.ShoppingList
 import de.fhe.ai.weemeal.mocks.domain.ShoppingListMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import androidx.compose.material.FabPosition.Companion as FabPosition1
 
-// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -47,29 +45,27 @@ fun ShoppingListScreen(
 //    onTriggerEvent: (ShoppingListEvents) -> Unit,
 //    onClickOpenShoppingList: (Int) -> Unit,
 ) {
-    WeeMealTheme {
-        Scaffold(
-            //            topBar = {
-            //                AppBar(title = "ShoppingList")
-            //            },
-            //            bottomBar = { BottomBar(navController) },
+    Scaffold(
+        //            topBar = {
+        //                AppBar(title = "ShoppingList")
+        //            },
+        //            bottomBar = { BottomBar(navController) },
 
-            floatingActionButtonPosition = FabPosition1.End,
-            floatingActionButton = {
-                ExtendedFloatingActionButton(
-                    onClick = { },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp),
-                    text = { Text(text = "Teilen") },
-                    icon = { Icon(Filled.Share, "") }
-                )
-            }
+        floatingActionButtonPosition = FabPosition1.End,
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp),
+                text = { Text(text = "Teilen") },
+                icon = { Icon(Filled.Share, "") }
+            )
+        }
 
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
-                    ShoppingList(ShoppingListMock.generateList())
-                }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
+                ShoppingList(ShoppingListMock.generateList())
             }
         }
     }

@@ -34,6 +34,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import de.fhe.ai.weemeal.app.ui.screens.core.BottomBar
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
@@ -48,34 +50,35 @@ import java.util.Date
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun ShoppingListSelectScreen(vm: ShoppingListSelectScreenViewModel) {
-    WeeMealTheme() {
-        Scaffold(
-
-            floatingActionButtonPosition = FabPosition.End,
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
-                ) {
-                    Icon(Icons.Filled.Done, "")
-                }
+fun ShoppingListSelectScreen(
+    vm: ShoppingListSelectScreenViewModel,
+    navController: NavController,
+) {
+    Scaffold(
+        bottomBar = { BottomBar(navController) },
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp)
+            ) {
+                Icon(Icons.Filled.Done, "")
             }
+        }
 
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 
-                    val meals: List<Meal>? = vm.mealList
+                val meals: List<Meal>? = vm.mealList
 
 //                  Nullcheck -> TODO: More elegant way possible?
-                    meals?.let {
-                        WeekList(meals)
-                    } ?: kotlin.run {
+                meals?.let {
+                    WeekList(meals)
+                } ?: kotlin.run {
 //                        TODO: String ressource location correct?
-                        Text("Keine Einträge")
-                    }
+                    Text("Keine Einträge")
                 }
             }
         }

@@ -35,11 +35,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.EmptyListText
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -48,21 +46,21 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun AddRecipeToWeekListScreen(
     vm: AddRecipeToWeekListViewModel
 ) {
-    WeeMealTheme() {
-        Scaffold(
-            floatingActionButtonPosition = FabPosition.End,
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { vm.navigateToAddRecipe() },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
-                ) {
-                    Icon(Icons.Filled.Add, "")
-                }
+
+    Scaffold(
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { vm.navigateToAddRecipe() },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp)
+            ) {
+                Icon(Icons.Filled.Add, "")
             }
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 //                    SearchAppBar(
 //                        query = "", // recipeListState.query,
 //                        onQueryChanged = {
@@ -72,16 +70,15 @@ fun AddRecipeToWeekListScreen(
 // //                            onTriggerEvent(RecipeListEvents.NewSearch)
 //                        },
 //                    )
-                    var recipes: List<Recipe> = vm.recipeList
+                var recipes: List<Recipe> = vm.recipeList
 
-                    if (recipes.isNotEmpty()) {
-                        RecipeList(
-                            recipes = recipes,
-                            onClickSaveMealToCookingDate = { vm.saveMealToCookingDate(it) },
-                        )
-                    } else {
-                        EmptyListText(text = "Noch keine Rezepte vorhanden...")
-                    }
+                if (recipes.isNotEmpty()) {
+                    RecipeList(
+                        recipes = recipes,
+                        onClickSaveMealToCookingDate = { vm.saveMealToCookingDate(it) },
+                    )
+                } else {
+                    EmptyListText(text = "Noch keine Rezepte vorhanden...")
                 }
             }
         }

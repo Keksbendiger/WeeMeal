@@ -34,7 +34,8 @@ sealed class Screen(
     val title: String = "Title",
     val icon: ImageVector = Icons.Filled.Favorite,
     val route: String = "",
-    val label: String = "" // Should only be implemented by RootScreens
+    val label: String = "", // Should only be implemented by RootScreens
+    val hasBottomBar: Boolean = false
 ) {
     var appBarActions: @Composable RowScope.() -> Unit = {}
         protected set

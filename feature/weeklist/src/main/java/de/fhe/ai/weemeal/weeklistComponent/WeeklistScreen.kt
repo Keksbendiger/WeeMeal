@@ -40,12 +40,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import androidx.navigation.NavController
+import de.fhe.ai.weemeal.app.ui.screens.core.BottomBar
 import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Date
@@ -56,27 +57,29 @@ import java.util.Date
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun WeeklistScreen(vm: WeekListViewModel) {
-    WeeMealTheme() {
-        Scaffold(
+fun WeeklistScreen(
+    vm: WeekListViewModel,
+    navController: NavController,
+) {
+    Scaffold(
 
-            floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.End,
+        bottomBar = { BottomBar(navController) },
 
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 
-                    val meals: List<Meal> = vm.mealList
+                val meals: List<Meal> = vm.mealList
 
-                    if (meals.isNotEmpty()) {
-                        WeekList(
-                            meals = meals,
-                            onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
-                            onClickNavigateToMeal = { vm.navigateToMealDetail(it) }
-                        )
-                    } else {
-                        EmptyListText(text = "Noch keine Wochenliste vorhanden")
-                    }
+                if (meals.isNotEmpty()) {
+                    WeekList(
+                        meals = meals,
+                        onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
+                        onClickNavigateToMeal = { vm.navigateToMealDetail(it) }
+                    )
+                } else {
+                    EmptyListText(text = "Noch keine Wochenliste vorhanden")
                 }
             }
         }
@@ -174,7 +177,11 @@ fun MealListItem(meal: Meal, onClickNavigateToMeal: (Long) -> Unit) {
             .clip(RoundedCornerShape(8.dp))
             .height(150.dp)
             .width(150.dp)
-            .border(width = 2.dp, color = Color(meal.cookColor.color.toColorInt()), shape = RoundedCornerShape(8.dp))
+            .border(
+                width = 2.dp,
+                color = Color(meal.cookColor.color.toColorInt()),
+                shape = RoundedCornerShape(8.dp)
+            )
     ) {
 
         Image(

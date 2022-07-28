@@ -4,6 +4,7 @@ import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.domain.models.Recipe.Companion.print
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
+import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -11,7 +12,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
-import org.koin.test.inject
 
 class RecipeRepositoryTest : BaseTest() {
 
@@ -107,14 +107,12 @@ class RecipeRepositoryTest : BaseTest() {
             insertedRecipeList.add(recipeRepository.insertOrUpdateRecipe(it)!!)
         }
 
-
         val index: Int = insertedRecipeList.size / 2
         val oldRecipe = insertedRecipeList[index] // das wollen wir updaten
 
         assertNotNull(recipeRepository.getRecipe(oldRecipe.internalId))
 
         val newRecipeData = RecipeMock.generateSingleObject(internalId = oldRecipe.internalId) // das ist das update
-
 
         recipeRepository.insertOrUpdateRecipe(newRecipeData) // hier wird geupdated
         assertNotNull(recipeRepository.getRecipe(oldRecipe.internalId))

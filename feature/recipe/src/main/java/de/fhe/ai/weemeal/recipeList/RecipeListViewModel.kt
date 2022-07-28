@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
 import kotlinx.coroutines.launch
