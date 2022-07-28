@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,10 +17,17 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,9 +47,21 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun AddRecipeToWeekListScreen(
     vm: AddRecipeToWeekListViewModel
 ) {
-    Scaffold() { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            Column {
+
+        Scaffold(
+            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { vm.navigateToAddRecipe() },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
+                ) {
+                    Icon(Icons.Filled.Add, "")
+                }
+            }
+        ) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                Column {
 //                    SearchAppBar(
 //                        query = "", // recipeListState.query,
 //                        onQueryChanged = {
@@ -98,9 +118,12 @@ private fun RecipeListItem(
             .clip(RoundedCornerShape(8.dp))
             .fillMaxWidth()
     ) {
-        val imagesize = 90.dp // also used for Column height of recipe name + expand icon
+        val imagesize = 90.dp
 
-        Row() {
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
             Image(
                 painterResource(id = recipe.image),
                 contentDescription = "Dummy-Image",
@@ -113,7 +136,10 @@ private fun RecipeListItem(
 
             Text(
                 text = recipe.name,
-                style = MaterialTheme.typography.h6.copy()
+                style = MaterialTheme.typography.h6.copy(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.CenterVertically)
             )
         }
     }
