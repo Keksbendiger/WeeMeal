@@ -51,7 +51,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun MealDetailsScreen(
     vm: MealDetailsViewModel,
 ) {
-    WeeMealTheme {
         Scaffold(
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
@@ -267,7 +266,7 @@ fun MealDetailsScreen(
             }
         }
     }
-}
+
 
 // @Preview
 @Composable

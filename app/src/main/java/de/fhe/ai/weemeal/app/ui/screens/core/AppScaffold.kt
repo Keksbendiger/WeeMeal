@@ -15,11 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import de.fhe.ai.weemeal.common.navigation.Screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-val LocalScaffoldState = staticCompositionLocalOf<ScaffoldState> { error("no scaffolded state set") }
+val LocalScaffoldState =
+    staticCompositionLocalOf<ScaffoldState> { error("no scaffolded state set") }
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
@@ -31,11 +33,11 @@ fun AppScaffold() {
     val scaffoldState = rememberScaffoldState()
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Undefined) }
 
+
     CompositionLocalProvider(LocalScaffoldState provides scaffoldState) {
         Scaffold(
             scaffoldState = scaffoldState,
-            topBar = { AppBar(currentScreen) },
-            bottomBar = { if(currentScreen.hasBottomBar) { BottomBar(navController) } },
+            topBar = { AppBar(currentScreen) }
         ) { innerPadding ->
             AppNavigationHost(
                 navController,

@@ -64,7 +64,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.WeekList)
 
-            WeeklistScreen(vm)
+            WeeklistScreen(vm, navController = navCtrl)
         }
 
         composable(
@@ -112,7 +112,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.RecipeList)
 
-            RecipeListScreen(vm)
+            RecipeListScreen(vm, navController = navCtrl)
         }
 
         composable(
@@ -136,7 +136,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.ShoppingListSelect)
 
-            ShoppingListSelectScreen(vm)
+            ShoppingListSelectScreen(vm, navController = navCtrl)
         }
 
         composable(

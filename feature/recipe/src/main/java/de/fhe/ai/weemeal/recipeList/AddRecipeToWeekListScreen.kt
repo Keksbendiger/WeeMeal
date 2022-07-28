@@ -31,7 +31,6 @@ import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Recipe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -40,10 +39,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun AddRecipeToWeekListScreen(
     vm: AddRecipeToWeekListViewModel
 ) {
-    WeeMealTheme() {
-        Scaffold() { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+    Scaffold() { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 //                    SearchAppBar(
 //                        query = "", // recipeListState.query,
 //                        onQueryChanged = {
@@ -53,21 +51,21 @@ fun AddRecipeToWeekListScreen(
 // //                            onTriggerEvent(RecipeListEvents.NewSearch)
 //                        },
 //                    )
-                    var recipes: List<Recipe> = vm.recipeList
+                var recipes: List<Recipe> = vm.recipeList
 
-                    if (recipes.isNotEmpty()) {
-                        RecipeList(
-                            recipes = recipes,
-                            onClickSaveMealToCookingDate = { vm.saveMealToCookingDate(it) },
-                        )
-                    } else {
-                        EmptyListText(text = "Noch keine Rezepte vorhanden...")
-                    }
+                if (recipes.isNotEmpty()) {
+                    RecipeList(
+                        recipes = recipes,
+                        onClickSaveMealToCookingDate = { vm.saveMealToCookingDate(it) },
+                    )
+                } else {
+                    EmptyListText(text = "Noch keine Rezepte vorhanden...")
                 }
             }
         }
     }
 }
+
 
 @Composable
 private fun RecipeList(
