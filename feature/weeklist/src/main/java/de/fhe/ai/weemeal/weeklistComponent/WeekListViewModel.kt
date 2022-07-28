@@ -40,7 +40,7 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
 
             val internalMealList = getFutureMeals.execute()
 
-            first@ for (i in 0..100) {
+            /*first@ for (i in 0..100) {
                 var day = getDaysAhead(i)
                 second@ for (meal in internalMealList) {
                     if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
@@ -50,8 +50,9 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
                         break@second
                     }
                 }
-            }
-            for (daysAhead in 0..state.value.amountOfDaysAhead) {
+            }*/
+
+            for (daysAhead in 0..14/*state.value.amountOfDaysAhead*/) {
                 val internalMealDayList = mutableListOf<Meal>()
 
                 val day = getDaysAhead(daysAhead)
