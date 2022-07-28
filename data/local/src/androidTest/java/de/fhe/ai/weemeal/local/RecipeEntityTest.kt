@@ -97,7 +97,7 @@ class RecipeEntityTest {
         }
         recipeEntityDao.insert(RecipeEntityMock.generateSingleObject(name = "FrontSubstringBack"))
 
-        val recipeEntityListResult = recipeEntityDao.search("Substring").first()
+        val recipeEntityListResult = recipeEntityDao.search("Substring")
 
         assertTrue("Loaded diary entry should not be empty", recipeEntityListResult.isNotEmpty())
         recipeEntityListResult.forEach() {

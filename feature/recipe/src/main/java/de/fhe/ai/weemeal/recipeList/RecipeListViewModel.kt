@@ -30,12 +30,12 @@ class RecipeListViewModel(
     var recipeList by mutableStateOf(emptyList<Recipe>())
 
     init {
-        val mockRecipes = RecipeMock.generateList()
-        viewModelScope.launch {
-            for (mockRecipe in mockRecipes) {
-                saveRecipe.execute(mockRecipe)
-            }
-        }
+//        val mockRecipes = RecipeMock.generateList()
+//        viewModelScope.launch {
+//            for (mockRecipe in mockRecipes) {
+//                saveRecipe.execute(mockRecipe)
+//            }
+//        }
         this.getRecipesFromDb()
     }
 

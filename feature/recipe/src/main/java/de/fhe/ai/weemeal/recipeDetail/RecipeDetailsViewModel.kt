@@ -19,16 +19,24 @@ class RecipeDetailsViewModel(
     var state = mutableStateOf(RecipeEditState())
 
     init {
-        loadRecipe(recipeId)
-    }
-
-    private fun loadRecipe(recipeId: Long) {
         viewModelScope.launch {
-            state = mutableStateOf(RecipeEditState(getRecipeById.execute(recipeId)!!))
+            val recipe = getRecipeById.execute(recipeId)!!
+            state.value = state.value.copy(
+                internalId = recipe.internalId,
+                name = recipe.name,
+                defaultServings = recipe.defaultServings,
+                defaultIngredients = recipe.defaultIngredients?.toMutableList(),
+                timePreparation = recipe.timePreparation,
+                timeActiveCooking = recipe.timeActiveCooking,
+                timeOverall = recipe.timeOverall,
+                instructions = recipe.instructions,
+                image = recipe.image,
+                tags = recipe.tags?.toMutableList()
+            )
         }
     }
 
-    fun navigateToEditRecipe(recipeId: Long) {
+    fun navigateToEditRecipe() {
         navigationManager.navigate(Screen.RecipeEdit.navigationCommand(recipeId))
     }
 }

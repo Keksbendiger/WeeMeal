@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
-import de.fhe.ai.weemeal.mocks.domain.MealMock
 import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
 import kotlinx.coroutines.launch
@@ -25,12 +24,12 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     var mealList by mutableStateOf(emptyList<Meal>())
 
     init {
-        val mockMeals = MealMock.generateWeek()
-        viewModelScope.launch {
-            for (mockMeal in mockMeals) {
-                saveMeal.execute(mockMeal)
-            }
-        }
+//        val mockMeals = MealMock.generateWeek()
+//        viewModelScope.launch {
+//            for (mockMeal in mockMeals) {
+//                saveMeal.execute(mockMeal)
+//            }
+//        }
         this.getMealsFromDb()
     }
 

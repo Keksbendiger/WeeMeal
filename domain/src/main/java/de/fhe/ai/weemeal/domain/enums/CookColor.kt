@@ -14,5 +14,25 @@ enum class CookColor(val color: String) {
         fun getRandom(): CookColor {
             return CookColor.values()[SecureRandom().nextInt(CookColor.values().size)]
         }
+
+        fun getNext(old: CookColor): CookColor {
+            return when (old) {
+                TRANSPARENT -> YELLOW
+                YELLOW -> GREEN
+                GREEN -> RED
+                RED -> BLUE
+                BLUE -> TRANSPARENT
+            }
+        }
+
+        fun getPrevious(old: CookColor): CookColor {
+            return when (old) {
+                BLUE -> RED
+                RED -> GREEN
+                GREEN -> YELLOW
+                YELLOW -> TRANSPARENT
+                TRANSPARENT -> BLUE
+            }
+        }
     }
 }

@@ -1,10 +1,9 @@
 package de.fhe.ai.weemeal.repository
 
 import de.fhe.ai.weemeal.domain.models.Recipe
+import de.fhe.ai.weemeal.domain.models.Recipe.Companion.print
 import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
-import kotlinx.coroutines.flow.first
-import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -12,6 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.koin.test.inject
 
 class RecipeRepositoryTest : BaseTest() {
 
@@ -87,7 +87,7 @@ class RecipeRepositoryTest : BaseTest() {
 
         assertTrue(recipeMock.equalsWithoutId(insertedRecipe))
 
-        val loadedRecipeList = recipeRepository.searchRecipeByName(insertedRecipe.name).first()
+        val loadedRecipeList = recipeRepository.searchRecipeByName(insertedRecipe.name)
         assertTrue(loadedRecipeList.isNotEmpty())
         loadedRecipeList.forEach() {
             println(it)
@@ -107,16 +107,31 @@ class RecipeRepositoryTest : BaseTest() {
             insertedRecipeList.add(recipeRepository.insertOrUpdateRecipe(it)!!)
         }
 
+
         val index: Int = insertedRecipeList.size / 2
-        val insertedRecipe = insertedRecipeList[index]
+        val oldRecipe = insertedRecipeList[index] // das wollen wir updaten
 
-        assertNotNull(recipeRepository.getRecipe(insertedRecipe.internalId))
+        assertNotNull(recipeRepository.getRecipe(oldRecipe.internalId))
 
-        val updatedRecipe = RecipeMock.generateSingleObject(internalId = insertedRecipe.internalId)
-        recipeRepository.insertOrUpdateRecipe(updatedRecipe)
-        assertNotNull(recipeRepository.getRecipe(insertedRecipe.internalId))
+        val newRecipeData = RecipeMock.generateSingleObject(internalId = oldRecipe.internalId) // das ist das update
 
-        assertTrue(updatedRecipe.equalsWithoutId(recipeRepository.getRecipe(insertedRecipe.internalId)))
+
+        recipeRepository.insertOrUpdateRecipe(newRecipeData) // hier wird geupdated
+        assertNotNull(recipeRepository.getRecipe(oldRecipe.internalId))
+
+        val updatedRecipe = recipeRepository.getRecipe(oldRecipe.internalId)!!
+
+        println("----------------------------------oldRecipe------------------------------------------------")
+        oldRecipe.print()
+
+        println("----------------------------------newRecipeData------------------------------------------------")
+        newRecipeData.print()
+
+        println("----------------------------------updatedRecipe------------------------------------------------")
+        updatedRecipe.print()
+
+        assertEquals(newRecipeData.defaultIngredients, recipeRepository.getRecipe(oldRecipe.internalId)!!.defaultIngredients)
+        assertTrue(newRecipeData.equalsWithoutId(recipeRepository.getRecipe(oldRecipe.internalId)))
     }
 
     // ----------------------------------------------------------------------------------------------

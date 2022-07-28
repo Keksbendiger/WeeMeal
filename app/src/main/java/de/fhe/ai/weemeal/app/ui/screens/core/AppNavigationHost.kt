@@ -76,7 +76,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.MealDetail)
 
-            MealDetailsScreen(vm, mealId)
+            MealDetailsScreen(vm)
         }
 
         composable(
@@ -88,7 +88,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.RecipeDetail)
 
-            RecipeDetailsScreen(vm, recipeId)
+            RecipeDetailsScreen(vm)
         }
 
         composable(
@@ -104,7 +104,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.RecipeEdit)
 
-            RecipeEditScreen(vm, recipeId)
+            RecipeEditScreen(vm)
         }
 
         composable(Screen.RecipeList.route) {
