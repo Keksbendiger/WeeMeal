@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
+import de.fhe.ai.weemeal.common.functions.calcDayDifference
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
@@ -82,7 +83,7 @@ fun WeekListScreen(vm: WeekListViewModel) {
 @Composable
 private fun WeekList(
     meals: List<WeekDay>,
-    onClickAddToWeekList: (String) -> Unit,
+    onClickAddToWeekList: (Int) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit,
     onClickUpdateDaysInWeekList: () -> Unit
 ) {
@@ -112,7 +113,7 @@ private fun WeekList(
 private fun WeekListDay(
     meals: List<Meal>,
     day: Date,
-    onClickAddToWeekList: (String) -> Unit,
+    onClickAddToWeekList: (Int) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit
 ) {
     Row(
@@ -141,7 +142,7 @@ private fun WeekListDay(
                 MealListItem(meal = meal, onClickNavigateToMeal = { onClickNavigateToMeal(it) })
             }
         }
-        item { AddMeal(onClickAddToWeekList = { onClickAddToWeekList(day.toString()) }) }
+        item { AddMeal(day) { onClickAddToWeekList(it) } }
     }
 }
 
@@ -222,9 +223,12 @@ fun MealName(meal: Meal) {
 }
 
 @Composable
-private fun AddMeal(onClickAddToWeekList: () -> Unit) {
+private fun AddMeal(
+    day: Date,
+    onClickAddToWeekList: (Int) -> Unit
+) {
     Button(
-        onClick = { onClickAddToWeekList() },
+        onClick = { onClickAddToWeekList(calcDayDifference(day)) },
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .height(150.dp)

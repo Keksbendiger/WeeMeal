@@ -82,3 +82,9 @@ fun dayOfWeekString(day: Date): Any {
 
     return dayOfWeekString
 }
+
+fun calcDayDifference(date: Date): Int {
+    var result: Int = 0
+    result = date.day - getDaysAhead(0).day
+    return result
+}

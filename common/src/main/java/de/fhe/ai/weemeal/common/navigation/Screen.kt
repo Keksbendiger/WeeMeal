@@ -125,13 +125,13 @@ sealed class Screen(
 
     object AddRecipeToWeekList : Screen(
         title = "Zu Wochenplan hinzufügen",
-        route = "AddRecipeToWeekList/{cookingDate}"
+        route = "AddRecipeToWeekList/{cookingDateDaysAhead}"
     ) {
         override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
 
             override val arguments = listOf(
-                navArgument("cookingDate") {
-                    type = NavType.StringType
+                navArgument("cookingDateDaysAhead") {
+                    type = NavType.IntType
                 }
             )
             override val destination = "AddRecipeToWeekList/${value[0]}"

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Meal
@@ -19,7 +20,7 @@ import java.util.Date
 class AddRecipeToWeekListViewModel(
 //    private val getRecipesAsync: GetRecipesAsync,
 //    private val loadRecipesFromNetwork: LoadRecipesFromNetwork,
-    private val cookingDate: String,
+    private val cookingDateDaysAhead: Int,
     private val navigationManager: NavigationManager
 ) : ViewModel(), KoinComponent {
 
@@ -60,7 +61,7 @@ class AddRecipeToWeekListViewModel(
 //    }
 
     fun saveMealToCookingDate(recipe: Recipe) {
-        val meal = Meal(recipe = recipe, cookingDate = Date(this.cookingDate))
+        val meal = Meal(recipe = recipe, cookingDate = getDaysAhead(cookingDateDaysAhead))
         viewModelScope.launch {
             saveMeal.execute(meal)
         }
