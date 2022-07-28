@@ -76,7 +76,6 @@ fun ShoppingListSelectScreen(vm: ShoppingListSelectScreenViewModel) {
 
                     val meals: List<Meal>? = vm.mealList
 
-
                     meals?.let {
                         WeekList(meals)
                     } ?: kotlin.run {

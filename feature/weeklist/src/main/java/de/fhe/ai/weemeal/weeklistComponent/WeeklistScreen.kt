@@ -61,7 +61,7 @@ fun WeekListScreen(vm: WeekListViewModel) {
 
             floatingActionButtonPosition = FabPosition.End,
 
-            ) { innerPadding ->
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Column {
 
@@ -83,7 +83,7 @@ fun WeekListScreen(vm: WeekListViewModel) {
 @Composable
 private fun WeekList(
     meals: List<WeekDay>,
-    onClickAddToWeekList: (Int) -> Unit,
+    onClickAddToWeekList: (Long) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit,
     onClickUpdateDaysInWeekList: () -> Unit
 ) {
@@ -113,7 +113,7 @@ private fun WeekList(
 private fun WeekListDay(
     meals: List<Meal>,
     day: Date,
-    onClickAddToWeekList: (Int) -> Unit,
+    onClickAddToWeekList: (Long) -> Unit,
     onClickNavigateToMeal: (Long) -> Unit
 ) {
     Row(
@@ -225,7 +225,7 @@ fun MealName(meal: Meal) {
 @Composable
 private fun AddMeal(
     day: Date,
-    onClickAddToWeekList: (Int) -> Unit
+    onClickAddToWeekList: (Long) -> Unit
 ) {
     Button(
         onClick = { onClickAddToWeekList(calcDayDifference(day)) },

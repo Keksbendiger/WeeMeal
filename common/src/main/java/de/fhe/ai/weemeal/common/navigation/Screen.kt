@@ -131,7 +131,7 @@ sealed class Screen(
 
             override val arguments = listOf(
                 navArgument("cookingDateDaysAhead") {
-                    type = NavType.IntType
+                    type = NavType.LongType
                 }
             )
             override val destination = "AddRecipeToWeekList/${value[0]}"

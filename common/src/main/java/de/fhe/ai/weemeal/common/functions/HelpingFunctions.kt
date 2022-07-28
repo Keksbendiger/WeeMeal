@@ -2,6 +2,8 @@ package de.fhe.ai.weemeal.common.functions
 
 import java.util.Calendar
 import java.util.Date
+import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.convert
 
 fun getDaysAhead(daysAhead: Int): Date {
     val calendar = Calendar.getInstance()
@@ -83,8 +85,19 @@ fun dayOfWeekString(day: Date): Any {
     return dayOfWeekString
 }
 
-fun calcDayDifference(date: Date): Int {
-    var result: Int = 0
-    result = date.day - getDaysAhead(0).day
-    return result
+fun calcDayDifference(date: Date): Long {
+    var difference: Long = 0
+    var today: Date = getDaysAhead(0)
+    date.hours = 0
+    date.minutes = 0
+    date.seconds = 0
+
+    today.hours = 0
+    today.minutes = 0
+    today.seconds = 0
+
+    difference = date.getTime() - today.getTime()
+    difference = TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS)
+
+    return difference
 }

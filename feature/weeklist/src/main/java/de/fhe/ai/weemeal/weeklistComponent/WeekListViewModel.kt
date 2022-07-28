@@ -12,7 +12,6 @@ import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import de.fhe.ai.weemeal.usecases.usabilityTest.PrepareHCIUsabilityTest
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
-import java.util.Date
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -70,7 +69,7 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
         state.value.weekdays = weekDays
     }
 
-    fun navigateToAddRecipeToWeekList(cookingDateDaysAhead: Int) {
+    fun navigateToAddRecipeToWeekList(cookingDateDaysAhead: Long) {
         navigationManager.navigate(Screen.AddRecipeToWeekList.navigationCommand(cookingDateDaysAhead))
     }
 

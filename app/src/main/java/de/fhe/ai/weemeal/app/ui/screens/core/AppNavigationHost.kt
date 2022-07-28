@@ -119,7 +119,7 @@ fun AppNavigationHost(
             Screen.AddRecipeToWeekList.route,
             Screen.AddRecipeToWeekList.navigationCommand(0).arguments
         ) { entry ->
-            val cookingDateDaysAhead = entry.arguments?.getInt("cookingDateDaysAhead")
+            val cookingDateDaysAhead = entry.arguments?.getLong("cookingDateDaysAhead")
             val vm by viewModel<AddRecipeToWeekListViewModel>(
                 parameters = {
                     parametersOf(cookingDateDaysAhead)

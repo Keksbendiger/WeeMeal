@@ -15,12 +15,11 @@ import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.Date
 
 class AddRecipeToWeekListViewModel(
 //    private val getRecipesAsync: GetRecipesAsync,
 //    private val loadRecipesFromNetwork: LoadRecipesFromNetwork,
-    private val cookingDateDaysAhead: Int,
+    private val cookingDateDaysAhead: Long,
     private val navigationManager: NavigationManager
 ) : ViewModel(), KoinComponent {
 
@@ -61,7 +60,7 @@ class AddRecipeToWeekListViewModel(
 //    }
 
     fun saveMealToCookingDate(recipe: Recipe) {
-        val meal = Meal(recipe = recipe, cookingDate = getDaysAhead(cookingDateDaysAhead))
+        val meal = Meal(recipe = recipe, cookingDate = getDaysAhead(cookingDateDaysAhead.toInt()))
         viewModelScope.launch {
             saveMeal.execute(meal)
         }
