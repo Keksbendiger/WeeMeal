@@ -19,6 +19,9 @@ import de.fhe.ai.weemeal.local.entity.RecipeTagEntity
 import de.fhe.ai.weemeal.local.entity.TagEntity
 import de.fhe.ai.weemeal.local.mapper.Converters
 
+/**
+ * Describes the Entities fot the local database.
+ */
 @Database(
     entities = [
         IngredientEntity::class,
@@ -30,6 +33,10 @@ import de.fhe.ai.weemeal.local.mapper.Converters
     ],
     version = 4
 )
+
+/**
+ * Is a singleton WeeMeal Database with all DAOs.
+ */
 @TypeConverters(Converters::class)
 abstract class WeeMealDatabase : RoomDatabase() {
     abstract fun ingredientEntityDao(): IngredientEntityDao

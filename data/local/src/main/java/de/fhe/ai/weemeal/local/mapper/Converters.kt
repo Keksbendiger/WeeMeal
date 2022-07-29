@@ -5,6 +5,9 @@ import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 import de.fhe.ai.weemeal.domain.formats.TimeFormat
 import java.util.Date
 
+/**
+ * Converters for specific types in the database.
+ */
 class Converters {
     @TypeConverter
     fun quantityFormatToString(value: String?): QuantityFormat? {

@@ -89,6 +89,15 @@ class RecipeRepositoryImpl(
         return returnValue
     }
 
+    /**
+     * upsert a Recipe into the database
+     * 1. upsert recipeEntity
+     * 2. delete all related recipeIngredientEntity to have a clean relation
+     * 3. upsert recipeIngredientEntity
+     *
+     * @param recipe the Recipe to upsert
+     * @return the the upserted Recipe
+     */
     override suspend fun insertOrUpdateRecipe(recipe: Recipe): Recipe? {
 
         val recipeId: Long = if (recipeEntityDao.get(recipe.internalId) != null) {
@@ -97,32 +106,6 @@ class RecipeRepositoryImpl(
         } else {
             recipeEntityDao.insert(recipe.fromDomain())
         }
-
-//        recipeTagEntityDao.getAllByRecipeId(recipeId).forEach { recipeTag ->
-//            recipeTagEntityDao.delete(
-//                RecipeTagEntity(
-//                    id = recipeTag.id,
-//                    recipeId = recipeTag.recipeId,
-//                    tagId = recipeTag.tagId
-//                )
-//            )
-//        }
-//
-//        recipe.tags?.forEach { tag ->
-//            val tagId: Long  = if(recipeTagEntityDao.get(tag.internalId) == null) {
-//                tagEntityDao.insert(tag.fromDomain())
-//            }else{
-//                tagEntityDao.update(tag.fromDomain())
-//                tag.internalId
-//            }
-//            recipeTagEntityDao.insert(
-//                RecipeTagEntity(
-//                    tagId = tagId,
-//                    recipeId = recipeId
-//                )
-//            )
-//
-//        }
 
         recipeIngredientEntityDao.getAllByRecipeId(recipeId).forEach { recipeIngredient ->
             recipeIngredientEntityDao.delete(
