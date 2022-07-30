@@ -29,6 +29,12 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     var mealList by mutableStateOf(emptyList<Meal>())
 
     init {
+//        val mockMeals = MealMock.generateWeek()
+//        viewModelScope.launch {
+//            for (mockMeal in mockMeals) {
+//                saveMeal.execute(mockMeal)
+//            }
+//        }
         // viewModelScope.launch {
         // prepareHCIUsabilityTest.execute()}
         this.getMealsFromDb()

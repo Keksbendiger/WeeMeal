@@ -14,7 +14,9 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ShoppingListSelectScreenViewModel(private val navigationManager: NavigationManager) :
+class ShoppingListSelectScreenViewModel(
+    private val navigationManager: NavigationManager
+) :
     ViewModel(),
     KoinComponent {
 

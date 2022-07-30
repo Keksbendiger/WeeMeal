@@ -40,9 +40,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
-import de.fhe.ai.weemeal.common.functions.calcDayDifference
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
@@ -55,15 +56,18 @@ import java.util.Date
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun WeekListScreen(vm: WeekListViewModel) {
-    WeeMealTheme() {
-        Scaffold(
+fun WeeklistScreen(
+    vm: WeekListViewModel,
+    navController: NavController,
+) {
+    Scaffold(
 
-            floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.End,
+        bottomBar = { BottomBar(navController) },
 
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
 
                     val meals: List<WeekDay> = vm.state.value.weekdays
 
@@ -73,6 +77,14 @@ fun WeekListScreen(vm: WeekListViewModel) {
                         onClickNavigateToMeal = { vm.navigateToMealDetail(it) },
                         onClickUpdateDaysInWeekList = { vm.addDayToWeekList() }
                     )
+                if (meals.isNotEmpty()) {
+                    WeekList(
+                        meals = meals,
+                        onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
+                        onClickNavigateToMeal = { vm.navigateToMealDetail(it) }
+                    )
+                } else {
+                    EmptyListText(text = "Noch keine Wochenliste vorhanden")
                 }
             }
         }
@@ -106,6 +118,9 @@ private fun WeekList(
             )
         }
     }
+}
+
+private fun addDayToWeekList() {
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

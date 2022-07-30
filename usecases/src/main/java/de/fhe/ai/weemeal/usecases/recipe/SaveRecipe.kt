@@ -10,9 +10,9 @@ class SaveRecipe : KoinComponent {
     private val recipeRepository: RecipeRepository by inject()
 
     /**
-     * TODO
+     * Saves or updates the given Recipe in the DB
      *
-     * @return DataState
+     * @return void
      */
     suspend fun execute(recipe: Recipe) {
         recipeRepository.insertOrUpdateRecipe(recipe)

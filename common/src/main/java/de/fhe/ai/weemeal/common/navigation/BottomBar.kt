@@ -11,7 +11,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import de.fhe.ai.weemeal.common.navigation.RootScreens
 
 @Composable
-fun BottomBar(navController: NavController) {
+fun BottomBar(
+    navController: NavController
+) {
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route

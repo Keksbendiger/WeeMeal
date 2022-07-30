@@ -12,8 +12,9 @@ class PrepareHCIUsabilityTest : KoinComponent {
     private val mealRepository: MealRepository by inject()
 
     /**
-     * TODO
-     *
+     * Prepares the App for a coming Usability Test:
+     * Deletes all existing Meals and Recipes and creates 10 new recipes
+     * From those Recipes are then created 5 Meals and added to a Day this week
      */
     suspend fun execute() {
         mealRepository.deleteAllMeals()

@@ -24,8 +24,8 @@ import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
-import de.fhe.ai.weemeal.weeklistComponent.WeekListScreen
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
+import de.fhe.ai.weemeal.weeklistComponent.WeeklistScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.inject
 import org.koin.androidx.compose.viewModel
@@ -64,7 +64,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.WeekList)
 
-            WeekListScreen(vm)
+            WeeklistScreen(vm, navController = navCtrl)
         }
 
         composable(
@@ -76,7 +76,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.MealDetail)
 
-            MealDetailsScreen(vm, mealId)
+            MealDetailsScreen(vm)
         }
 
         composable(
@@ -88,7 +88,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.RecipeDetail)
 
-            RecipeDetailsScreen(vm, recipeId)
+            RecipeDetailsScreen(vm)
         }
 
         composable(
@@ -104,7 +104,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.RecipeEdit)
 
-            RecipeEditScreen(vm, recipeId)
+            RecipeEditScreen(vm)
         }
 
         composable(Screen.RecipeList.route) {
@@ -112,7 +112,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.RecipeList)
 
-            RecipeListScreen(vm)
+            RecipeListScreen(vm, navController = navCtrl)
         }
 
         composable(
@@ -136,7 +136,7 @@ fun AppNavigationHost(
 
             onNavigation(Screen.ShoppingListSelect)
 
-            ShoppingListSelectScreen(vm)
+            ShoppingListSelectScreen(vm, navController = navCtrl)
         }
 
         composable(
