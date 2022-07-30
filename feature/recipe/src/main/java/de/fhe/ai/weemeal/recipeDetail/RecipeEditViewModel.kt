@@ -100,6 +100,7 @@ class RecipeEditViewModel(
                 }
             }
         }
+
         state.value =
             state.value.copy(defaultIngredients = ingredients, counter = state.value.counter + 1)
     }

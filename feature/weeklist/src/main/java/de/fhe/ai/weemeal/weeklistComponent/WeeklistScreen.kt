@@ -40,12 +40,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import de.fhe.ai.weemeal.common.components.EmptyListText
+import androidx.navigation.NavController
+import de.fhe.ai.weemeal.app.ui.screens.core.BottomBar
 import de.fhe.ai.weemeal.common.components.TextAndIconButton
+import de.fhe.ai.weemeal.common.functions.calcDayDifference
 import de.fhe.ai.weemeal.common.functions.dayOfWeekString
-import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.domain.models.Meal
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Date
@@ -69,23 +69,14 @@ fun WeeklistScreen(
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
 
-                    val meals: List<WeekDay> = vm.state.value.weekdays
+                val meals: List<WeekDay> = vm.state.value.weekdays
 
-                    WeekList(
-                        meals = meals,
-                        onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
-                        onClickNavigateToMeal = { vm.navigateToMealDetail(it) },
-                        onClickUpdateDaysInWeekList = { vm.addDayToWeekList() }
-                    )
-                if (meals.isNotEmpty()) {
-                    WeekList(
-                        meals = meals,
-                        onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
-                        onClickNavigateToMeal = { vm.navigateToMealDetail(it) }
-                    )
-                } else {
-                    EmptyListText(text = "Noch keine Wochenliste vorhanden")
-                }
+                WeekList(
+                    meals = meals,
+                    onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
+                    onClickNavigateToMeal = { vm.navigateToMealDetail(it) },
+                    onClickUpdateDaysInWeekList = { vm.addDayToWeekList() }
+                )
             }
         }
     }
