@@ -39,12 +39,7 @@ import androidx.compose.material.FabPosition.Companion as FabPosition1
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
-fun ShoppingListScreen(
-//    shoppingListState: ShoppingListState,
-//    navHostController: NavHostController,
-//    onTriggerEvent: (ShoppingListEvents) -> Unit,
-//    onClickOpenShoppingList: (Int) -> Unit,
-) {
+fun ShoppingListScreen(vm: ShoppingListScreenViewModel) {
     Scaffold(
         //            topBar = {
         //                AppBar(title = "ShoppingList")

@@ -10,6 +10,7 @@ import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
 import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.repository.di.repository
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreenViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import de.fhe.ai.weemeal.usecases.di.usecases
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
@@ -61,6 +62,9 @@ val viewModelModule = module {
     viewModel { WeekListViewModel(get()) }
     viewModel { ShoppingListSelectScreenViewModel(get()) }
     viewModel { AddRecipeToWeekListViewModel(get(), get()) }
+    viewModel { ShoppingListScreenViewModel(get()) }
+
+
 
 //    TODO: Add all used viewmodels here
 }

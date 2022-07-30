@@ -61,12 +61,17 @@ fun ShoppingListSelectScreen(
     vm: ShoppingListSelectScreenViewModel,
     navController: NavController,
 ) {
+    val meals: List<Meal>? = vm.mealList
     Scaffold(
         bottomBar = { BottomBar(navController) },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { },
+                onClick = {
+                    if (meals != null) {
+                        vm.navigateToShoppingList(meals)
+                    }
+                },
                 backgroundColor = MaterialTheme.colors.primary,
                 elevation = FloatingActionButtonDefaults.elevation(6.dp)
             ) {
@@ -78,7 +83,7 @@ fun ShoppingListSelectScreen(
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
 
-                val meals: List<Meal>? = vm.mealList
+
 
                 meals?.let {
                     WeekList(meals)
@@ -93,7 +98,7 @@ fun ShoppingListSelectScreen(
 @Composable
 private fun WeekList(meals: List<Meal>) {
     LazyColumn {
-        items(14) { index ->
+        items(7) { index ->
             var day = getDaysAhead(index)
             WeekListDay(meals, day)
         }

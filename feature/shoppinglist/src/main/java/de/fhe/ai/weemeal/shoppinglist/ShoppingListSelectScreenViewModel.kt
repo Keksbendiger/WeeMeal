@@ -35,8 +35,8 @@ class ShoppingListSelectScreenViewModel(
         }
     }
 
-    fun navigateToRecipeList() {
-        navigationManager.navigate(Screen.RecipeList.navigationCommand())
+    fun navigateToShoppingList(meals: List<Meal>) {
+        navigationManager.navigate(Screen.ShoppingList.navigationCommand())
     }
 
     fun navigateToMealDetail(mealId: Long) {

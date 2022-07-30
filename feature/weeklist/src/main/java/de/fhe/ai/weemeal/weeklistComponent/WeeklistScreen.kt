@@ -111,9 +111,6 @@ private fun WeekList(
     }
 }
 
-private fun addDayToWeekList() {
-}
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun WeekListDay(
