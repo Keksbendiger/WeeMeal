@@ -143,8 +143,8 @@ fun AppNavigationHost(
         composable(
             Screen.ShoppingList.route,
             Screen.ShoppingList.navigationCommand(0).arguments
-        ) { // entry ->
-//            val shoppingListId = entry.arguments?.getLong("shoppingListId")
+        ) {// entry ->
+            //val listOfMealIds = entry.arguments?.getLong("listOfMealIds")
             val vm by viewModel<ShoppingListScreenViewModel>()
 
             onNavigation(Screen.ShoppingList)

@@ -19,8 +19,6 @@ class ShoppingListSelectScreenViewModel(
 ) :
     ViewModel(),
     KoinComponent {
-
-    private val saveMeal: SaveMeal by inject()
     private val getFutureMeals: GetFutureMeals by inject()
 
     var mealList by mutableStateOf(emptyList<Meal>())
@@ -36,10 +34,12 @@ class ShoppingListSelectScreenViewModel(
     }
 
     fun navigateToShoppingList(meals: List<Meal>) {
-        navigationManager.navigate(Screen.ShoppingList.navigationCommand())
-    }
+       /* var mealIdList: List<Long> = emptyList()
 
-    fun navigateToMealDetail(mealId: Long) {
-        navigationManager.navigate(Screen.MealDetail.navigationCommand(mealId))
+        for (meal in meals)
+        {
+            mealIdList.plus(meal.internalId)
+        }*/
+        navigationManager.navigate(Screen.ShoppingList.navigationCommand(/*mealIdList*/))
     }
 }

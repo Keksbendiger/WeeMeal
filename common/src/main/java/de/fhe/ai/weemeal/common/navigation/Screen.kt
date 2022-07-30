@@ -146,19 +146,18 @@ sealed class Screen(
 
     object ShoppingList : Screen(
         title = "Einkaufsliste",
-        route = "ShoppingList" // /{shoppingListId}"
-    )
-//  {
-//        override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
-//
-//            override val arguments = listOf(
-//                navArgument("shoppingListId") {
-//                    type = NavType.LongType
-//                }
-//            )
-//            override val destination = "ShoppingList/${value[0]}"
-//        }
-//  }
+        route = "ShoppingList" // /{listOfMealIds}"
+    ) {
+       /* override fun navigationCommand(vararg value: Any) = object : NavigationCommand {
+
+            override val arguments = listOf(
+                navArgument("listOfMealIds") {
+                    type = NavType.LongType
+                }
+            )
+            override val destination = "ShoppingList/${value[0]}"
+        }*/
+    }
 
     object Settings : Screen(
         title = "Settings",

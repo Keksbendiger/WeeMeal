@@ -62,7 +62,7 @@ val viewModelModule = module {
     viewModel { WeekListViewModel(get()) }
     viewModel { ShoppingListSelectScreenViewModel(get()) }
     viewModel { AddRecipeToWeekListViewModel(get(), get()) }
-    viewModel { ShoppingListScreenViewModel(get()) }
+    viewModel { ShoppingListScreenViewModel(get())}
 
 
 

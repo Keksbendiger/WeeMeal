@@ -135,7 +135,7 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
 
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month && meal.cookingDate.date == day.date) {
                 MealListItem(meal = meal)
             }
         }
