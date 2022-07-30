@@ -65,7 +65,7 @@ fun WeeklistScreen(
         floatingActionButtonPosition = FabPosition.End,
         bottomBar = { BottomBar(navController) },
 
-    ) { innerPadding ->
+        ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
 
@@ -144,7 +144,7 @@ private fun WeekListDay(
 
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month && meal.cookingDate.date == day.date) {
                 MealListItem(meal = meal, onClickNavigateToMeal = { onClickNavigateToMeal(it) })
             }
         }
