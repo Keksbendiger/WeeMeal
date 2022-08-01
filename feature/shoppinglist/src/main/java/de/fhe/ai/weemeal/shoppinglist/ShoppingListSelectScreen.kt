@@ -47,6 +47,7 @@ import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
+import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -61,7 +62,7 @@ fun ShoppingListSelectScreen(
     vm: ShoppingListSelectScreenViewModel,
     navController: NavController,
 ) {
-    val meals = vm.stateListOfMeal.value.mealOnlyForViewList
+    val meals = vm.stateListOfMeal.value
     Scaffold(
         bottomBar = { BottomBar(navController) },
         floatingActionButtonPosition = FabPosition.End,
@@ -79,7 +80,7 @@ fun ShoppingListSelectScreen(
             Column {
                 meals.let {
                     WeekList(
-                        meals,
+                        meals.mealOnlyForViewList,
                         onClickAddToShoppingList = { vm.onClickAddToShoppingList(it) })
                 } ?: kotlin.run {
                     Text("Keine Einträge")
@@ -141,7 +142,8 @@ private fun WeekListDay(
             if (meal.meal.cookingDate.day == day.day && meal.meal.cookingDate.month == day.month && meal.meal.cookingDate.date == day.date) {
                 MealListItem(
                     meal = meal,
-                    onClickAddToShoppingList = { onClickAddToShoppingList(it) })
+                    onClickAddToShoppingList = { onClickAddToShoppingList(it) },
+                    meal.borderColor)
             }
         }
     }
@@ -150,7 +152,8 @@ private fun WeekListDay(
 @Composable
 fun MealListItem(
     meal: MealOnlyForView,
-    onClickAddToShoppingList: (Long) -> Unit
+    onClickAddToShoppingList: (Long) -> Unit,
+    color: CookColor
 ) {
     Card(
         modifier = Modifier
@@ -161,7 +164,7 @@ fun MealListItem(
             .width(150.dp)
             .border(
                 width = 2.dp,
-                color = Color(meal.borderColor.color.toColorInt()),
+                color = Color(color.color.toColorInt()),
                 shape = RoundedCornerShape(8.dp)
             )
     ) {

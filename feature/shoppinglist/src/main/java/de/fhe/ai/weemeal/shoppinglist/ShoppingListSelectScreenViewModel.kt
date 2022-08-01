@@ -1,5 +1,6 @@
 package de.fhe.ai.weemeal.shoppinglist
 
+import androidx.compose.runtime.currentComposer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -59,7 +60,10 @@ class ShoppingListSelectScreenViewModel(
                 }
             }
         }
-        stateListOfMeal.value = stateListOfMeal.value.copy(counter = stateListOfMeal.value.counter +1, mealOnlyForViewList = tempList)
+        stateListOfMeal.value = stateListOfMeal.value.copy(
+            counter = stateListOfMeal.value.counter + 1,
+            mealOnlyForViewList = tempList
+        )
     }
 
 
