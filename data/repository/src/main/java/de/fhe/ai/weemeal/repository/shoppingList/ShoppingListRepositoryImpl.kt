@@ -13,11 +13,11 @@ class ShoppingListRepositoryImpl(
     private val ingredientEntityDao: IngredientEntityDao,
 ) : ShoppingListRepository {
 
-    override suspend fun getShoppingList(shoppingListId: Long): ShoppingList {
+    override suspend fun getShoppingList(): ShoppingList {
         Timber.i("Get ShoppingList from database by ID")
         val internalShoppingList: MutableList<Ingredient> = mutableListOf()
 
-        shoppingListEntityDao.getAllByShoppingListId(shoppingListId)
+        shoppingListEntityDao.getAllByShoppingListId(0)
             .forEach { shoppingListEntity ->
                 ingredientEntityDao.get(shoppingListEntity.ingredientId)?.let {
                     internalShoppingList.add(
@@ -27,7 +27,7 @@ class ShoppingListRepositoryImpl(
             }
 
         return ShoppingList(
-            internalId = shoppingListId,
+            internalId = 0,
             items = internalShoppingList
         )
 
