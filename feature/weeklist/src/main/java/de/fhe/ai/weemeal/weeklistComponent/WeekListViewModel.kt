@@ -1,8 +1,10 @@
 package de.fhe.ai.weemeal.weeklistComponent
 
+import android.content.Intent.getIntent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
@@ -70,7 +72,6 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
                 }
                 weekDays.add(WeekDay(day, internalMealDayList))
             }
-            mealList = getFutureMeals.execute()
         }
         state.value.weekdays = weekDays
     }
