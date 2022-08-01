@@ -19,6 +19,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -28,350 +31,387 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.RecipeNumberInput
 import de.fhe.ai.weemeal.common.components.RecipeStringInput
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
 import de.fhe.ai.weemeal.recipe.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeEditScreen(
-    recipeEditViewModel: RecipeEditViewModel = RecipeEditViewModel(),
-//    recipeListState: RecipeListState,
-//    navHostController: NavHostController,
-//    onTriggerEvent: (RecipeListEvents) -> Unit,
-//    onClickOpenRecipe: (Int) -> Unit,
-//    onClickAddNewRecipe: () -> Unit
+    vm: RecipeEditViewModel,
 ) {
-    WeeMealTheme {
-        Scaffold(
-//            topBar = {
-//                AppBar(title = "Rezeptansicht")
-//            },
-//            bottomBar = { BottomBar(navController) },
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                val recipe = recipeEditViewModel.state.value
+    val context = LocalContext.current
+    Scaffold(
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { vm.saveRecipe(context) },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp)
+            ) {
+                Icon(Icons.Filled.Done, "")
+            }
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            val recipe = vm.state.value
 
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                // Image
+                // TODO content description / Localization
                 Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Image
-                    // TODO content description / Localization
-                    Column(
+                    Box(
                         modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Box(
-                            modifier = Modifier
-                        ) {
-                            Image(
-                                painterResource(id = recipe.image),
-                                contentDescription = "Dummy-Image",
-                                modifier = Modifier.size(120.dp)
-                            )
+                        Image(
+                            painterResource(id = recipe.image),
+                            contentDescription = "Dummy-Image",
+                            modifier = Modifier.size(120.dp)
+                        )
 
-                            IconButton(onClick = { /*TODO*/ }, Modifier.align(Alignment.Center)) {
-                                Icon(
-                                    Icons.Filled.Edit,
-                                    "",
-                                    modifier = Modifier
-                                        .size(20.dp)
-                                        .background(
-                                            MaterialTheme.colors.background,
-                                            shape = CircleShape
-                                        )
-                                        .padding(2.dp),
-                                )
-                            }
+                        IconButton(onClick = { /*TODO*/ }, Modifier.align(Alignment.Center)) {
+                            Icon(
+                                Icons.Filled.Edit,
+                                "",
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .background(
+                                        MaterialTheme.colors.background,
+                                        shape = CircleShape
+                                    )
+                                    .padding(2.dp),
+                            )
                         }
                     }
+                }
 
-                    // Recipe Name
+                // Recipe Name
+                RecipeStringInput(
+                    value = recipe.name,
+                    onValueChange = {
+                        vm.onUpdateRecipeName(it)
+                    },
+                    wide = true
+                )
+
+//                    Text(
+//                        text = recipe.name,
+//                        modifier = Modifier
+//                            .fillMaxWidth(0.85f)
+//                            .wrapContentWidth(Alignment.Start)
+//                            .padding(
+//                                top = 8.dp,
+//                                bottom = 8.dp,
+//                            ),
+//                        style = MaterialTheme.typography.h3
+//                    )
+
+                // Tags
+                LazyRow {
+                    itemsIndexed(
+                        items = recipe.tags!!
+                    ) { _, tag ->
+                        CustomChip(
+                            text = tag.name,
+                            modifier = Modifier.padding(start = 5.dp)
+                        )
+                    }
+                    item {
+                        IconButton(
+                            onClick = { /*TODO add Tag*/ }
+                        ) {
+                            Icon(Icons.Filled.Add, "Add Tag Button")
+                        }
+                    }
+                }
+
+                // Ingredients
+                Row {
                     Text(
-                        text = recipe.name,
+                        text = "Zutaten",
                         modifier = Modifier
-                            .fillMaxWidth(0.85f)
                             .wrapContentWidth(Alignment.Start)
                             .padding(
                                 top = 8.dp,
-                                bottom = 8.dp,
-                            ),
-                        style = MaterialTheme.typography.h3
-                    )
-
-                    // Tags
-                    LazyRow {
-                        itemsIndexed(
-                            items = recipe.tags!!
-                        ) { _, tag ->
-                            CustomChip(
-                                text = tag.name,
-                                modifier = Modifier.padding(start = 5.dp)
-                            )
-                        }
-                        item {
-                            IconButton(
-                                onClick = { /*TODO add Tag*/ }
-                            ) {
-                                Icon(Icons.Filled.Add, "Add Tag Button")
-                            }
-                        }
-                    }
-
-                    // Ingredients
-                    Row {
-                        Text(
-                            text = "Zutaten",
-                            modifier = Modifier
-                                .wrapContentWidth(Alignment.Start)
-                                .padding(
-                                    top = 8.dp,
-                                    bottom = 2.dp,
-                                ),
-                            style = MaterialTheme.typography.h1
-                        )
-
-                        Text(
-                            text = " für ",
-                            modifier = Modifier
-                                .wrapContentWidth(Alignment.Start)
-                                .padding(
-                                    top = 16.dp,
-                                ),
-                        )
-
-                        RecipeNumberInput(
-                            value = recipe.defaultServings.toString(),
-
-                            onValueChange = {
-                                recipeEditViewModel.OnUpdateDefaultServings(it.toInt())
-                            },
-                            modifier = Modifier.align(Alignment.Bottom)
-                        )
-
-                        Text(
-                            text = " Portionen",
-                            modifier = Modifier
-                                .wrapContentWidth(Alignment.Start)
-                                .padding(
-                                    top = 16.dp,
-                                ),
-                        )
-                    }
-
-                    Column {
-                        recipe.defaultIngredients?.forEach {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                var ingredient = it
-
-                                IconButton(
-                                    onClick = { /*TODO*/ },
-                                    modifier = Modifier
-                                        .size(20.dp)
-                                        .align(Alignment.CenterVertically)
-                                ) {
-                                    Icon(Icons.Filled.Delete, "delete ingredient")
-                                }
-
-                                RecipeStringInput(
-                                    // value = it.name,
-                                    value = it.name,
-                                    onValueChange = {
-                                        recipeEditViewModel.updateIngredientName(
-                                            ingredient.internalId, it
-                                        )
-                                    },
-                                    wide = true
-                                )
-
-                                Row(horizontalArrangement = Arrangement.End) {
-
-                                    RecipeNumberInput(
-                                        value = ingredient.quantity.quantity.toString(),
-                                        onValueChange = {
-                                            recipeEditViewModel.updateIngredientAmount(
-                                                ingredient.internalId, it.toFloat()
-                                            )
-                                        }
-                                    )
-
-                                    RecipeStringInput(
-                                        value = ingredient.quantity.unit,
-                                        onValueChange = {
-                                            recipeEditViewModel.updateIngredientUnit(
-                                                ingredient.internalId, it
-                                            )
-                                        }
-                                    )
-                                }
-                            }
-                        }
-                        Row() {
-                            IconButton(
-                                onClick = { /*TODO*/ },
-                                modifier = Modifier
-                                    .size(20.dp)
-                            ) {
-                                Icon(Icons.Filled.Add, "add ingredient")
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    // cooking time
-                    Text(
-                        // TODO Localization
-                        text = "Kochzeiten",
-                        modifier = Modifier
-                            .fillMaxWidth(0.85f)
-                            .wrapContentWidth(Alignment.Start)
-                            .padding(
-                                top = 4.dp,
                                 bottom = 2.dp,
                             ),
                         style = MaterialTheme.typography.h1
                     )
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            // TODO different icons
-                            Icon(
-                                painterResource(id = R.drawable.outdoor_grill),
-                                contentDescription = "active cooking time"
-                            )
-                            Text("Kochen")
-
-                            Row(horizontalArrangement = Arrangement.End) {
-                                RecipeNumberInput(
-                                    value = recipe.timeActiveCooking?.value.toString(),
-                                    onValueChange = {
-                                        recipeEditViewModel.onUpdateActiveCookingTime(
-                                            it.toFloat(),
-                                            recipe.timeActiveCooking?.unit ?: ""
-                                        )
-                                    }
-                                )
-                                RecipeStringInput(
-                                    value = recipe.timeActiveCooking?.unit ?: "",
-                                    onValueChange = {
-                                        recipeEditViewModel.onUpdateActiveCookingTime(
-                                            recipe.timeActiveCooking?.value ?: 0f, it
-                                        )
-                                    }
-                                )
-                            }
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Icon(
-                                painterResource(id = R.drawable.set_meal),
-                                contentDescription = "preparation time"
-                            )
-                            Text("Vorbereitung")
-
-                            Row(horizontalArrangement = Arrangement.End) {
-                                RecipeNumberInput(
-                                    value = recipe.timePreparation?.value.toString(),
-                                    onValueChange = {
-                                        recipeEditViewModel.onUpdatePreparationTime(
-                                            it.toFloat(),
-                                            recipe.timePreparation?.unit ?: ""
-                                        )
-                                    }
-                                )
-                                RecipeStringInput(
-                                    value = recipe.timePreparation?.unit ?: "",
-                                    onValueChange = {
-                                        recipeEditViewModel.onUpdatePreparationTime(
-                                            recipe.timePreparation?.value ?: 0f, it
-                                        )
-                                    }
-                                )
-                            }
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Icon(
-                                painterResource(id = R.drawable.access_time),
-                                contentDescription = "overall time"
-                            )
-                            Text("Gesamt")
-
-                            Row(horizontalArrangement = Arrangement.End) {
-                                RecipeNumberInput(
-                                    value = recipe.timeOverall?.value.toString(),
-                                    onValueChange = {
-                                        recipeEditViewModel.onUpdateOverallCookingTime(
-                                            it.toFloat(),
-                                            recipe.timeOverall?.unit ?: ""
-                                        )
-                                    }
-                                )
-                                RecipeStringInput(
-                                    value = recipe.timeOverall?.unit ?: "",
-                                    onValueChange = {
-                                        recipeEditViewModel.onUpdateOverallCookingTime(
-                                            recipe.timeOverall?.value ?: 0f, it
-                                        )
-                                    }
-                                )
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
                     Text(
-                        // TODO Localization
-                        text = "Zubereitung",
+                        text = " für ",
                         modifier = Modifier
                             .wrapContentWidth(Alignment.Start)
                             .padding(
-                                top = 4.dp,
-                                bottom = 2.dp,
+                                top = 16.dp,
                             ),
-                        style = MaterialTheme.typography.h1
                     )
-                    TextField(
-                        value = recipe.instructions ?: "",
-                        onValueChange = { recipeEditViewModel.onUpdateInstructions(it) }
+
+                    RecipeNumberInput(
+                        value = recipe.defaultServings.toString(),
+
+                        onValueChange = {
+                            if (it.isNotBlank())
+                                try {
+                                    val num = it.toInt()
+                                    vm.onUpdateDefaultServings(num)
+                                } catch (e: NumberFormatException) {
+                                }
+                        },
+                        modifier = Modifier.align(Alignment.Bottom)
+                    )
+
+                    Text(
+                        text = " Portionen",
+                        modifier = Modifier
+                            .wrapContentWidth(Alignment.Start)
+                            .padding(
+                                top = 16.dp,
+                            ),
                     )
                 }
+
+                Column {
+                    // used to differentiate between multiple newly created ingredients
+                    // that all have id = 0
+                    var counter = 0
+                    recipe.defaultIngredients?.forEach {
+                        val ingredient = it
+                        val counterPosition = counter
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+
+                            IconButton(
+                                onClick = { vm.deleteIngredient(it.internalId, counterPosition) },
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .align(Alignment.CenterVertically)
+                            ) {
+                                Icon(Icons.Filled.Delete, "delete ingredient")
+                            }
+
+                            RecipeStringInput(
+                                // value = it.name,
+                                value = it.name,
+                                onValueChange = {
+                                    vm.updateIngredientName(
+                                        ingredient.internalId, it, counterPosition
+                                    )
+                                },
+                                wide = true
+                            )
+
+                            Row(horizontalArrangement = Arrangement.End) {
+
+                                RecipeNumberInput(
+                                    value = ingredient.quantity.quantity.toString(),
+                                    onValueChange = {
+                                        if (it.isNotBlank())
+                                            try {
+                                                val num = it.toFloat()
+                                                vm.updateIngredientAmount(
+                                                    ingredient.internalId, num, counterPosition
+                                                )
+                                            } catch (e: NumberFormatException) {
+                                            }
+                                    }
+                                )
+
+                                RecipeStringInput(
+                                    value = ingredient.quantity.unit,
+                                    onValueChange = {
+                                        vm.updateIngredientUnit(
+                                            ingredient.internalId, it, counterPosition
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                        if (it.internalId == 0L) {
+                            counter++
+                        }
+                    }
+                    Row() {
+                        IconButton(
+                            onClick = { vm.onAddIngredient(context) },
+                            modifier = Modifier
+                                .size(20.dp)
+                        ) {
+                            Icon(Icons.Filled.Add, "add ingredient")
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // cooking time
+                Text(
+                    // TODO Localization
+                    text = "Kochzeiten",
+                    modifier = Modifier
+                        .fillMaxWidth(0.85f)
+                        .wrapContentWidth(Alignment.Start)
+                        .padding(
+                            top = 4.dp,
+                            bottom = 2.dp,
+                        ),
+                    style = MaterialTheme.typography.h1
+                )
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        // TODO different icons
+                        Icon(
+                            painterResource(id = R.drawable.outdoor_grill),
+                            contentDescription = "active cooking time"
+                        )
+                        Text("Kochen")
+
+                        Row(horizontalArrangement = Arrangement.End) {
+                            RecipeNumberInput(
+                                value = recipe.timeActiveCooking?.value.toString(),
+                                onValueChange = {
+                                    if (it.isNotBlank())
+                                        try {
+                                            val num = it.toFloat()
+                                            vm.onUpdateActiveCookingTime(
+                                                num, recipe.timeActiveCooking?.unit ?: ""
+                                            )
+                                        } catch (e: NumberFormatException) {
+                                        }
+                                }
+                            )
+                            RecipeStringInput(
+                                value = recipe.timeActiveCooking?.unit ?: "",
+                                onValueChange = {
+                                    vm.onUpdateActiveCookingTime(
+                                        recipe.timeActiveCooking?.value ?: 0f, it
+                                    )
+                                }
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Icon(
+                            painterResource(id = R.drawable.set_meal),
+                            contentDescription = "preparation time"
+                        )
+                        Text("Vorbereitung")
+
+                        Row(horizontalArrangement = Arrangement.End) {
+                            RecipeNumberInput(
+                                value = recipe.timePreparation?.value.toString(),
+                                onValueChange = {
+                                    if (it.isNotBlank())
+                                        try {
+                                            val num = it.toFloat()
+                                            vm.onUpdatePreparationTime(
+                                                num, recipe.timePreparation?.unit ?: ""
+                                            )
+                                        } catch (e: NumberFormatException) {
+                                        }
+                                }
+                            )
+                            RecipeStringInput(
+                                value = recipe.timePreparation?.unit ?: "",
+                                onValueChange = {
+                                    vm.onUpdatePreparationTime(
+                                        recipe.timePreparation?.value ?: 0f, it
+                                    )
+                                }
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Icon(
+                            painterResource(id = R.drawable.access_time),
+                            contentDescription = "overall time"
+                        )
+                        Text("Gesamt")
+
+                        Row(horizontalArrangement = Arrangement.End) {
+                            RecipeNumberInput(
+                                value = recipe.timeOverall?.value.toString(),
+                                onValueChange = {
+                                    if (it.isNotBlank())
+                                        try {
+                                            val num = it.toFloat()
+                                            vm.onUpdateOverallCookingTime(
+                                                num, recipe.timeOverall?.unit ?: ""
+                                            )
+                                        } catch (e: NumberFormatException) {
+                                        }
+                                }
+                            )
+                            RecipeStringInput(
+                                value = recipe.timeOverall?.unit ?: "",
+                                onValueChange = {
+                                    vm.onUpdateOverallCookingTime(
+                                        recipe.timeOverall?.value ?: 0f, it
+                                    )
+                                }
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    // TODO Localization
+                    text = "Zubereitung",
+                    modifier = Modifier
+                        .wrapContentWidth(Alignment.Start)
+                        .padding(
+                            top = 4.dp,
+                            bottom = 2.dp,
+                        ),
+                    style = MaterialTheme.typography.h1
+                )
+                TextField(
+                    value = recipe.instructions ?: "",
+                    onValueChange = { vm.onUpdateInstructions(it) }
+                )
             }
         }
     }

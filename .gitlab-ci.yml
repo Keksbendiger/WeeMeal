@@ -24,13 +24,22 @@ stages:
 detekt:
   stage: build
   script:
+#    - ./gradlew
     - ./gradlew -Pci --console=plain detekt
   artifacts:
     paths:
-      - android-core/build/reports/detekt/detekt.*
+      - common/build/reports/detekt/detekt.*
       - app/build/reports/detekt/detekt.*
-      - data/build/reports/detekt/detekt.*
+      - data/local/build/reports/detekt/detekt.*
+      - data/remote/build/reports/detekt/detekt.*
+      - data/repository/build/reports/detekt/detekt.*
       - domain/build/reports/detekt/detekt.*
+      - feature/meal/build/reports/detekt/detekt.*
+      - feature/recipe/build/reports/detekt/detekt.*
+      - feature/shoppinglist/build/reports/detekt/detekt.*
+      - feature/weeklist/build/reports/detekt/detekt.*
+      - mocks/build/reports/detekt/detekt.*
+      - usecases/build/reports/detekt/detekt.*
 #  except:
 #    changes:
 #      - "**/*.md"
@@ -56,10 +65,18 @@ testDebug:
   artifacts:
     reports:
       junit:
-        - android-core/build/test-results/**/TEST-*.xml
+        - common/build/test-results/**/TEST-*.xml
         - app/build/test-results/**/TEST-*.xml
-        - data/build/test-results/**/TEST-*.xml
+        - data/local/build/test-results/**/TEST-*.xml
+        - data/remote/build/test-results/**/TEST-*.xml
+        - data/repository/build/test-results/**/TEST-*.xml
         - domain/build/test-results/**/TEST-*.xml
+        - feature/meal/build/test-results/**/TEST-*.xml
+        - feature/recipe/build/test-results/**/TEST-*.xml
+        - feature/shoppinglist/build/test-results/**/TEST-*.xml
+        - feature/weeklist/build/test-results/**/TEST-*.xml
+        - mocks/build/test-results/**/TEST-*.xml
+        - usecases/build/test-results/**/TEST-*.xml
 #  except:
 #    changes:
 #      - "**/*.md"

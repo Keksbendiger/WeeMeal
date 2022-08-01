@@ -3,6 +3,9 @@ package de.fhe.ai.weemeal.local.mapper
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
 
+/**
+ * Mapper for RecipeEntity and Recipe
+ */
 fun RecipeEntity.toDomain() = Recipe(
     internalId = this.id,
     name = this.name,
@@ -16,6 +19,9 @@ fun RecipeEntity.toDomain() = Recipe(
     tags = listOf()
 )
 
+/**
+ * Mapper for Recipe and RecipeEntity
+ */
 fun Recipe.fromDomain() = RecipeEntity(
     id = this.internalId,
     name = this.name,

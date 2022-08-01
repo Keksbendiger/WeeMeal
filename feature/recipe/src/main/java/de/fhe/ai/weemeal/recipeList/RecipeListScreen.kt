@@ -5,7 +5,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,77 +41,72 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import de.fhe.ai.weemeal.R
+import de.fhe.ai.weemeal.app.ui.screens.core.BottomBar
 import de.fhe.ai.weemeal.common.components.CustomChip
+import de.fhe.ai.weemeal.common.components.EmptyListText
 import de.fhe.ai.weemeal.common.components.ListComponent
-import de.fhe.ai.weemeal.common.components.SearchAppBar
-import de.fhe.ai.weemeal.common.theme.WeeMealTheme
+import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.RecipeMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-// @Preview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @Composable
 fun RecipeListScreen(
+    vm: RecipeListViewModel,
+    navController: NavController,
 //    recipeListState: RecipeListState,
 //    navHostController: NavHostController,
 //    onTriggerEvent: (RecipeListEvents) -> Unit,
 //    onClickOpenRecipe: (Int) -> Unit,
 //    onClickAddNewRecipe: () -> Unit
 ) {
-    WeeMealTheme(
-//        displayProgressBar = recipeListState.isLoading,
-    ) {
-        Scaffold(
-//            topBar = {
-//                AppBar(title = "Rezeptliste")
-//            },
-//            bottomBar = { BottomBar(navController) },
-
-            floatingActionButtonPosition = FabPosition.End,
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    elevation = FloatingActionButtonDefaults.elevation(6.dp)
-                ) {
-                    Icon(Filled.Add, "")
-                }
+    Scaffold(
+        bottomBar = { BottomBar(navController) },
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { vm.navigateToAddRecipe() },
+                backgroundColor = MaterialTheme.colors.primary,
+                elevation = FloatingActionButtonDefaults.elevation(6.dp)
+            ) {
+                Icon(Filled.Add, "")
             }
+        }
 
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Column {
-                    SearchAppBar(
-                        query = "", // recipeListState.query,
-                        onQueryChanged = {
-//                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
-                        },
-                        onExecuteSearch = {
-//                            onTriggerEvent(RecipeListEvents.NewSearch)
-                        },
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column {
+//                    SearchAppBar(
+//                        query = "", // recipeListState.query,
+//                        onQueryChanged = {
+// //                            onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
+//                        },
+//                        onExecuteSearch = {
+// //                            onTriggerEvent(RecipeListEvents.NewSearch)
+//                        },
+//                    )
+                var recipes: List<Recipe> = vm.recipeList
+
+                if (recipes.isNotEmpty()) {
+                    RecipeList(
+                        recipes = recipes,
+                        onClickRecipeDetail = { vm.navigateToRecipeDetail(it) },
+                        onClickRecipeEdit = { vm.navigateToRecipeEdit(it) }
                     )
-                    var recipes: List<Recipe>? = RecipeMock.generateList()
-
-//                  Nullcheck -> TODO: More elegant way possible? If else lol
-                    recipes?.let {
-                        RecipeList(recipes)
-                    } ?: kotlin.run {
-//                        TODO: String ressource location correct?
-                        Text(stringResource(de.fhe.ai.weemeal.recipe.R.string.no_recipes))
-                    }
+                } else {
+                    EmptyListText(text = "Noch keine Rezepte vorhanden...")
                 }
             }
         }
@@ -120,7 +114,11 @@ fun RecipeListScreen(
 }
 
 @Composable
-private fun RecipeList(recipes: List<Recipe>) {
+private fun RecipeList(
+    recipes: List<Recipe>,
+    onClickRecipeDetail: (Long) -> Unit,
+    onClickRecipeEdit: (Long) -> Unit
+) {
 //    TODO: Remember where list was left and move back to that index
 //    val listState = rememberLazyListState()
 
@@ -128,25 +126,43 @@ private fun RecipeList(recipes: List<Recipe>) {
         itemsIndexed(
             items = recipes
         ) { index, recipe ->
-            RecipeListItem(recipe = recipe)
+            RecipeListItem(
+                recipe = recipe,
+                onClickRecipeDetail = { onClickRecipeDetail(it) },
+                onClickRecipeEdit = { onClickRecipeEdit(it) }
+            )
         }
     }
 }
 
 @Composable
-private fun RecipeListItem(recipe: Recipe) {
+private fun RecipeListItem(
+    recipe: Recipe,
+    onClickRecipeDetail: (Long) -> Unit,
+    onClickRecipeEdit: (Long) -> Unit
+) {
     Card(
         backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
+            .padding(8.dp)
+            .shadow(elevation = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
             .fillMaxWidth()
     ) {
-        RecipeListItemContent(recipe = recipe)
+        RecipeListItemContent(
+            recipe = recipe,
+            onClickRecipeDetail = { onClickRecipeDetail(it) },
+            onClickRecipeEdit = { onClickRecipeEdit(it) }
+        )
     }
 }
 
 @Composable
-private fun RecipeListItemContent(recipe: Recipe) {
+private fun RecipeListItemContent(
+    recipe: Recipe,
+    onClickRecipeDetail: (Long) -> Unit,
+    onClickRecipeEdit: (Long) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
 
     val imagesize = 90.dp // also used for Column height of recipe name + expand icon
@@ -185,8 +201,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 ) {
                     Text(
                         text = recipe.name,
-                        style = MaterialTheme.typography.h6.copy(),
-                        modifier = Modifier
+                        style = MaterialTheme.typography.h6.copy()
                     )
 
                     // Buffer to make recipename not touch the expandicon
@@ -194,8 +209,7 @@ private fun RecipeListItemContent(recipe: Recipe) {
                 }
 
                 IconButton(
-//                    TODO: Navigate to Edit Recipe Screen
-                    onClick = { },
+                    onClick = { onClickRecipeEdit(recipe.internalId) },
                     modifier = Modifier
                         .align(Alignment.Top)
                 ) {
@@ -220,7 +234,10 @@ private fun RecipeListItemContent(recipe: Recipe) {
         }
 
         if (expanded) {
-            RecipeListItemContentExpanded(recipe = recipe)
+            RecipeListItemContentExpanded(
+                recipe = recipe,
+                onClickRecipeDetail = { onClickRecipeDetail(it) }
+            )
             Icon(
                 painter = painterResource(id = R.drawable.ic_expand_less),
                 contentDescription = stringResource(R.string.show_less),
@@ -233,9 +250,12 @@ private fun RecipeListItemContent(recipe: Recipe) {
 }
 
 @Composable
-private fun RecipeListItemContentExpanded(recipe: Recipe) {
+private fun RecipeListItemContentExpanded(
+    recipe: Recipe,
+    onClickRecipeDetail: (Long) -> Unit
+) {
     Column(Modifier.fillMaxWidth()) {
-        Text(text = "Some Recipe Info:")
+//        Text(text = "Some Recipe Info:")
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -269,59 +289,26 @@ private fun RecipeListItemContentExpanded(recipe: Recipe) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-//        TODO: Button with Text+Icon could be reusable Composable
-        IconButton(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .background(MaterialTheme.colors.primary)
-                .align(CenterHorizontally)
-
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(8.dp)
-            ) {
-                Text(text = "Zu Wochenplan hinzufügen", color = MaterialTheme.colors.onPrimary)
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(Icons.Filled.Add, "", tint = MaterialTheme.colors.onPrimary)
-            }
-        }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        IconButton(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .background(MaterialTheme.colors.primary)
-                .align(CenterHorizontally)
-
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(8.dp)
-            ) {
-                Text(text = "Rezept ansehen", color = MaterialTheme.colors.onPrimary)
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(Icons.Filled.Search, "", tint = MaterialTheme.colors.onPrimary)
-            }
-        }
+        TextAndIconButton(
+            "Rezept ansehen",
+            Icons.Filled.Search,
+            onClick = { onClickRecipeDetail(recipe.internalId) }
+        )
     }
 }
 
-@Preview
-@Composable
-fun DefaultPreview() {
-    WeeMealTheme {
-        RecipeList(recipes = RecipeMock.generateList())
-    }
-}
-
-@Preview
-@Composable
-fun ContentExpandedPreview() {
-    WeeMealTheme {
-        RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
-    }
-}
+// @Preview
+// @Composable
+// fun DefaultPreview() {
+//    WeeMealTheme {
+//        RecipeList(recipes = RecipeMock.generateList())
+//    }
+// }
+//
+// @Preview
+// @Composable
+// fun ContentExpandedPreview() {
+//    WeeMealTheme {
+//        RecipeListItemContentExpanded(recipe = RecipeMock.generateSingleObject())
+//    }
+// }

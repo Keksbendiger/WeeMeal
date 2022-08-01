@@ -7,6 +7,9 @@ import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepositoryImpl
 import org.koin.dsl.module
 
+/**
+ * dependency injection for the repository layer
+ */
 val repository = module {
     single<RecipeRepository> {
         RecipeRepositoryImpl(

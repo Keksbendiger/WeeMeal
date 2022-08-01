@@ -6,7 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.mocks.local.RecipeEntityMock
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertNotNull
@@ -97,7 +96,7 @@ class RecipeEntityTest {
         }
         recipeEntityDao.insert(RecipeEntityMock.generateSingleObject(name = "FrontSubstringBack"))
 
-        val recipeEntityListResult = recipeEntityDao.search("Substring").first()
+        val recipeEntityListResult = recipeEntityDao.search("Substring")
 
         assertTrue("Loaded diary entry should not be empty", recipeEntityListResult.isNotEmpty())
         recipeEntityListResult.forEach() {
