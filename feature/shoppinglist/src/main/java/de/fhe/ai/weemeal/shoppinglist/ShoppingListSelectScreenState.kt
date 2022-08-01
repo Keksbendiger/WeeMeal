@@ -8,6 +8,11 @@ data class ShoppingListSelectScreenState(var shoppingList: ShoppingList)
 
 data class MealOnlyForView(
     var meal: Meal,
-    var borderColor: CookColor = CookColor.RED,
+    var borderColor: CookColor = CookColor.TRANSPARENT,
     var selected: Boolean = false
+)
+
+data class MealOnlyForViewWithCounter(
+    var mealOnlyForViewList: MutableList<MealOnlyForView>,
+    var counter: Int = 0
 )

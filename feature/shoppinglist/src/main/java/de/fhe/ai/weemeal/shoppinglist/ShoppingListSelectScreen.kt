@@ -61,7 +61,7 @@ fun ShoppingListSelectScreen(
     vm: ShoppingListSelectScreenViewModel,
     navController: NavController,
 ) {
-    val meals: List<MealOnlyForView>? = vm.mealList
+    val meals = vm.stateListOfMeal.value.mealOnlyForViewList
     Scaffold(
         bottomBar = { BottomBar(navController) },
         floatingActionButtonPosition = FabPosition.End,
@@ -74,13 +74,10 @@ fun ShoppingListSelectScreen(
                 Icon(Icons.Filled.Done, "")
             }
         }
-
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
-
-
-                meals?.let {
+                meals.let {
                     WeekList(
                         meals,
                         onClickAddToShoppingList = { vm.onClickAddToShoppingList(it) })
@@ -95,12 +92,12 @@ fun ShoppingListSelectScreen(
 
 @Composable
 private fun WeekList(
-    meals: List<MealOnlyForView>,
+    meals: MutableList<MealOnlyForView>,
     onClickAddToShoppingList: (Long) -> Unit
 ) {
     LazyColumn {
         items(7) { index ->
-            var day = getDaysAhead(index)
+            val day = getDaysAhead(index)
             WeekListDay(
                 meals,
                 day,
@@ -111,11 +108,10 @@ private fun WeekList(
 
 @Composable
 private fun WeekListDay(
-    meals: List<MealOnlyForView>,
+    meals: MutableList<MealOnlyForView>,
     day: Date,
     onClickAddToShoppingList: (Long) -> Unit
 ) {
-
     for (meal in meals) {
         if (meal.meal.cookingDate.day == day.day && meal.meal.cookingDate.month == day.month && meal.meal.cookingDate.date == day.date) {
             Row(
@@ -140,7 +136,6 @@ private fun WeekListDay(
             break
         }
     }
-
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
             if (meal.meal.cookingDate.day == day.day && meal.meal.cookingDate.month == day.month && meal.meal.cookingDate.date == day.date) {
@@ -157,61 +152,35 @@ fun MealListItem(
     meal: MealOnlyForView,
     onClickAddToShoppingList: (Long) -> Unit
 ) {
-    if (meal.selected) {
-        Card(
-            modifier = Modifier
-                .padding(8.dp)
-                .shadow(elevation = 8.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .height(150.dp)
-                .width(150.dp)
-                .border(
-                    width = 2.dp,
-                    color = Color(meal.borderColor.color.toColorInt()),
-                    shape = RoundedCornerShape(8.dp)
-                )
-        ) {
-
-            Image(
-                modifier = Modifier.clickable(onClick = { onClickAddToShoppingList(meal.meal.internalId) }),
-                painter = painterResource(id = meal.meal.recipe.image),
-                contentDescription = "Dummy Image"
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .shadow(elevation = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .height(150.dp)
+            .width(150.dp)
+            .border(
+                width = 2.dp,
+                color = Color(meal.borderColor.color.toColorInt()),
+                shape = RoundedCornerShape(8.dp)
             )
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                ServingsOfTheMeal(meal = meal.meal)
-                MealName(meal = meal.meal)
-            }
-        }
-    } else {
-        Card(
-            modifier = Modifier
-                .padding(8.dp)
-                .shadow(elevation = 8.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .height(150.dp)
-                .width(150.dp)
+    ) {
+        Image(
+            modifier = Modifier.clickable(onClick = { onClickAddToShoppingList(meal.meal.internalId) }),
+            painter = painterResource(id = meal.meal.recipe.image),
+            contentDescription = "Dummy Image"
+        )
+        Column(
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(
-                modifier = Modifier.clickable(onClick = { onClickAddToShoppingList(meal.meal.internalId) }),
-                painter = painterResource(id = meal.meal.recipe.image),
-                contentDescription = "Dummy Image"
-            )
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                ServingsOfTheMeal(meal = meal.meal)
-                MealName(meal = meal.meal)
-            }
+            ServingsOfTheMeal(meal = meal.meal)
+            MealName(meal = meal.meal)
         }
     }
-
 }
 
 @Composable
 fun MealName(meal: Meal) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -226,9 +195,7 @@ fun MealName(meal: Meal) {
             ),
             modifier = Modifier
                 .height(26.dp)
-                .padding(horizontal = 4.dp),
-//            modifier = Modifier
-//                .align(Alignment.Bottom)
+                .padding(horizontal = 4.dp)
         )
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
+import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.models.ShoppingList
@@ -23,9 +24,11 @@ class ShoppingListSelectScreenViewModel(
     KoinComponent {
     private val getFutureMeals: GetFutureMeals by inject()
 
-    var mealList by mutableStateOf(emptyList<MealOnlyForView>().toMutableList())
+
     var shoppingList: ShoppingList = ShoppingList(0, emptyList())
     var state = MutableStateFlow(ShoppingListSelectScreenState(shoppingList))
+    var stateListOfMeal =
+        MutableStateFlow(MealOnlyForViewWithCounter(emptyList<MealOnlyForView>().toMutableList()))
 
 
     init {
@@ -36,29 +39,33 @@ class ShoppingListSelectScreenViewModel(
         viewModelScope.launch {
             val meals: List<Meal> = getFutureMeals.execute()
             for (meal in meals) {
-                var mealOnlyForView = MealOnlyForView(meal)
-                mealList.add(mealOnlyForView)
+                val mealOnlyForView = MealOnlyForView(meal)
+                stateListOfMeal.value.mealOnlyForViewList.add(mealOnlyForView)
             }
         }
     }
 
 
     fun onClickAddToShoppingList(mealId: Long) {
-        for (meal in mealList) {
+        val tempList: MutableList<MealOnlyForView> = stateListOfMeal.value.mealOnlyForViewList
+        for (meal in tempList) {
             if (meal.meal.internalId == mealId) {
                 if (meal.selected == false) {
                     meal.selected = true
+                    meal.borderColor = CookColor.RED
                 } else {
                     meal.selected = false
+                    meal.borderColor = CookColor.TRANSPARENT
                 }
             }
         }
+        stateListOfMeal.value = stateListOfMeal.value.copy(counter = stateListOfMeal.value.counter +1, mealOnlyForViewList = tempList)
     }
 
 
     fun navigateToShoppingList() {
         var tempIngredientList: List<Ingredient> = emptyList<Ingredient>().toMutableList()
-        for (meal in mealList) {
+        for (meal in stateListOfMeal.value.mealOnlyForViewList) {
             if (meal.selected) {
                 tempIngredientList = state.value.shoppingList.items.toMutableList()
                 for (ingredient in meal.meal.recipe.defaultIngredients!!) {
@@ -71,5 +78,4 @@ class ShoppingListSelectScreenViewModel(
 
         navigationManager.navigate(Screen.ShoppingList.navigationCommand(/*state.value.shoppingList.internalId*/))
     }
-
 }
