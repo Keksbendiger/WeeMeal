@@ -25,26 +25,26 @@ class ShoppingListSelectScreenViewModel(
     KoinComponent {
     private val getFutureMeals: GetFutureMeals by inject()
 
-
     var shoppingList: ShoppingList = ShoppingList(0, emptyList())
-    var state = MutableStateFlow(ShoppingListSelectScreenState(shoppingList))
     var stateListOfMeal = mutableStateOf(MealOnlyForViewWithCounter(mutableListOf()))
-
 
     init {
         this.getMealsFromDb()
     }
 
     private fun getMealsFromDb() {
+
+        var tempMealListOnlyForView = stateListOfMeal.value.mealOnlyForViewList
+        var mealOnlyForView: MealOnlyForView
         viewModelScope.launch {
             val meals: List<Meal> = getFutureMeals.execute()
             for (meal in meals) {
-                val mealOnlyForView = MealOnlyForView(meal)
-                stateListOfMeal.value.mealOnlyForViewList.add(mealOnlyForView)
+                mealOnlyForView = MealOnlyForView(meal)
+                tempMealListOnlyForView.add(mealOnlyForView)
             }
+            stateListOfMeal.value = stateListOfMeal.value.copy(counter = stateListOfMeal.value.counter +1, mealOnlyForViewList = tempMealListOnlyForView)
         }
     }
-
 
     fun onClickAddToShoppingList(mealId: Long) {
         val tempList: MutableList<MealOnlyForView> = stateListOfMeal.value.mealOnlyForViewList
@@ -65,20 +65,17 @@ class ShoppingListSelectScreenViewModel(
         )
     }
 
-
     fun navigateToShoppingList() {
-        var tempIngredientList: List<Ingredient> = emptyList<Ingredient>().toMutableList()
+        val tempIngredientList: MutableList<Ingredient> = emptyList<Ingredient>().toMutableList()
         for (meal in stateListOfMeal.value.mealOnlyForViewList) {
             if (meal.selected) {
-                tempIngredientList = state.value.shoppingList.items.toMutableList()
                 for (ingredient in meal.meal.recipe.defaultIngredients!!) {
                     tempIngredientList.add(ingredient)
                 }
             }
         }
         var newShoppingList = ShoppingList(0, tempIngredientList)
-        state.value = state.value.copy(shoppingList = newShoppingList)
 
-        navigationManager.navigate(Screen.ShoppingList.navigationCommand(/*state.value.shoppingList.internalId*/))
+        navigationManager.navigate(Screen.ShoppingList.navigationCommand(/*newShoppingList.internalId*/))
     }
 }

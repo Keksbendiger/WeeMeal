@@ -27,7 +27,7 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     private val getFutureMeals: GetFutureMeals by inject()
     private val prepareHCIUsabilityTest: PrepareHCIUsabilityTest by inject()
 
-    var state = MutableStateFlow(WeekListState())
+    var state = mutableStateOf(WeekListState())
     var mealList by mutableStateOf(emptyList<Meal>())
 
     init {
@@ -72,8 +72,8 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
                 }
                 weekDays.add(WeekDay(day, internalMealDayList))
             }
+            state.value = state.value.copy(weekdays = weekDays)
         }
-        state.value.weekdays = weekDays
     }
 
     fun navigateToAddRecipeToWeekList(cookingDateDaysAhead: Long) {
