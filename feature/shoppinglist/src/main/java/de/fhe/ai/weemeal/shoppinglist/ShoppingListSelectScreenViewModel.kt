@@ -28,8 +28,7 @@ class ShoppingListSelectScreenViewModel(
 
     var shoppingList: ShoppingList = ShoppingList(0, emptyList())
     var state = MutableStateFlow(ShoppingListSelectScreenState(shoppingList))
-    var stateListOfMeal =
-        MutableStateFlow(MealOnlyForViewWithCounter(emptyList<MealOnlyForView>().toMutableList()))
+    var stateListOfMeal = mutableStateOf(MealOnlyForViewWithCounter(mutableListOf()))
 
 
     init {
