@@ -1,10 +1,14 @@
 package de.fhe.ai.weemeal.repository.di
 
 import de.fhe.ai.weemeal.local.WeeMealDatabase
+import de.fhe.ai.weemeal.local.dao.IngredientEntityDao
+import de.fhe.ai.weemeal.local.dao.ShoppingListEntityDao
 import de.fhe.ai.weemeal.repository.meal.MealRepository
 import de.fhe.ai.weemeal.repository.meal.MealRepositoryImpl
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepository
 import de.fhe.ai.weemeal.repository.recipe.RecipeRepositoryImpl
+import de.fhe.ai.weemeal.repository.shoppingList.ShoppingListRepository
+import de.fhe.ai.weemeal.repository.shoppingList.ShoppingListRepositoryImpl
 import org.koin.dsl.module
 
 /**
@@ -26,4 +30,13 @@ val repository = module {
             mealEntityDao = WeeMealDatabase.getMealEntityDao(get())
         )
     }
+
+    single<ShoppingListRepository> {
+        ShoppingListRepositoryImpl(
+            shoppingListEntityDao = WeeMealDatabase.getShoppingListEntityDao(get()),
+            ingredientEntityDao = WeeMealDatabase.getIngredientEntityDao(get()),
+        )
+    }
+
+
 }

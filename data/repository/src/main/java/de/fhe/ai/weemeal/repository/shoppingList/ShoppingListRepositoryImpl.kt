@@ -13,40 +13,45 @@ class ShoppingListRepositoryImpl(
     private val ingredientEntityDao: IngredientEntityDao,
 ) : ShoppingListRepository {
 
-    override suspend fun getShoppingList(): ShoppingList {
+    override suspend fun getShoppingList(): ShoppingList? {
         Timber.i("Get ShoppingList from database by ID")
         val internalShoppingList: MutableList<Ingredient> = mutableListOf()
 
-        shoppingListEntityDao.getAllByShoppingListId(0)
-            .forEach { shoppingListEntity ->
-                ingredientEntityDao.get(shoppingListEntity.ingredientId)?.let {
+        shoppingListEntityDao.getAll().let{ shoppingListEntityList ->
+            shoppingListEntityList.forEach { shoppingListEntity ->
+
+                ingredientEntityDao.get(shoppingListEntity.ingredientId)?.let {ingredientEntity ->
                     internalShoppingList.add(
-                        it.toDomain()
+                        ingredientEntity.toDomain()
                     )
                 }
             }
 
-        return ShoppingList(
-            internalId = 0,
-            items = internalShoppingList
-        )
+
+        }
+        if(internalShoppingList.isNotEmpty()) {
+            return ShoppingList(
+                items = internalShoppingList
+            )
+        }else{
+            return null
+        }
 
     }
 
     override suspend fun insertShoppingList(shoppingList: ShoppingList): Long {
+        shoppingListEntityDao.deleteAll()
         shoppingList.items.forEach { ingredient ->
             shoppingListEntityDao.insert(
                 ShoppingListEntity(
-                    shoppingListId = shoppingList.internalId,
                     ingredientId = ingredient.internalId
                 )
             )
         }
-
         return shoppingList.internalId
     }
 
-    override suspend fun deleteShoppingList(shoppingList: ShoppingList) {
+    override suspend fun deleteShoppingList() {
         shoppingListEntityDao.deleteAll()
     }
 }

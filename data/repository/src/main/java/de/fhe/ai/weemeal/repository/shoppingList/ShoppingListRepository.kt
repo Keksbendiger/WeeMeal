@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface ShoppingListRepository {
     suspend fun getShoppingList(): ShoppingList?
     suspend fun insertShoppingList(shoppingList: ShoppingList) : Long
-    suspend fun deleteShoppingList(shoppingList: ShoppingList)
+    suspend fun deleteShoppingList()
 }

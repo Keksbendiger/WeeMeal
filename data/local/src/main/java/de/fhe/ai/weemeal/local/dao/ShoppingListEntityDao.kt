@@ -19,9 +19,6 @@ interface ShoppingListEntityDao {
     @Query("SELECT * FROM ShoppingListEntity")
     suspend fun getAll(): List<ShoppingListEntity>
 
-    @Query("SELECT * FROM ShoppingListEntity WHERE shoppingListId = :shoppingListId")
-    suspend fun getAllByShoppingListId(shoppingListId: Long): List<ShoppingListEntity>
-
     @Insert
     suspend fun insert(entity: ShoppingListEntity): Long
 
