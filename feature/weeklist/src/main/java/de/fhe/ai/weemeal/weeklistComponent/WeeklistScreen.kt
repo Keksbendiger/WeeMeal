@@ -75,7 +75,7 @@ fun WeeklistScreen(
                     meals = meals,
                     onClickAddToWeekList = { vm.navigateToAddRecipeToWeekList(it) },
                     onClickNavigateToMeal = { vm.navigateToMealDetail(it) },
-                    onClickUpdateDaysInWeekList = { vm.addDayToWeekList() }
+                    onClickUpdateDaysInWeekList = { vm.addWeekToWeekList() }
                 )
             }
         }
@@ -103,7 +103,7 @@ private fun WeekList(
         }
         item {
             TextAndIconButton(
-                text = "Neuen Tag hinzufügen",
+                text = "Neuen Woche hinzufügen",
                 icon = Icons.Filled.Add,
                 onClick = { onClickUpdateDaysInWeekList() }
             )
