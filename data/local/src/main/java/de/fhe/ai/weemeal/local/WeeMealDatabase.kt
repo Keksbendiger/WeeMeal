@@ -17,6 +17,7 @@ import de.fhe.ai.weemeal.local.entity.MealEntity
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
 import de.fhe.ai.weemeal.local.entity.RecipeTagEntity
+import de.fhe.ai.weemeal.local.entity.ShoppingListEntity
 import de.fhe.ai.weemeal.local.entity.TagEntity
 import de.fhe.ai.weemeal.local.mapper.Converters
 
@@ -31,8 +32,9 @@ import de.fhe.ai.weemeal.local.mapper.Converters
         RecipeIngredientEntity::class,
         RecipeTagEntity::class,
         TagEntity::class,
+        ShoppingListEntity::class,
     ],
-    version = 4
+    version = 5
 )
 
 /**

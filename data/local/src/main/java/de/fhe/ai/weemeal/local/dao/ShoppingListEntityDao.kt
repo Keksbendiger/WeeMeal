@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
+import de.fhe.ai.weemeal.local.entity.RecipeTagEntity
 import de.fhe.ai.weemeal.local.entity.ShoppingListEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,6 +15,9 @@ import kotlinx.coroutines.flow.Flow
 interface ShoppingListEntityDao {
     @Query("SELECT * FROM ShoppingListEntity WHERE id = :id")
     suspend fun get(id: Long): ShoppingListEntity?
+
+    @Query("SELECT * FROM ShoppingListEntity")
+    suspend fun getAll(): List<ShoppingListEntity>
 
     @Query("SELECT * FROM ShoppingListEntity WHERE shoppingListId = :shoppingListId")
     suspend fun getAllByShoppingListId(shoppingListId: Long): List<ShoppingListEntity>
