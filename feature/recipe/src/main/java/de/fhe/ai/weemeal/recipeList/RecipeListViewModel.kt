@@ -21,7 +21,7 @@ class RecipeListViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val searchRecipes: SearchRecipes by inject()
-    private val saveRecipe: SaveRecipe by inject()
+//    private val saveRecipe: SaveRecipe by inject()
 
     // See https://code.luasoftware.com/tutorials/android/jetpack-compose-load-data/
 //    var dbOp by mutableStateOf(AsyncOperation.undefined())
