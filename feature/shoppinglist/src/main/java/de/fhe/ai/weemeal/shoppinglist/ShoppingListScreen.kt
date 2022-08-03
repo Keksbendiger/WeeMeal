@@ -92,7 +92,7 @@ fun ShoppingListItem(ingredient: Ingredient) {
             ) {
                 //            TODO: Use Image of Food/Recipe
                 Icon(
-                    imageVector = Filled.Face,
+                    imageVector = ingredient.image,
                     contentDescription = "Dummy-Image",
                     modifier = Modifier.size(70.dp)
                 )

@@ -55,10 +55,10 @@ class ShoppingListRepositoryImpl(
         shoppingListEntityDao.deleteAll()
     }
 
-    override suspend fun getShoppingListByID(shoppingListId: Long): ShoppingListEntity {
+    /*override suspend fun getShoppingListByID(shoppingListId: Long): ShoppingListEntity {
 
         val shoppingList = shoppingListEntityDao.get(shoppingListId)
 
         return shoppingList
-    }
+    }*/
 }

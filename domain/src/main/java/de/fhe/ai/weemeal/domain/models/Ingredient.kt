@@ -6,7 +6,7 @@ import de.fhe.ai.weemeal.domain.formats.QuantityFormat
 data class Ingredient(
     override var internalId: Long = 0,
     var name: String,
-    val image: String? = "",
+    val image: Int = de.fhe.ai.weemeal.domain.R.drawable.ingredients_placeholde,
     var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"),
 ) : BaseModel {
 

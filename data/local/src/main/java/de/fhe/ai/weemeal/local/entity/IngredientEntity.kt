@@ -9,6 +9,6 @@ data class IngredientEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
     val name: String,
-    val image: String? = "",
+    val image: Int = de.fhe.ai.weemeal.R.drawable.recipe_placeholder,
     var quantity: QuantityFormat = QuantityFormat(quantity = 0.0f, unit = "ml"),
 )

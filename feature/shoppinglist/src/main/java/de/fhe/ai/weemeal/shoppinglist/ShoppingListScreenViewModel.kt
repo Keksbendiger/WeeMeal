@@ -19,22 +19,22 @@ class ShoppingListScreenViewModel(
     ViewModel(),
     KoinComponent {
 
-    private val getMeal: GetMealById by inject()
-    private val getShoppingList: GetShoppingList by inject()
+    //private val getMeal: GetMealById by inject()
+    //private val getShoppingList: GetShoppingList by inject()
 
 
     var ingredientsList by mutableStateOf(emptyList<Ingredient>())
 
-    init {
+    /*init {
         this.getIngredientsFromDb()
-    }
+    }*/
 
-    private fun getIngredientsFromDb() {
+    /*private fun getIngredientsFromDb() {
 
         viewModelScope.launch {
             val shoppingList = getShoppingList.execute()
         }
-    }
+    }*/
 
 
 }

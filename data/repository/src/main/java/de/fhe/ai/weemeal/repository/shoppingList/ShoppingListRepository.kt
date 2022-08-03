@@ -6,7 +6,6 @@ import de.fhe.ai.weemeal.local.entity.ShoppingListEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ShoppingListRepository {
-    suspend fun getShoppingListByID(shoppingListId: Long): ShoppingListEntity
     suspend fun getShoppingList(): ShoppingList?
     suspend fun insertShoppingList(shoppingList: ShoppingList) : Long
     suspend fun deleteShoppingList()
