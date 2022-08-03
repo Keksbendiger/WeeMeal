@@ -112,8 +112,6 @@ sealed class Screen(
             )
             override val destination = "RecipeEdit/${value[0]}"
         }
-        // TODO: Handle Backstack because this screen can be reached via Meal or Recipe and we
-        //         want to be able to go back accordingly...
     }
 
     object RecipeList : Screen(
