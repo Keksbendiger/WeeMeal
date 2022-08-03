@@ -10,9 +10,9 @@ class GetRecipes : KoinComponent {
     private val recipeRepository: RecipeRepository by inject()
 
     /**
-     * TODO
+     * Gets all Recipes from DB
      *
-     * @return DataState
+     * @return List<Recipe>
      */
     suspend fun execute(): List<Recipe> {
 

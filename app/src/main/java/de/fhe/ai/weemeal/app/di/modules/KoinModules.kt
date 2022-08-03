@@ -5,10 +5,15 @@ import de.fhe.ai.weemeal.common.logger.LoggerImpl
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.local.WeeMealDatabase
 import de.fhe.ai.weemeal.mealDetail.MealDetailsViewModel
+import de.fhe.ai.weemeal.recipeDetail.RecipeDetailsViewModel
 import de.fhe.ai.weemeal.recipeDetail.RecipeEditViewModel
+import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.repository.di.repository
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreenViewModel
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import de.fhe.ai.weemeal.usecases.di.usecases
+import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
@@ -50,8 +55,16 @@ val databaseModule = module {
 // }
 
 val viewModelModule = module {
-    viewModel { MealDetailsViewModel() }
-    viewModel { RecipeEditViewModel() }
+    viewModel { MealDetailsViewModel(get(), get()) }
+    viewModel { RecipeEditViewModel(get(), get()) }
+    viewModel { RecipeDetailsViewModel(get(), get()) }
     viewModel { RecipeListViewModel(get()) }
+    viewModel { WeekListViewModel(get()) }
+    viewModel { ShoppingListSelectScreenViewModel(get()) }
+    viewModel { AddRecipeToWeekListViewModel(get(), get()) }
+    viewModel { ShoppingListScreenViewModel(get())}
+
+
+
 //    TODO: Add all used viewmodels here
 }

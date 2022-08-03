@@ -1,5 +1,6 @@
 package de.fhe.ai.weemeal.repository.meal
 
+import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.local.dao.MealEntityDao
 import de.fhe.ai.weemeal.local.mapper.fromDomain
@@ -72,5 +73,20 @@ class MealRepositoryImpl(
 
     override suspend fun deleteAllMeals() {
         mealEntityDao.deleteAll()
+    }
+
+    override suspend fun getAllMealsWhereDateIsTodayOrLater(): List<Meal> {
+        val mealList = mutableListOf<Meal>()
+
+        val day = getDaysAhead(0)
+        day.hours = 0
+        day.minutes = 0
+        day.seconds = 0
+
+        mealEntityDao.getAllMealsWhereDateIsTodayOrLater(day).forEach {
+            getMeal(it.id)?.let { meal -> mealList.add(meal) }
+        }
+
+        return mealList
     }
 }

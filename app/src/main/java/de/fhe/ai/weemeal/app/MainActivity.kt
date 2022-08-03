@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
             androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
         }
         setContent {
-//            Navigation()
             WeeMealTheme {
                 Surface {
                     AppScaffold()

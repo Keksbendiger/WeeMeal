@@ -10,15 +10,20 @@ import de.fhe.ai.weemeal.local.dao.MealEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeIngredientEntityDao
 import de.fhe.ai.weemeal.local.dao.RecipeTagEntityDao
+import de.fhe.ai.weemeal.local.dao.ShoppingListEntityDao
 import de.fhe.ai.weemeal.local.dao.TagEntityDao
 import de.fhe.ai.weemeal.local.entity.IngredientEntity
 import de.fhe.ai.weemeal.local.entity.MealEntity
 import de.fhe.ai.weemeal.local.entity.RecipeEntity
 import de.fhe.ai.weemeal.local.entity.RecipeIngredientEntity
 import de.fhe.ai.weemeal.local.entity.RecipeTagEntity
+import de.fhe.ai.weemeal.local.entity.ShoppingListEntity
 import de.fhe.ai.weemeal.local.entity.TagEntity
 import de.fhe.ai.weemeal.local.mapper.Converters
 
+/**
+ * Describes the Entities fot the local database.
+ */
 @Database(
     entities = [
         IngredientEntity::class,
@@ -27,9 +32,14 @@ import de.fhe.ai.weemeal.local.mapper.Converters
         RecipeIngredientEntity::class,
         RecipeTagEntity::class,
         TagEntity::class,
+        ShoppingListEntity::class,
     ],
-    version = 3
+    version = 5
 )
+
+/**
+ * Is a singleton WeeMeal Database with all DAOs.
+ */
 @TypeConverters(Converters::class)
 abstract class WeeMealDatabase : RoomDatabase() {
     abstract fun ingredientEntityDao(): IngredientEntityDao
@@ -38,6 +48,7 @@ abstract class WeeMealDatabase : RoomDatabase() {
     abstract fun recipeIngredientEntityDao(): RecipeIngredientEntityDao
     abstract fun recipeTagEntityDao(): RecipeTagEntityDao
     abstract fun tagEntityDao(): TagEntityDao
+    abstract fun shoppingListEntityDao(): ShoppingListEntityDao
 
     companion object {
         var db: WeeMealDatabase? = null
@@ -75,6 +86,10 @@ abstract class WeeMealDatabase : RoomDatabase() {
 
         fun getTagEntityDao(app: Context): TagEntityDao {
             return getDatabase(app).tagEntityDao()
+        }
+
+        fun getShoppingListEntityDao(app: Context): ShoppingListEntityDao {
+            return getDatabase(app).shoppingListEntityDao()
         }
     }
 }

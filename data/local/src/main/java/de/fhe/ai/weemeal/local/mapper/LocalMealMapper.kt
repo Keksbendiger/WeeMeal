@@ -4,6 +4,9 @@ import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.models.Recipe
 import de.fhe.ai.weemeal.local.entity.MealEntity
 
+/**
+ * Mapper for MealEntity and Meal
+ */
 fun MealEntity.toDomain() = Meal(
     internalId = this.id,
     recipe = Recipe(),
@@ -13,6 +16,9 @@ fun MealEntity.toDomain() = Meal(
     shoppingListCreatedAt = this.shoppingListCreatedAt,
 )
 
+/**
+ * Mapper for Meal and MealEntity
+ */
 fun Meal.fromDomain() = MealEntity(
     id = this.internalId,
     recipeId = recipe.internalId,

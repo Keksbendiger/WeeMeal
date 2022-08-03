@@ -12,7 +12,7 @@ object MealEntityMock {
         id: Long = 0,
         recipeId: Long = faker.number.between(1, 10).toLong(), // TODO: could cause an error
         servings: Int? = faker.number.between(1, 10),
-        cookColor: CookColor? = CookColor.getRandom(),
+        cookColor: CookColor = CookColor.getRandom(),
         cookingDate: Date = faker.date.forward(),
         shoppingListCreatedAt: Date = faker.date.forward(),
 

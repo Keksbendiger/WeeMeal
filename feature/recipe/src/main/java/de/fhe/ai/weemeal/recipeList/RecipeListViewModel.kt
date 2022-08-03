@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.models.Recipe
-import de.fhe.ai.weemeal.mocks.RecipeMock
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
 import kotlinx.coroutines.launch
@@ -30,12 +29,12 @@ class RecipeListViewModel(
     var recipeList by mutableStateOf(emptyList<Recipe>())
 
     init {
-        val mockRecipes = RecipeMock.generateList()
-        viewModelScope.launch {
-            for (mockRecipe in mockRecipes) {
-                saveRecipe.execute(mockRecipe)
-            }
-        }
+//        val mockRecipes = RecipeMock.generateList()
+//        viewModelScope.launch {
+//            for (mockRecipe in mockRecipes) {
+//                saveRecipe.execute(mockRecipe)
+//            }
+//        }
         this.getRecipesFromDb()
     }
 
@@ -64,12 +63,7 @@ class RecipeListViewModel(
 //    }
 
     fun navigateToAddRecipe() {
-        navigationManager.navigate(Screen.RecipeEdit.navigationCommand())
-    }
-
-    fun navigateToAddToWeekList() {
-        // TODO: Give recipeId and add it to Today
-        navigationManager.navigate(Screen.WeekList.navigationCommand())
+        navigationManager.navigate(Screen.RecipeEdit.navigationCommand(0))
     }
 
     fun navigateToRecipeDetail(recipeId: Long) {
