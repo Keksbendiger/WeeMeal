@@ -12,7 +12,9 @@ import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.domain.models.ShoppingList
+import de.fhe.ai.weemeal.usecases.shoppingList.SaveShoppingList
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
+import java.util.Date
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -24,6 +26,7 @@ class ShoppingListSelectScreenViewModel(
     ViewModel(),
     KoinComponent {
     private val getFutureMeals: GetFutureMeals by inject()
+    private val saveShoppingList: SaveShoppingList by inject()
 
     var shoppingList: ShoppingList = ShoppingList(0, emptyList())
     var stateListOfMeal = mutableStateOf(MealOnlyForViewWithCounter(mutableListOf()))
@@ -39,10 +42,15 @@ class ShoppingListSelectScreenViewModel(
         viewModelScope.launch {
             val meals: List<Meal> = getFutureMeals.execute()
             for (meal in meals) {
-                mealOnlyForView = MealOnlyForView(meal)
-                tempMealListOnlyForView.add(mealOnlyForView)
+                if (meal.shoppingListCreatedAt == null) {
+                    mealOnlyForView = MealOnlyForView(meal)
+                    tempMealListOnlyForView.add(mealOnlyForView)
+                }
             }
-            stateListOfMeal.value = stateListOfMeal.value.copy(counter = stateListOfMeal.value.counter +1, mealOnlyForViewList = tempMealListOnlyForView)
+            stateListOfMeal.value = stateListOfMeal.value.copy(
+                counter = stateListOfMeal.value.counter + 1,
+                mealOnlyForViewList = tempMealListOnlyForView
+            )
         }
     }
 
@@ -67,14 +75,21 @@ class ShoppingListSelectScreenViewModel(
 
     fun navigateToShoppingList() {
         val tempIngredientList: MutableList<Ingredient> = emptyList<Ingredient>().toMutableList()
+        var tempMeal: Meal
         for (meal in stateListOfMeal.value.mealOnlyForViewList) {
             if (meal.selected) {
                 for (ingredient in meal.meal.recipe.defaultIngredients!!) {
+                    /*tempMeal = meal.meal
+                    tempMeal.shoppingListCreatedAt = Date()*/
                     tempIngredientList.add(ingredient)
                 }
             }
         }
         var newShoppingList = ShoppingList(0, tempIngredientList)
+        viewModelScope.launch {
+            saveShoppingList.execute(newShoppingList)
+        }
+
 
         navigationManager.navigate(Screen.ShoppingList.navigationCommand(/*newShoppingList.internalId*/))
     }
