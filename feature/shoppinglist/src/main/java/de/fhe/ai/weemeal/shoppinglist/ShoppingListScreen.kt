@@ -80,7 +80,7 @@ private fun ShoppingList(shoppingList: ShoppingList) {
 @Composable
 fun ShoppingListItem(ingredient: Ingredient) {
     Card(
-        backgroundColor = MaterialTheme.colors.onSecondary,
+        backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
 
