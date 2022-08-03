@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.domain.models.Ingredient
 import de.fhe.ai.weemeal.usecases.meal.GetMealById
+import de.fhe.ai.weemeal.usecases.shoppingList.GetShoppingList
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -19,23 +20,21 @@ class ShoppingListScreenViewModel(
     KoinComponent {
 
     private val getMeal: GetMealById by inject()
+    private val getShoppingList: GetShoppingList by inject()
+
 
     var ingredientsList by mutableStateOf(emptyList<Ingredient>())
 
-    /*init {
-        this.getIngredientsFromIds()
+    init {
+        this.getIngredientsFromDb()
     }
 
-    private fun getIngredientsFromIds() {
-        viewModelScope.launch {
-            for (mealId in listOfMealIds) {
+    private fun getIngredientsFromDb() {
 
-                var tempMeal = getMeal.execute(mealId)
-                if (tempMeal != null) {
-                    for (ingredients in tempMeal.recipe.defaultIngredients!!)
-                        ingredientsList.plus(ingredients)
-                }
-            }
+        viewModelScope.launch {
+            val shoppingList = getShoppingList.execute()
         }
-    }*/
+    }
+
+
 }
