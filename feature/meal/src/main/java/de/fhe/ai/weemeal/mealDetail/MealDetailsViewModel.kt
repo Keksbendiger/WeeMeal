@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
 import de.fhe.ai.weemeal.domain.enums.CookColor
+import de.fhe.ai.weemeal.usecases.meal.DeleteMeal
 import de.fhe.ai.weemeal.usecases.meal.GetMealById
 import de.fhe.ai.weemeal.usecases.meal.SaveMeal
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ class MealDetailsViewModel(
 ) : ViewModel(), KoinComponent {
     private val getMeal: GetMealById by inject()
     private val saveMeal: SaveMeal by inject()
+    private val deleteMeal: DeleteMeal by inject()
 
     var state = mutableStateOf(MealDetailsState())
 
@@ -51,6 +53,13 @@ class MealDetailsViewModel(
         viewModelScope.launch {
             saveMeal.execute(state.value.convertToMeal())
         }
+    }
+
+    fun deleteMeal() {
+        viewModelScope.launch {
+            deleteMeal.execute(state.value.convertToMeal())
+        }
+        navigationManager.navigate(Screen.WeekList.navigationCommand())
     }
 
     fun navigateToRecipeDetails() {

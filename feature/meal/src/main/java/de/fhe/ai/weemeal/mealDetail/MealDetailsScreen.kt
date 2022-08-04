@@ -27,7 +27,10 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import de.fhe.ai.weemeal.common.components.CustomChip
 import de.fhe.ai.weemeal.common.components.ListComponent
+import de.fhe.ai.weemeal.common.components.TextAndIconButton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -261,6 +265,12 @@ fun MealDetailsScreen(
                     style = MaterialTheme.typography.h1
                 )
                 Text(text = vm.state.value.recipe.instructions ?: "")
+
+                TextAndIconButton(
+                    text = "Mahlzeit löschen",
+                    icon = Icons.Filled.Delete,
+                    onClick = { vm.deleteMeal() }
+                )
             }
         }
     }
