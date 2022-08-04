@@ -4,7 +4,7 @@ import de.fhe.ai.weemeal.domain.models.Meal
 import java.util.Date
 
 data class WeekListState(
-    var weekdays: List<WeekDay> = listOf(),
+    var weekdays: MutableList<WeekDay> ,
     var amountOfDaysAhead: Int = 0
 )
 

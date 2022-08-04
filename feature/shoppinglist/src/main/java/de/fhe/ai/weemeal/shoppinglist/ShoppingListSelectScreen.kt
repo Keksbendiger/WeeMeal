@@ -47,6 +47,7 @@ import de.fhe.ai.weemeal.common.functions.dayOfWeekString
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.functions.monthName
 import de.fhe.ai.weemeal.common.theme.WeeMealTheme
+import de.fhe.ai.weemeal.domain.enums.CookColor
 import de.fhe.ai.weemeal.domain.models.Meal
 import de.fhe.ai.weemeal.mocks.domain.MealMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -61,27 +62,26 @@ fun ShoppingListSelectScreen(
     vm: ShoppingListSelectScreenViewModel,
     navController: NavController,
 ) {
+    val meals = vm.stateListOfMeal.value
     Scaffold(
         bottomBar = { BottomBar(navController) },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { },
+                onClick = { vm.navigateToShoppingList() },
                 backgroundColor = MaterialTheme.colors.primary,
                 elevation = FloatingActionButtonDefaults.elevation(6.dp)
             ) {
                 Icon(Icons.Filled.Done, "")
             }
         }
-
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
-
-                val meals: List<Meal>? = vm.mealList
-
-                meals?.let {
-                    WeekList(meals)
+                meals.let {
+                    WeekList(
+                        meals.mealOnlyForViewList,
+                        onClickAddToShoppingList = { vm.onClickAddToShoppingList(it) })
                 } ?: kotlin.run {
                     Text("Keine Einträge")
                 }
@@ -90,21 +90,31 @@ fun ShoppingListSelectScreen(
     }
 }
 
+
 @Composable
-private fun WeekList(meals: List<Meal>) {
+private fun WeekList(
+    meals: MutableList<MealOnlyForView>,
+    onClickAddToShoppingList: (Long) -> Unit
+) {
     LazyColumn {
-        items(14) { index ->
-            var day = getDaysAhead(index)
-            WeekListDay(meals, day)
+        items(7) { index ->
+            val day = getDaysAhead(index)
+            WeekListDay(
+                meals,
+                day,
+                onClickAddToShoppingList = { onClickAddToShoppingList(it) })
         }
     }
 }
 
 @Composable
-private fun WeekListDay(meals: List<Meal>, day: Date) {
-
+private fun WeekListDay(
+    meals: MutableList<MealOnlyForView>,
+    day: Date,
+    onClickAddToShoppingList: (Long) -> Unit
+) {
     for (meal in meals) {
-        if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+        if (meal.meal.cookingDate.day == day.day && meal.meal.cookingDate.month == day.month && meal.meal.cookingDate.date == day.date) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -127,18 +137,24 @@ private fun WeekListDay(meals: List<Meal>, day: Date) {
             break
         }
     }
-
     LazyRow {
         itemsIndexed(items = meals) { index, meal ->
-            if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
-                MealListItem(meal = meal)
+            if (meal.meal.cookingDate.day == day.day && meal.meal.cookingDate.month == day.month && meal.meal.cookingDate.date == day.date) {
+                MealListItem(
+                    meal = meal,
+                    onClickAddToShoppingList = { onClickAddToShoppingList(it) },
+                    meal.borderColor)
             }
         }
     }
 }
 
 @Composable
-fun MealListItem(meal: Meal) {
+fun MealListItem(
+    meal: MealOnlyForView,
+    onClickAddToShoppingList: (Long) -> Unit,
+    color: CookColor
+) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -148,27 +164,26 @@ fun MealListItem(meal: Meal) {
             .width(150.dp)
             .border(
                 width = 2.dp,
-                color = Color(meal.cookColor.color.toColorInt()),
+                color = Color(color.color.toColorInt()),
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-
         Image(
-            painter = painterResource(id = meal.recipe.image),
+            modifier = Modifier.clickable(onClick = { onClickAddToShoppingList(meal.meal.internalId) }),
+            painter = painterResource(id = meal.meal.recipe.image),
             contentDescription = "Dummy Image"
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            ServingsOfTheMeal(meal = meal)
-            MealName(meal = meal)
+            ServingsOfTheMeal(meal = meal.meal)
+            MealName(meal = meal.meal)
         }
     }
 }
 
 @Composable
 fun MealName(meal: Meal) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -183,9 +198,7 @@ fun MealName(meal: Meal) {
             ),
             modifier = Modifier
                 .height(26.dp)
-                .padding(horizontal = 4.dp),
-//            modifier = Modifier
-//                .align(Alignment.Bottom)
+                .padding(horizontal = 4.dp)
         )
     }
 }
@@ -213,33 +226,3 @@ fun ServingsOfTheMeal(meal: Meal) {
     }
 }
 
-@Composable
-fun WeekListContent(meal: Meal) {
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            // Redirect to receiptView
-            .clickable(onClick = { })
-            .padding(8.dp)
-
-    ) {
-        Text(
-            text = meal.recipe.name,
-            style = MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.Light
-            ),
-            modifier = Modifier
-                .align(Alignment.Bottom)
-
-        )
-    }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    WeeMealTheme {
-        WeekList(meals = MealMock.generateWeek())
-    }
-}

@@ -1,10 +1,13 @@
 package de.fhe.ai.weemeal.weeklistComponent
 
+import android.content.Intent.getIntent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.fhe.ai.weemeal.common.functions.calcDayDifference
 import de.fhe.ai.weemeal.common.functions.getDaysAhead
 import de.fhe.ai.weemeal.common.navigation.NavigationManager
 import de.fhe.ai.weemeal.common.navigation.Screen
@@ -21,12 +24,9 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
     ViewModel(),
     KoinComponent {
 
-    private val saveMeal: SaveMeal by inject()
     private val getFutureMeals: GetFutureMeals by inject()
-    private val prepareHCIUsabilityTest: PrepareHCIUsabilityTest by inject()
 
-    var state = MutableStateFlow(WeekListState())
-    var mealList by mutableStateOf(emptyList<Meal>())
+    var state = mutableStateOf(WeekListState(mutableListOf()))
 
     init {
 //        val mockMeals = MealMock.generateWeek()
@@ -46,33 +46,50 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
 
             val internalMealList = getFutureMeals.execute()
 
-            /*first@ for (i in 0..100) {
-                var day = getDaysAhead(i)
-                second@ for (meal in internalMealList) {
-                    if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
-                        var tempCounter = state.value.amountOfDaysAhead
-                        tempCounter += 1
-                        state.value = state.value.copy(amountOfDaysAhead = tempCounter)
-                        break@second
-                    }
-                }
-            }*/
 
-            for (daysAhead in 0..14/*state.value.amountOfDaysAhead*/) {
+            var day = getDaysAhead(0)
+            for (meal in internalMealList) {
+                if (meal.cookingDate.date > day.date) {
+                    day = meal.cookingDate
+                }
+            }
+
+            val tempDaysAhead = calcDayDifference(day).toInt()
+
+            if (internalMealList.isEmpty()){
+                state.value =
+                    state.value.copy(weekdays = state.value.weekdays, amountOfDaysAhead = tempDaysAhead+6)
+            }
+            else{
+                if (tempDaysAhead < 7){
+                    state.value =
+                        state.value.copy(weekdays = state.value.weekdays, amountOfDaysAhead = 6)
+                }
+                else{
+                    state.value =
+                        state.value.copy(weekdays = state.value.weekdays, amountOfDaysAhead = tempDaysAhead)
+                }
+            }
+
+
+
+            for (daysAhead in 0..state.value.amountOfDaysAhead) {
                 val internalMealDayList = mutableListOf<Meal>()
 
                 val day = getDaysAhead(daysAhead)
 
                 internalMealList.forEach { meal ->
-                    if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month) {
+                    if (meal.cookingDate.day == day.day && meal.cookingDate.month == day.month && meal.cookingDate.date == day.date) {
                         internalMealDayList.add(meal)
                     }
                 }
                 weekDays.add(WeekDay(day, internalMealDayList))
             }
-            mealList = getFutureMeals.execute()
+            state.value = state.value.copy(
+                weekdays = weekDays,
+                amountOfDaysAhead = state.value.amountOfDaysAhead
+            )
         }
-        state.value.weekdays = weekDays
     }
 
     fun navigateToAddRecipeToWeekList(cookingDateDaysAhead: Long) {
@@ -83,11 +100,18 @@ class WeekListViewModel(private val navigationManager: NavigationManager) :
         navigationManager.navigate(Screen.MealDetail.navigationCommand(mealId))
     }
 
-    fun addDayToWeekList() {
-        var temp = state.value.amountOfDaysAhead
-        temp += 1
-        var temp2 = state.value.weekdays
-        state.value = state.value.copy(amountOfDaysAhead = temp, weekdays = temp2)
-        navigationManager.navigate(Screen.WeekList.navigationCommand())
+    fun addWeekToWeekList() {
+        val weekDays = state.value.weekdays
+        val internalMealDayList = mutableListOf<Meal>()
+
+        for (daysAhead in state.value.amountOfDaysAhead + 1..state.value.amountOfDaysAhead + 7) {
+            val day = getDaysAhead(daysAhead)
+            weekDays.add(WeekDay(day, internalMealDayList))
+        }
+
+        state.value = state.value.copy(
+            weekdays = weekDays,
+            amountOfDaysAhead = state.value.amountOfDaysAhead + 6
+        )
     }
 }

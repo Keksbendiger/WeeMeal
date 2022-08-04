@@ -9,6 +9,7 @@ import de.fhe.ai.weemeal.usecases.recipe.GetRecipeByMeal
 import de.fhe.ai.weemeal.usecases.recipe.GetRecipes
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
+import de.fhe.ai.weemeal.usecases.shoppingList.SaveShoppingList
 import de.fhe.ai.weemeal.usecases.usabilityTest.PrepareHCIUsabilityTest
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
 import org.koin.dsl.module
@@ -28,4 +29,6 @@ val usecases = module {
     single { GetMealById() }
 
     single { PrepareHCIUsabilityTest() }
+
+    single { SaveShoppingList() }
 }

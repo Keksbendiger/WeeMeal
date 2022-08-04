@@ -22,6 +22,7 @@ import de.fhe.ai.weemeal.recipeList.AddRecipeToWeekListViewModel
 import de.fhe.ai.weemeal.recipeList.RecipeListScreen
 import de.fhe.ai.weemeal.recipeList.RecipeListViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreen
+import de.fhe.ai.weemeal.shoppinglist.ShoppingListScreenViewModel
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreen
 import de.fhe.ai.weemeal.shoppinglist.ShoppingListSelectScreenViewModel
 import de.fhe.ai.weemeal.weeklistComponent.WeekListViewModel
@@ -142,13 +143,13 @@ fun AppNavigationHost(
         composable(
             Screen.ShoppingList.route,
             Screen.ShoppingList.navigationCommand(0).arguments
-        ) { // entry ->
-//            val shoppingListId = entry.arguments?.getLong("shoppingListId")
-//            val vm by viewModel<ShoppingListViewModel>()
+        ) {// entry ->
+            //val listOfMealIds = entry.arguments?.getLong("listOfMealIds")
+            val vm by viewModel<ShoppingListScreenViewModel>()
 
             onNavigation(Screen.ShoppingList)
 
-            ShoppingListScreen() // TODO: add viewmodel here!
+            ShoppingListScreen(vm)
         }
 
 //        composable(Screen.Settings.route) {
