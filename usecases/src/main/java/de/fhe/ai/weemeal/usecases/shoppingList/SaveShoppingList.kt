@@ -11,11 +11,7 @@ class SaveShoppingList : KoinComponent {
 
     private val shoppingListRepository: ShoppingListRepository by inject()
 
-    /**
-     * Saves or updates the given Recipe in the DB
-     *
-     * @return void
-     */
+
     suspend fun execute(shoppingList: ShoppingList) {
         shoppingListRepository.insertShoppingList(shoppingList)
     }

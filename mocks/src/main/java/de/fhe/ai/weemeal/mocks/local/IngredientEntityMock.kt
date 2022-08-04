@@ -11,7 +11,7 @@ object IngredientEntityMock {
     fun generateSingleObject(
         id: Long = 0,
         name: String = faker.food.dish(),
-        image: String? = "",
+        image: Int = de.fhe.ai.weemeal.domain.R.drawable.ingredients_placeholde,
         quantity: QuantityFormat = QuantityFormat(
             quantity = faker.number.between(1, 100).toFloat(),
             unit = faker.measurementUnit()

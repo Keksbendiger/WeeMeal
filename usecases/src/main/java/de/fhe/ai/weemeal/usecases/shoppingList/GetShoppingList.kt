@@ -12,11 +12,6 @@ class GetShoppingList : KoinComponent {
 
     private val shoppingListRepository: ShoppingListRepository by inject()
 
-    /**
-     * Gets all Recipes from DB
-     *
-     * @return List<Recipe>
-     */
     suspend fun execute(): ShoppingList? {
 
         return shoppingListRepository.getShoppingList()

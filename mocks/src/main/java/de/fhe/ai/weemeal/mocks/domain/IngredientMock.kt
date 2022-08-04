@@ -11,7 +11,7 @@ object IngredientMock {
     fun generateSingleObject(): Ingredient {
         return Ingredient(
             name = faker.food.ingredient(),
-            image = "",
+            image = de.fhe.ai.weemeal.domain.R.drawable.ingredients_placeholde,
             quantity = QuantityFormat(
                 quantity = faker.number.between(1, 100).toFloat(),
                 unit = faker.measurementUnit()

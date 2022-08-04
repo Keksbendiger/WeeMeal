@@ -7,6 +7,7 @@ import de.fhe.ai.weemeal.usecases.recipe.GetRecipeByMeal
 import de.fhe.ai.weemeal.usecases.recipe.GetRecipes
 import de.fhe.ai.weemeal.usecases.recipe.SaveRecipe
 import de.fhe.ai.weemeal.usecases.recipe.SearchRecipes
+import de.fhe.ai.weemeal.usecases.shoppingList.GetShoppingList
 import de.fhe.ai.weemeal.usecases.shoppingList.SaveShoppingList
 import de.fhe.ai.weemeal.usecases.usabilityTest.PrepareHCIUsabilityTest
 import de.fhe.ai.weemeal.usecases.weekList.GetFutureMeals
@@ -27,4 +28,5 @@ val usecases = module {
     single { PrepareHCIUsabilityTest() }
 
     single { SaveShoppingList() }
+    single { GetShoppingList() }
 }

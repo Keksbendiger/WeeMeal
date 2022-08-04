@@ -26,8 +26,6 @@ class ShoppingListRepositoryImpl(
                     )
                 }
             }
-
-
         }
         if (internalShoppingList.isNotEmpty()) {
             return ShoppingList(
@@ -54,11 +52,4 @@ class ShoppingListRepositoryImpl(
     override suspend fun deleteShoppingList() {
         shoppingListEntityDao.deleteAll()
     }
-
-    /*override suspend fun getShoppingListByID(shoppingListId: Long): ShoppingListEntity {
-
-        val shoppingList = shoppingListEntityDao.get(shoppingListId)
-
-        return shoppingList
-    }*/
 }

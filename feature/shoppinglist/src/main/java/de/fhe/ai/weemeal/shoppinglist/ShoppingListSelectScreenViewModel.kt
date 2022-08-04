@@ -90,7 +90,6 @@ class ShoppingListSelectScreenViewModel(
             saveShoppingList.execute(newShoppingList)
         }
 
-
         navigationManager.navigate(Screen.ShoppingList.navigationCommand(/*newShoppingList.internalId*/))
     }
 }

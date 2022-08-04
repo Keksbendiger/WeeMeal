@@ -1,6 +1,7 @@
 package de.fhe.ai.weemeal.shoppinglist
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExtendedFloatingActionButton
@@ -26,6 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.fhe.ai.weemeal.domain.models.Ingredient
@@ -57,10 +61,11 @@ fun ShoppingListScreen(vm: ShoppingListScreenViewModel) {
             )
         }
 
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+    ) {
+        val shoppingList = vm.shoppingList
+        Box(modifier = Modifier.padding()) {
             Column {
-                ShoppingList(ShoppingListMock.generateList())
+                ShoppingList(shoppingList)
             }
         }
     }
@@ -91,10 +96,12 @@ fun ShoppingListItem(ingredient: Ingredient) {
                     .fillMaxWidth()
             ) {
                 //            TODO: Use Image of Food/Recipe
-                Icon(
-                    imageVector = ingredient.image,
+                Image(
+                    painterResource(id = ingredient.image),
                     contentDescription = "Dummy-Image",
-                    modifier = Modifier.size(70.dp)
+                    modifier = Modifier
+                        .size(90.dp)
+                        .clip(RoundedCornerShape(50.dp))
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
