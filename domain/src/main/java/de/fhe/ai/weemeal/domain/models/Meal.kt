@@ -43,6 +43,16 @@ data class Meal(
             .toString()
     }
 
+    fun multiplyIngredients() : List<Ingredient> {
+        var servingsRatio: Float = ((servings ?: 1) / (recipe.defaultServings ?: 1).toFloat())
+        var multipliedList = mutableListOf<Ingredient>()
+        recipe.defaultIngredients?.forEach {
+            multipliedList.add(it.copy(quantity = it.quantity.copy(
+                quantity = it.quantity.quantity * servingsRatio)))
+        }
+        return multipliedList
+    }
+
     companion object {
         fun List<Meal>.areRecipeListsEqualWithoutId(other: List<Meal>?): Boolean {
             this.forEachIndexed { index, thisItem ->
